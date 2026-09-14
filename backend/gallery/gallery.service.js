@@ -14,8 +14,13 @@ const deleteGallery = async (id) => {
     return await Gallery.findByIdAndDelete(id);
 };
 
+const getGalleryById = async (id) => {
+    return await Gallery.findById(id);
+};
+
 module.exports = {
     getGallery,
+    getGalleryById,
     createGallery,
     deleteGallery
 };

@@ -36,6 +36,31 @@ const createGallery = async (req, res) => {
     }
 };
 
+const getGalleryById = async (req, res) => {
+    try {
+        const gallery = await galleryService.getGalleryById(req.params.id);
+
+        if (!gallery) {
+            return res.status(404).json({
+                success: false,
+                message: "Gallery not found",
+            });
+        }
+
+        res.json({
+            success: true,
+            data: gallery,
+        });
+    } catch (error) {
+        console.error("Get gallery by id error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch gallery",
+        });
+    }
+};
+
 const deleteGallery = async (req, res) => {
     try {
         const gallery = await galleryService.deleteGallery(req.params.id);
@@ -64,6 +89,7 @@ const deleteGallery = async (req, res) => {
 
 module.exports = {
     getGallery,
+    getGalleryById,
     createGallery,
     deleteGallery,
 };
