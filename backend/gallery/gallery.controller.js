@@ -61,6 +61,34 @@ const getGalleryById = async (req, res) => {
     }
 };
 
+const updateGallery = async (req, res) => {
+    try {
+        const gallery = await galleryService.updateGallery(
+            req.params.id,
+            req.body
+        );
+
+        if (!gallery) {
+            return res.status(404).json({
+                success: false,
+                message: "Gallery not found",
+            });
+        }
+
+        res.json({
+            success: true,
+            data: gallery,
+        });
+    } catch (error) {
+        console.error("Update gallery error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update gallery",
+        });
+    }
+};
+
 const deleteGallery = async (req, res) => {
     try {
         const gallery = await galleryService.deleteGallery(req.params.id);
@@ -91,5 +119,6 @@ module.exports = {
     getGallery,
     getGalleryById,
     createGallery,
+    updateGallery,
     deleteGallery,
 };

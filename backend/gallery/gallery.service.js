@@ -18,9 +18,21 @@ const getGalleryById = async (id) => {
     return await Gallery.findById(id);
 };
 
+const updateGallery = async (id, galleryData) => {
+    return await Gallery.findByIdAndUpdate(
+        id,
+        galleryData,
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+};
+
 module.exports = {
     getGallery,
     getGalleryById,
     createGallery,
+    updateGallery,
     deleteGallery
 };
