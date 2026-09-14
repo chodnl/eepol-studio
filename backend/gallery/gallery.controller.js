@@ -89,6 +89,24 @@ const updateGallery = async (req, res) => {
     }
 };
 
+const updateGalleryOrder = async (req, res) => {
+    try {
+        const result = await galleryService.updateGalleryOrder(req.body);
+
+        res.json({
+            success: true,
+            data: result,
+        });
+    } catch (error) {
+        console.error("Update gallery order error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update gallery order",
+        });
+    }
+};
+
 const deleteGallery = async (req, res) => {
     try {
         const gallery = await galleryService.deleteGallery(req.params.id);
@@ -120,5 +138,6 @@ module.exports = {
     getGalleryById,
     createGallery,
     updateGallery,
+    updateGalleryOrder,
     deleteGallery,
 };

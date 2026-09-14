@@ -6,7 +6,10 @@ const router = express.Router();
 router.get("/", galleryController.getGallery);
 router.get("/:id", galleryController.getGalleryById);
 router.post("/", galleryController.createGallery);
+
+router.patch("/order", galleryController.updateGalleryOrder);
 router.patch("/:id", galleryController.updateGallery);
+
 router.delete("/:id", galleryController.deleteGallery);
 
 

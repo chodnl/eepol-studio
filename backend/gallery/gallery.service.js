@@ -29,10 +29,22 @@ const updateGallery = async (id, galleryData) => {
     );
 };
 
+const updateGalleryOrder = async (items) => {
+    const operations = items.map((item) => ({
+        updateOne: {
+            filter: { _id: item.id },
+            update: { order: item.order },
+        },
+    }));
+
+    return await Gallery.bulkWrite(operations);
+};
+
 module.exports = {
     getGallery,
     getGalleryById,
     createGallery,
     updateGallery,
+    updateGalleryOrder,
     deleteGallery
 };
