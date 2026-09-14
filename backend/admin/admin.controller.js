@@ -63,6 +63,26 @@ const loginAdmin = async (req, res) => {
     }
 };
 
+const getAdminMe = async (req, res) => {
+    try {
+        res.json({
+            success: true,
+            data: {
+                id: req.admin.id,
+                username: req.admin.username,
+            },
+        });
+    } catch (error) {
+        console.error("Get admin me error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch admin information",
+        });
+    }
+};
+
 module.exports = {
     loginAdmin,
+    getAdminMe,
 };
