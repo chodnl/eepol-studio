@@ -4,5 +4,6 @@ const galleryController = require("./gallery.controller");
 const router = express.Router();
 
 router.get("/", galleryController.getGallery);
+router.post("/", galleryController.createGallery);
 
 module.exports = router;
