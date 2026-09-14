@@ -18,6 +18,8 @@ const getGallery = async (req, res) => {
 
 const createGallery = async (req, res) => {
     try {
+        console.log("Request body:", req.body);
+
         const gallery = await galleryService.createGallery(req.body);
 
         res.status(201).json({
@@ -34,7 +36,34 @@ const createGallery = async (req, res) => {
     }
 };
 
+const deleteGallery = async (req, res) => {
+    try {
+        const gallery = await galleryService.deleteGallery(req.params.id);
+
+        if (!gallery) {
+            return res.status(404).json({
+                success: false,
+                message: "Gallery not found",
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "Gallery deleted successfully",
+            data: gallery,
+        });
+    } catch (error) {
+        console.error("Delete gallery error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete gallery",
+        });
+    }
+};
+
 module.exports = {
     getGallery,
     createGallery,
+    deleteGallery,
 };

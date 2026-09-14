@@ -10,7 +10,12 @@ const createGallery = async (galleryData) => {
     return gallery;
 };
 
+const deleteGallery = async (id) => {
+    return await Gallery.findByIdAndDelete(id);
+};
+
 module.exports = {
     getGallery,
     createGallery,
+    deleteGallery
 };
