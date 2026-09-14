@@ -1,8 +1,13 @@
 const express = require("express");
+require("dotenv").config();
+
+const connectDB = require("./config/database");
 const galleryRoutes = require("./gallery/gallery.routes");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+connectDB();
 
 app.use(express.json());
 
