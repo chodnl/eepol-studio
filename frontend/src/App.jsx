@@ -1,0 +1,469 @@
+import { useState } from 'react'
+import './App.css'
+
+const initialPhotos = [
+  {
+    id: 1,
+    title: '빈티지 웨딩 촬영',
+    category: 'Wedding',
+    src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 2,
+    title: '모던 인물컷',
+    category: 'Portrait',
+    src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 3,
+    title: '스튜디오 패션',
+    category: 'Fashion',
+    src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 4,
+    title: '브라이덜 스토리',
+    category: 'Story',
+    src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
+  },
+]
+
+const initialReservations = [
+  {
+    id: 1,
+    name: '윤서진',
+    phone: '010-1122-3344',
+    date: '2026-09-20',
+    packageName: '프리미엄 패키지',
+    status: '대기',
+    note: '가족 프로필 촬영',
+  },
+  {
+    id: 2,
+    name: '김민재',
+    phone: '010-9988-7766',
+    date: '2026-09-21',
+    packageName: '스토리 패키지',
+    status: '확정',
+    note: '커플 스냅',
+  },
+]
+
+const pricePackages = [
+  { name: '베이직', price: '290,000원', description: '1인 촬영 1시간 + 보정 10컷', features: ['1시간 촬영', '기본 보정 10컷', '기본 액자 1개'] },
+  { name: '프리미엄', price: '590,000원', description: '1인/커플 촬영 2시간 + 스타일링', features: ['2시간 촬영', '드레스/정장 스타일링', '보정 20컷', '원본 이미지 제공'] },
+  { name: '브라이덜', price: '990,000원', description: '웨딩/가족 스토리 전용 패키지', features: ['전문 촬영팀', '촬영장소 섭외', '예식장 연계 편집', '스토리북 제작'] },
+]
+
+const defaultBooking = {
+  name: '',
+  phone: '',
+  date: '',
+  packageName: '프리미엄 패키지',
+  note: '',
+}
+
+function App() {
+  const [photos, setPhotos] = useState(initialPhotos)
+  const [reservations, setReservations] = useState(initialReservations)
+  const [booking, setBooking] = useState(defaultBooking)
+  const [message, setMessage] = useState('신규 예약을 등록하면 문자 안내와 카카오톡 상담이 연결됩니다.')
+  const [photoEditor, setPhotoEditor] = useState({ id: null, title: '', category: '', src: '' })
+
+  const featuredPhoto = photos[0]
+
+  const handleBookingChange = (event) => {
+    const { name, value } = event.target
+    setBooking((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleBookingSubmit = (event) => {
+    event.preventDefault()
+
+    if (!booking.name || !booking.phone || !booking.date) {
+      setMessage('이름, 연락처, 촬영 날짜를 모두 입력해 주세요.')
+      return
+    }
+
+    const newReservation = {
+      id: Date.now(),
+      name: booking.name,
+      phone: booking.phone,
+      date: booking.date,
+      packageName: booking.packageName,
+      status: '대기',
+      note: booking.note || '견적 요청',
+    }
+
+    setReservations((prev) => [newReservation, ...prev])
+    setBooking(defaultBooking)
+    setMessage(`${booking.name}님, 예약이 접수되었습니다. 문자 안내와 카카오톡 예약 연결을 진행해 드립니다.`)
+  }
+
+  const handleReservationStatus = (id, status) => {
+    setReservations((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, status } : item)),
+    )
+  }
+
+  const handlePhotoUpload = (event) => {
+    const files = Array.from(event.target.files || [])
+    if (!files.length) return
+
+    const uploadedPhotos = files.map((file, index) => ({
+      id: Date.now() + index,
+      title: file.name.replace(/\.[^/.]+$/, '') || `업로드 사진 ${index + 1}`,
+      category: 'Custom',
+      src: URL.createObjectURL(file),
+    }))
+
+    setPhotos((prev) => [...uploadedPhotos, ...prev])
+    setMessage(`${uploadedPhotos.length}개의 사진이 업로드되어 갤러리에 반영되었습니다.`)
+    event.target.value = ''
+  }
+
+  const reorderPhoto = (id, direction) => {
+    setPhotos((prev) => {
+      const index = prev.findIndex((photo) => photo.id === id)
+      const newPhotos = [...prev]
+      const targetIndex = index + direction
+
+      if (targetIndex < 0 || targetIndex >= newPhotos.length) return prev
+
+        ;[newPhotos[index], newPhotos[targetIndex]] = [
+          newPhotos[targetIndex],
+          newPhotos[index],
+        ]
+
+      return newPhotos
+    })
+  }
+
+  const deletePhoto = (id) => {
+    setPhotos((prev) => prev.filter((photo) => photo.id !== id))
+    setMessage('사진이 삭제되었습니다.')
+  }
+
+  const savePhotoEdit = () => {
+    if (!photoEditor.id) return
+
+    setPhotos((prev) =>
+      prev.map((photo) =>
+        photo.id === photoEditor.id
+          ? {
+            ...photo,
+            title: photoEditor.title,
+            category: photoEditor.category,
+          }
+          : photo,
+      ),
+    )
+
+    setPhotoEditor({ id: null, title: '', category: '', src: '' })
+    setMessage('사진 정보가 수정되었습니다.')
+  }
+
+  return (
+    <div className="app-shell">
+      <header className="topbar">
+        <div className="brand-wrap">
+          <div className="brand-mark">E</div>
+          <div>
+            <p className="brand-name">eepol studio</p>
+            <span className="brand-tag">Portrait • Wedding • Brand</span>
+          </div>
+        </div>
+
+        <nav className="main-nav">
+          <a href="#gallery">소개</a>
+          <a href="#pricing">가격</a>
+          <a href="#reservation">예약</a>
+          <a href="#location">위치</a>
+          <a href="#admin">관리자</a>
+        </nav>
+
+        <button className="nav-button" onClick={() => window.open('https://pf.kakao.com', '_blank', 'noopener,noreferrer')}>
+          카카오톡 예약
+        </button>
+      </header>
+
+      <main>
+        <section className="hero section">
+          <div className="hero-copy">
+            <p className="eyebrow">감성적인 순간을 남기는 스튜디오</p>
+            <h1>기억을 예쁘게 담는<br />Eepol Studio</h1>
+            <p className="hero-text">
+              웨딩, 가족, 인물, 패션까지 한 공간에서 감각적인 촬영과 세심한 보정을 통해
+              당신의 특별한 순간을 완성합니다.
+            </p>
+
+            <div className="cta-row">
+              <a href="#reservation" className="primary-btn">예약하기</a>
+              <a href="#gallery" className="secondary-btn">사진보기</a>
+            </div>
+
+            <div className="hero-stats">
+              <div>
+                <strong>1,200+</strong>
+                <span>누적 촬영</span>
+              </div>
+              <div>
+                <strong>4.9/5</strong>
+                <span>리뷰 평점</span>
+              </div>
+              <div>
+                <strong>48h</strong>
+                <span>사진 전달</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <img src={featuredPhoto.src} alt={featuredPhoto.title} />
+            <div className="floating-card">
+              <span>예약 진행률</span>
+              <strong>92%</strong>
+              <em>이번 주 인기 촬영</em>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="gallery">
+          <div className="section-header">
+            <p className="eyebrow">portfolio</p>
+            <h2>스토리와 분위기를 담은 촬영</h2>
+          </div>
+
+          <div className="gallery-grid">
+            {photos.map((photo) => (
+              <button
+                key={photo.id}
+                type="button"
+                className={`gallery-card ${featuredPhoto.id === photo.id ? 'active' : ''}`}
+                onClick={() => setPhotoEditor({ id: photo.id, title: photo.title, category: photo.category, src: photo.src })}
+              >
+                <img src={photo.src} alt={photo.title} />
+                <div className="gallery-card-text">
+                  <span>{photo.category}</span>
+                  <strong>{photo.title}</strong>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="section" id="pricing">
+          <div className="section-header">
+            <p className="eyebrow">pricing</p>
+            <h2>합리적인 패키지 가격</h2>
+          </div>
+
+          <div className="pricing-grid">
+            {pricePackages.map((item) => (
+              <article key={item.name} className="price-card">
+                <p className="plan-name">{item.name}</p>
+                <h3>{item.price}</h3>
+                <p className="plan-description">{item.description}</p>
+                <ul>
+                  {item.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <button type="button" onClick={() => setBooking((prev) => ({ ...prev, packageName: item.name }))}>
+                  선택하기
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section booking-layout" id="reservation">
+          <div className="booking-form-box">
+            <div className="section-header left-align">
+              <p className="eyebrow">reservation</p>
+              <h2>촬영 예약하기</h2>
+            </div>
+
+            <form onSubmit={handleBookingSubmit} className="booking-form">
+              <div className="field-row two-col">
+                <label>
+                  이름
+                  <input type="text" name="name" value={booking.name} onChange={handleBookingChange} placeholder="예약자 이름" />
+                </label>
+                <label>
+                  연락처
+                  <input type="tel" name="phone" value={booking.phone} onChange={handleBookingChange} placeholder="010-0000-0000" />
+                </label>
+              </div>
+
+              <div className="field-row two-col">
+                <label>
+                  촬영 날짜
+                  <input type="date" name="date" value={booking.date} onChange={handleBookingChange} />
+                </label>
+                <label>
+                  패키지
+                  <select name="packageName" value={booking.packageName} onChange={handleBookingChange}>
+                    <option>베이직</option>
+                    <option>프리미엄</option>
+                    <option>브라이덜</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                요청사항
+                <textarea name="note" value={booking.note} onChange={handleBookingChange} rows="4" placeholder="촬영 스타일, 장소, 의상, 추가 요청사항을 적어 주세요." />
+              </label>
+
+              <div className="booking-actions">
+                <button type="submit" className="primary-btn">예약 신청</button>
+                <button type="button" className="secondary-btn" onClick={() => window.open('https://pf.kakao.com', '_blank', 'noopener,noreferrer')}>
+                  카카오톡 예약
+                </button>
+              </div>
+
+              <p className="system-message">{message}</p>
+            </form>
+          </div>
+
+          <aside className="booking-side">
+            <div className="info-box">
+              <h3>예약 프로세스</h3>
+              <ul>
+                <li>1. 예약 신청</li>
+                <li>2. 관리자 확인</li>
+                <li>3. 문자 안내 발송</li>
+                <li>4. 카카오톡 상담 연결</li>
+              </ul>
+            </div>
+            <div className="info-box accent-box">
+              <h3>문의 정보</h3>
+              <p>전화: 02-555-8821</p>
+              <p>카카오톡: @eepolstudio</p>
+              <p>운영시간: 평일 10:00 ~ 19:00</p>
+            </div>
+          </aside>
+        </section>
+
+        <section className="section location-section" id="location">
+          <div className="section-header left-align">
+            <p className="eyebrow">location</p>
+            <h2>스튜디오 위치</h2>
+          </div>
+
+          <div className="map-box">
+            <div className="map-pin">서울 강남구</div>
+            <div className="map-label">
+              <strong>Eepol Studio</strong>
+              <span>서울특별시 강남구 테헤란로 123</span>
+            </div>
+          </div>
+
+          <div className="location-detail">
+            <div>
+              <span>주차</span>
+              <strong>건물 지하 2층 무료 주차 가능</strong>
+            </div>
+            <div>
+              <span>대중교통</span>
+              <strong>강남역 5번 출구 도보 5분</strong>
+            </div>
+            <div>
+              <span>문의</span>
+              <strong>02-555-8821 / 카카오톡 예약</strong>
+            </div>
+          </div>
+        </section>
+
+        <section className="section admin-grid" id="admin">
+          <div className="admin-panel">
+            <div className="section-header left-align">
+              <p className="eyebrow">admin</p>
+              <h2>사진 관리</h2>
+            </div>
+
+            <label className="upload-box">
+              <span>사진 업로드</span>
+              <input type="file" multiple accept="image/*" onChange={handlePhotoUpload} />
+            </label>
+
+            {photoEditor.id && (
+              <div className="editor-box">
+                <input
+                  type="text"
+                  value={photoEditor.title}
+                  onChange={(event) => setPhotoEditor((prev) => ({ ...prev, title: event.target.value }))}
+                  placeholder="사진 제목"
+                />
+                <input
+                  type="text"
+                  value={photoEditor.category}
+                  onChange={(event) => setPhotoEditor((prev) => ({ ...prev, category: event.target.value }))}
+                  placeholder="카테고리"
+                />
+                <button type="button" className="primary-btn" onClick={savePhotoEdit}>수정 저장</button>
+              </div>
+            )}
+
+            <div className="photo-list">
+              {photos.map((photo) => (
+                <div key={photo.id} className="photo-item">
+                  <img src={photo.src} alt={photo.title} />
+                  <div className="photo-meta">
+                    <strong>{photo.title}</strong>
+                    <span>{photo.category}</span>
+                  </div>
+                  <div className="photo-actions">
+                    <button type="button" onClick={() => reorderPhoto(photo.id, -1)}>위로</button>
+                    <button type="button" onClick={() => reorderPhoto(photo.id, 1)}>아래로</button>
+                    <button type="button" onClick={() => setPhotoEditor({ id: photo.id, title: photo.title, category: photo.category, src: photo.src })}>수정</button>
+                    <button type="button" className="danger" onClick={() => deletePhoto(photo.id)}>삭제</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="admin-panel">
+            <div className="section-header left-align">
+              <p className="eyebrow">admin</p>
+              <h2>예약 확인</h2>
+            </div>
+
+            <div className="reservation-list">
+              {reservations.map((reservation) => (
+                <article key={reservation.id} className="reservation-item">
+                  <div className="reservation-top">
+                    <div>
+                      <strong>{reservation.name}</strong>
+                      <span>{reservation.phone}</span>
+                    </div>
+                    <span className={`status ${reservation.status === '확정' ? 'confirm' : 'pending'}`}>
+                      {reservation.status}
+                    </span>
+                  </div>
+
+                  <p>{reservation.date} · {reservation.packageName}</p>
+                  <small>{reservation.note}</small>
+
+                  <div className="reservation-actions">
+                    <button type="button" onClick={() => handleReservationStatus(reservation.id, '확정')}>확정</button>
+                    <button type="button" onClick={() => handleReservationStatus(reservation.id, '대기')}>대기</button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <p>© 2026 Eepol Studio</p>
+        <span>문자 안내 · 카카오톡 예약 · 인플루언서 스튜디오</span>
+      </footer>
+    </div>
+  )
+}
+
+export default App
