@@ -8,6 +8,8 @@ const pricingRoutes = require("./pricing/pricing.routes");
 const noticeRoutes = require("./notice/notice.routes");
 const qnaRoutes = require("./qna/qna.routes");
 const locationRoutes = require("./location/location.routes");
+const bookingRoutes = require("./bookings/booking.routes");
+const adminRoutes = require("./admin/admin.routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +34,8 @@ app.use("/api/pricing", pricingRoutes);
 app.use("/api/notice", noticeRoutes);
 app.use("/api/qna", qnaRoutes);
 app.use("/api/location", locationRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 app.listen(PORT, () => {
