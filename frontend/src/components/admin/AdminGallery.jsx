@@ -7,6 +7,7 @@ import {
     getGallery,
     deleteGallery,
     updateGallery,
+    updateGalleryOrder,
 } from './gallery/galleryApi'
 
 function AdminGallery() {
@@ -23,6 +24,8 @@ function AdminGallery() {
         const loadGallery = async () => {
             try {
                 const data = await getGallery()
+
+                console.log('gallery data:', data)
 
                 setPhotos(
                     data.map((item) => ({
@@ -58,6 +61,47 @@ function AdminGallery() {
 
     const handleEdit = (photo) => {
         setPhotoEditor(photo)
+    }
+
+    const handleMove = async (fromIndex, toIndex) => {
+        if (
+            toIndex < 0 ||
+            toIndex >= photos.length
+        ) {
+            return
+        }
+
+        const newPhotos = [...photos]
+
+        const [movedPhoto] = newPhotos.splice(
+            fromIndex,
+            1,
+        )
+
+        newPhotos.splice(
+            toIndex,
+            0,
+            movedPhoto,
+        )
+
+        const items = newPhotos.map((photo, index) => ({
+            id: photo.id,
+            order: index + 1,
+        }))
+
+        try {
+            await updateGalleryOrder(items)
+
+            setPhotos(newPhotos)
+            setMessage('사진 순서가 변경되었습니다.')
+        } catch (error) {
+            console.error(
+                'Gallery order update error:',
+                error,
+            )
+
+            setMessage(error.message)
+        }
     }
 
     const handleSave = async () => {
@@ -112,10 +156,12 @@ function AdminGallery() {
                     onSave={handleSave}
                 />
 
+
                 <GalleryList
                     photos={photos}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
+                    onMove={handleMove}
                 />
 
                 {message && (

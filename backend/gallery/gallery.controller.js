@@ -91,19 +91,25 @@ const updateGallery = async (req, res) => {
 
 const updateGalleryOrder = async (req, res) => {
     try {
-        const result = await galleryService.updateGalleryOrder(req.body);
+        const items = req.body.items
+
+        const result =
+            await galleryService.updateGalleryOrder(items)
 
         res.json({
             success: true,
             data: result,
-        });
+        })
     } catch (error) {
-        console.error("Update gallery order error:", error);
+        console.error(
+            'Update gallery order error:',
+            error,
+        )
 
         res.status(500).json({
             success: false,
-            message: "Failed to update gallery order",
-        });
+            message: 'Failed to update gallery order',
+        })
     }
 };
 

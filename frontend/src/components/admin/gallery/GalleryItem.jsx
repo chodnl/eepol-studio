@@ -1,7 +1,10 @@
 function GalleryItem({
     photo,
+    index,
+    total,
     onEdit,
     onDelete,
+    onMove,
 }) {
     return (
         <div className="photo-item">
@@ -16,6 +19,26 @@ function GalleryItem({
             </div>
 
             <div className="photo-actions">
+                <button
+                    type="button"
+                    onClick={() =>
+                        onMove(index, index - 1)
+                    }
+                    disabled={index === 0}
+                >
+                    ↑
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        onMove(index, index + 1)
+                    }
+                    disabled={index === total - 1}
+                >
+                    ↓
+                </button>
+
                 <button
                     type="button"
                     onClick={() => onEdit(photo)}
