@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 
-import GalleryList from './GalleryList'
-import GalleryEditor from './GalleryEditor'
+import GalleryList from './gallery/GalleryList'
+import GalleryEditor from './gallery/GalleryEditor'
 
 import {
     getGallery,
     deleteGallery,
-} from './galleryApi'
+    updateGallery,
+} from './gallery/galleryApi'
 
 function AdminGallery() {
     const [photos, setPhotos] = useState([])
@@ -59,29 +60,42 @@ function AdminGallery() {
         setPhotoEditor(photo)
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!photoEditor.id) return
 
-        setPhotos((prev) =>
-            prev.map((photo) =>
-                photo.id === photoEditor.id
-                    ? {
-                        ...photo,
-                        title: photoEditor.title,
-                        category: photoEditor.category,
-                    }
-                    : photo,
-            ),
-        )
+        try {
+            const updatedPhoto = await updateGallery(
+                photoEditor.id,
+                {
+                    title: photoEditor.title,
+                    category: photoEditor.category,
+                },
+            )
 
-        setPhotoEditor({
-            id: null,
-            title: '',
-            category: '',
-            src: '',
-        })
+            setPhotos((prev) =>
+                prev.map((photo) =>
+                    photo.id === updatedPhoto._id
+                        ? {
+                            ...photo,
+                            title: updatedPhoto.title,
+                            category: updatedPhoto.category,
+                        }
+                        : photo,
+                ),
+            )
 
-        setMessage('사진 정보가 수정되었습니다.')
+            setPhotoEditor({
+                id: null,
+                title: '',
+                category: '',
+                src: '',
+            })
+
+            setMessage('사진 정보가 수정되었습니다.')
+        } catch (error) {
+            console.error('Gallery update error:', error)
+            setMessage(error.message)
+        }
     }
 
     return (

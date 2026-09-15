@@ -37,3 +37,30 @@ export const deleteGallery = async (id) => {
 
     return result.data
 }
+
+export const updateGallery = async (id, data) => {
+    const token = localStorage.getItem('adminToken')
+
+    if (!token) {
+        throw new Error('관리자 인증이 필요합니다.')
+    }
+
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })
+
+    const result = await response.json()
+
+    if (!response.ok || !result.success) {
+        throw new Error(
+            result.message || '사진 수정에 실패했습니다.',
+        )
+    }
+
+    return result.data
+}
