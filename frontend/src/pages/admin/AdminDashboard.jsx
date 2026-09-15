@@ -1,4 +1,4 @@
-import AdminGallery from '../components/admin/AdminGallery'
+import AdminGallery from './gallery/AdminGallery'
 import './AdminDashboard.css'
 
 function AdminDashboard() {

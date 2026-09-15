@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import GalleryList from './gallery/GalleryList'
-import GalleryEditor from './gallery/GalleryEditor'
+import GalleryList from '../../../components/admin/gallery/GalleryList'
+import GalleryEditor from '../../../components/admin/gallery/GalleryEditor'
 
 import {
     getGallery,
@@ -9,7 +9,7 @@ import {
     deleteGallery,
     updateGallery,
     updateGalleryOrder,
-} from './gallery/galleryApi'
+} from '../../../components/admin/gallery/galleryApi'
 
 function AdminGallery() {
     const [photos, setPhotos] = useState([])
