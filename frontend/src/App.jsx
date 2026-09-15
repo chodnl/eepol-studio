@@ -1,35 +1,24 @@
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
 
-import Header from './components/layout/Header'
-import Footer from './components/layout/Footer'
-
-import Hero from './components/home/Hero'
-import About from './components/home/About'
-
-import Gallery from './components/gallery/Gallery'
-
-import Pricing from './components/pricing/Pricing'
-
-import Booking from './components/booking/Booking'
-
-import Location from './components/location/Location'
+import Home from './pages/Home'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
 
 function App() {
   return (
-    <div className="app-shell">
-      <Header />
+    <Routes>
+      <Route path="/" element={<Home />} />
 
-      <main>
-        <Hero />
-        <Gallery />
-        <About />
-        <Pricing />
-        <Booking />
-        <Location />
-      </main>
+      <Route
+        path="/admin/login"
+        element={<AdminLogin />}
+      />
 
-      <Footer />
-    </div>
+      <Route
+        path="/admin"
+        element={<AdminDashboard />}
+      />
+    </Routes>
   )
 }
 
