@@ -5,6 +5,9 @@ import Header from './components/layout/Header'
 import Gallery from './components/gallery/Gallery'
 import Hero from './components/home/Hero'
 import About from './components/home/About'
+import Pricing from './components/pricing/Pricing'
+import Booking from './components/booking/Booking'
+import Location from './components/location/Location'
 
 const initialPhotos = [
   {
@@ -54,19 +57,6 @@ const initialReservations = [
   },
 ]
 
-const pricePackages = [
-  { name: '베이직', price: '290,000원', description: '1인 촬영 1시간 + 보정 10컷', features: ['1시간 촬영', '기본 보정 10컷', '기본 액자 1개'] },
-  { name: '프리미엄', price: '590,000원', description: '1인/커플 촬영 2시간 + 스타일링', features: ['2시간 촬영', '드레스/정장 스타일링', '보정 20컷', '원본 이미지 제공'] },
-  { name: '브라이덜', price: '990,000원', description: '웨딩/가족 스토리 전용 패키지', features: ['전문 촬영팀', '촬영장소 섭외', '예식장 연계 편집', '스토리북 제작'] },
-]
-
-const defaultBooking = {
-  name: '',
-  phone: '',
-  date: '',
-  packageName: '프리미엄 패키지',
-  note: '',
-}
 
 function App() {
   const [photos, setPhotos] = useState([])
@@ -94,38 +84,9 @@ function App() {
     fetchGallery()
   }, [])
   const [reservations, setReservations] = useState(initialReservations)
-  const [booking, setBooking] = useState(defaultBooking)
   const [message, setMessage] = useState('신규 예약을 등록하면 문자 안내와 카카오톡 상담이 연결됩니다.')
   const [photoEditor, setPhotoEditor] = useState({ id: null, title: '', category: '', src: '' })
 
-
-  const handleBookingChange = (event) => {
-    const { name, value } = event.target
-    setBooking((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleBookingSubmit = (event) => {
-    event.preventDefault()
-
-    if (!booking.name || !booking.phone || !booking.date) {
-      setMessage('이름, 연락처, 촬영 날짜를 모두 입력해 주세요.')
-      return
-    }
-
-    const newReservation = {
-      id: Date.now(),
-      name: booking.name,
-      phone: booking.phone,
-      date: booking.date,
-      packageName: booking.packageName,
-      status: '대기',
-      note: booking.note || '견적 요청',
-    }
-
-    setReservations((prev) => [newReservation, ...prev])
-    setBooking(defaultBooking)
-    setMessage(`${booking.name}님, 예약이 접수되었습니다. 문자 안내와 카카오톡 예약 연결을 진행해 드립니다.`)
-  }
 
   const handleReservationStatus = (id, status) => {
     setReservations((prev) =>
@@ -198,130 +159,16 @@ function App() {
         <Hero />
         <Gallery />
         <About />
-
-        <section className="section" id="pricing">
-          <div className="section-header">
-            <p className="eyebrow">pricing</p>
-            <h2>합리적인 패키지 가격</h2>
-          </div>
-
-          <div className="pricing-grid">
-            {pricePackages.map((item) => (
-              <article key={item.name} className="price-card">
-                <p className="plan-name">{item.name}</p>
-                <h3>{item.price}</h3>
-                <p className="plan-description">{item.description}</p>
-                <ul>
-                  {item.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <button type="button" onClick={() => setBooking((prev) => ({ ...prev, packageName: item.name }))}>
-                  선택하기
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section booking-layout" id="reservation">
-          <div className="booking-form-box">
-            <div className="section-header left-align">
-              <p className="eyebrow">reservation</p>
-              <h2>촬영 예약하기</h2>
-            </div>
-
-            <form onSubmit={handleBookingSubmit} className="booking-form">
-              <div className="field-row two-col">
-                <label>
-                  이름
-                  <input type="text" name="name" value={booking.name} onChange={handleBookingChange} placeholder="예약자 이름" />
-                </label>
-                <label>
-                  연락처
-                  <input type="tel" name="phone" value={booking.phone} onChange={handleBookingChange} placeholder="010-0000-0000" />
-                </label>
-              </div>
-
-              <div className="field-row two-col">
-                <label>
-                  촬영 날짜
-                  <input type="date" name="date" value={booking.date} onChange={handleBookingChange} />
-                </label>
-                <label>
-                  패키지
-                  <select name="packageName" value={booking.packageName} onChange={handleBookingChange}>
-                    <option>베이직</option>
-                    <option>프리미엄</option>
-                    <option>브라이덜</option>
-                  </select>
-                </label>
-              </div>
-
-              <label>
-                요청사항
-                <textarea name="note" value={booking.note} onChange={handleBookingChange} rows="4" placeholder="촬영 스타일, 장소, 의상, 추가 요청사항을 적어 주세요." />
-              </label>
-
-              <div className="booking-actions">
-                <button type="submit" className="primary-btn">예약 신청</button>
-                <button type="button" className="secondary-btn" onClick={() => window.open('https://pf.kakao.com', '_blank', 'noopener,noreferrer')}>
-                  카카오톡 예약
-                </button>
-              </div>
-
-              <p className="system-message">{message}</p>
-            </form>
-          </div>
-
-          <aside className="booking-side">
-            <div className="info-box">
-              <h3>예약 프로세스</h3>
-              <ul>
-                <li>1. 예약 신청</li>
-                <li>2. 관리자 확인</li>
-                <li>3. 문자 안내 발송</li>
-                <li>4. 카카오톡 상담 연결</li>
-              </ul>
-            </div>
-            <div className="info-box accent-box">
-              <h3>문의 정보</h3>
-              <p>전화: 02-555-8821</p>
-              <p>카카오톡: @eepolstudio</p>
-              <p>운영시간: 평일 10:00 ~ 19:00</p>
-            </div>
-          </aside>
-        </section>
-
-        <section className="section location-section" id="location">
-          <div className="section-header left-align">
-            <p className="eyebrow">location</p>
-            <h2>스튜디오 위치</h2>
-          </div>
-
-          <div className="map-box">
-            <div className="map-pin">서울 강남구</div>
-            <div className="map-label">
-              <strong>Eepol Studio</strong>
-              <span>서울특별시 강남구 테헤란로 123</span>
-            </div>
-          </div>
-
-          <div className="location-detail">
-            <div>
-              <span>주차</span>
-              <strong>건물 지하 2층 무료 주차 가능</strong>
-            </div>
-            <div>
-              <span>대중교통</span>
-              <strong>강남역 5번 출구 도보 5분</strong>
-            </div>
-            <div>
-              <span>문의</span>
-              <strong>02-555-8821 / 카카오톡 예약</strong>
-            </div>
-          </div>
-        </section>
+        <Pricing
+          onSelectPackage={(packageName) =>
+            setBooking((prev) => ({
+              ...prev,
+              packageName,
+            }))
+          }
+        />
+        <Booking />
+        <Location />
 
         <section className="section admin-grid" id="admin">
           <div className="admin-panel">
