@@ -39,12 +39,10 @@ function AdminLogin() {
             const result = await response.json()
 
             if (!response.ok || !result.success) {
-                throw new Error(
-                    result.message || '로그인에 실패했습니다.',
-                )
+                throw new Error(result.message || '로그인에 실패했습니다.')
             }
 
-            localStorage.setItem('adminToken', result.token)
+            localStorage.setItem('adminToken', result.data.token)
 
             navigate('/admin')
         } catch (error) {
