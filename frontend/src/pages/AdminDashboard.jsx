@@ -1,12 +1,37 @@
+import AdminGallery from '../components/admin/AdminGallery'
+import './AdminDashboard.css'
+
 function AdminDashboard() {
     return (
-        <main>
-            <h1>관리자 대시보드</h1>
+        <div className="admin-page">
+            <header className="admin-header">
+                <div>
+                    <p className="eyebrow">EPOL STUDIO</p>
+                    <h1>관리자 페이지</h1>
+                </div>
 
-            <p>
-                관리자 로그인에 성공했습니다.
-            </p>
-        </main>
+                <button
+                    type="button"
+                    onClick={() => {
+                        localStorage.removeItem('adminToken')
+                        window.location.href = '/admin/login'
+                    }}
+                >
+                    로그아웃
+                </button>
+            </header>
+
+            <main>
+                <section className="admin-menu">
+                    <button type="button">갤러리 관리</button>
+                    <button type="button">가격 관리</button>
+                    <button type="button">예약 관리</button>
+                    <button type="button">Q&A 관리</button>
+                </section>
+
+                <AdminGallery />
+            </main>
+        </div>
     )
 }
 

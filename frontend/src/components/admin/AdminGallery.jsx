@@ -5,6 +5,7 @@ import GalleryEditor from './gallery/GalleryEditor'
 
 import {
     getGallery,
+    createGallery,
     deleteGallery,
     updateGallery,
     updateGalleryOrder,
@@ -43,6 +44,42 @@ function AdminGallery() {
 
         loadGallery()
     }, [])
+
+    const handleCreate = async ({
+        file,
+        title,
+        category,
+    }) => {
+        try {
+            const createdPhoto = await createGallery({
+                file,
+                title,
+                category,
+            })
+
+            setPhotos((prev) => [
+                ...prev,
+                {
+                    id: createdPhoto._id,
+                    title: createdPhoto.title,
+                    category: createdPhoto.category,
+                    src: createdPhoto.imageUrl,
+                },
+            ])
+
+            setPhotoEditor({
+                id: null,
+                title: '',
+                category: '',
+                src: '',
+            })
+
+            setMessage('사진이 등록되었습니다.')
+        } catch (error) {
+            console.error('Gallery create error:', error)
+            setMessage(error.message)
+        }
+    }
 
     const handleDelete = async (id) => {
         try {
@@ -154,6 +191,7 @@ function AdminGallery() {
                     photoEditor={photoEditor}
                     setPhotoEditor={setPhotoEditor}
                     onSave={handleSave}
+                    onCreate={handleCreate}
                 />
 
 

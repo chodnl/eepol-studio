@@ -6,14 +6,9 @@ const authMiddleware = require("../middleware/auth.middleware");
 const router = express.Router();
 
 router.get("/", bookingController.getBookings);
-
 router.get("/:id", bookingController.getBookingById);
 
-router.post(
-    "/",
-    authMiddleware,
-    bookingController.createBooking
-);
+router.post("/", bookingController.createBooking);
 
 router.patch(
     "/:id",

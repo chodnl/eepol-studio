@@ -1,6 +1,7 @@
 const express = require("express");
 const galleryController = require("./gallery.controller");
 const authMiddleware = require("../middleware/auth.middleware");
+const upload = require("../middleware/upload.middleware");
 
 const router = express.Router();
 
@@ -10,25 +11,26 @@ router.get("/:id", galleryController.getGalleryById);
 router.post(
     "/",
     authMiddleware,
-    galleryController.createGallery
+    upload.single("image"),
+    galleryController.createGallery,
 );
 
 router.patch(
     "/order",
     authMiddleware,
-    galleryController.updateGalleryOrder
+    galleryController.updateGalleryOrder,
 );
 
 router.patch(
     "/:id",
     authMiddleware,
-    galleryController.updateGallery
+    galleryController.updateGallery,
 );
 
 router.delete(
     "/:id",
     authMiddleware,
-    galleryController.deleteGallery
+    galleryController.deleteGallery,
 );
 
 module.exports = router;

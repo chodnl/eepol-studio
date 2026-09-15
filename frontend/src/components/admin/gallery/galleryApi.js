@@ -94,3 +94,40 @@ export const updateGalleryOrder = async (items) => {
 
     return result.data
 }
+
+export const createGallery = async ({
+    file,
+    title,
+    category,
+}) => {
+    const token = localStorage.getItem('adminToken')
+
+    if (!token) {
+        throw new Error('관리자 인증이 필요합니다.')
+    }
+
+    const formData = new FormData()
+
+    formData.append('image', file)
+    formData.append('title', title)
+    formData.append('category', category)
+    formData.append('order', 1)
+
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+    })
+
+    const result = await response.json()
+
+    if (!response.ok || !result.success) {
+        throw new Error(
+            result.message || '사진 등록에 실패했습니다.',
+        )
+    }
+
+    return result.data
+}
