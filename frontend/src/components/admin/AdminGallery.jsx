@@ -1,4 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import GalleryList from './GalleryList'
+import GalleryEditor from './GalleryEditor'
+
+import {
+    getGallery,
+    deleteGallery,
+} from './galleryApi'
 
 function AdminGallery() {
     const [photos, setPhotos] = useState([])
@@ -10,66 +18,48 @@ function AdminGallery() {
         src: '',
     })
 
-    const handlePhotoUpload = (event) => {
-        const files = Array.from(event.target.files || [])
+    useEffect(() => {
+        const loadGallery = async () => {
+            try {
+                const data = await getGallery()
 
-        if (!files.length) return
+                setPhotos(
+                    data.map((item) => ({
+                        id: item._id,
+                        title: item.title,
+                        category: item.category,
+                        src: item.imageUrl,
+                    })),
+                )
+            } catch (error) {
+                console.error('Gallery fetch error:', error)
+                setMessage(error.message)
+            }
+        }
 
-        const uploadedPhotos = files.map((file, index) => ({
-            id: Date.now() + index,
-            title:
-                file.name.replace(/\.[^/.]+$/, '') ||
-                `업로드 사진 ${index + 1}`,
-            category: 'Custom',
-            src: URL.createObjectURL(file),
-        }))
+        loadGallery()
+    }, [])
 
-        setPhotos((prev) => [...uploadedPhotos, ...prev])
+    const handleDelete = async (id) => {
+        try {
+            await deleteGallery(id)
 
-        setMessage(
-            `${uploadedPhotos.length}개의 사진이 업로드되어 갤러리에 반영되었습니다.`,
-        )
-
-        event.target.value = ''
-    }
-
-    const reorderPhoto = (id, direction) => {
-        setPhotos((prev) => {
-            const index = prev.findIndex(
-                (photo) => photo.id === id,
+            setPhotos((prev) =>
+                prev.filter((photo) => photo.id !== id),
             )
 
-            if (index === -1) return prev
-
-            const targetIndex = index + direction
-
-            if (
-                targetIndex < 0 ||
-                targetIndex >= prev.length
-            ) {
-                return prev
-            }
-
-            const newPhotos = [...prev]
-
-                ;[newPhotos[index], newPhotos[targetIndex]] = [
-                    newPhotos[targetIndex],
-                    newPhotos[index],
-                ]
-
-            return newPhotos
-        })
+            setMessage('사진이 삭제되었습니다.')
+        } catch (error) {
+            console.error('Gallery delete error:', error)
+            setMessage(error.message)
+        }
     }
 
-    const deletePhoto = (id) => {
-        setPhotos((prev) =>
-            prev.filter((photo) => photo.id !== id),
-        )
-
-        setMessage('사진이 삭제되었습니다.')
+    const handleEdit = (photo) => {
+        setPhotoEditor(photo)
     }
 
-    const savePhotoEdit = () => {
+    const handleSave = () => {
         if (!photoEditor.id) return
 
         setPhotos((prev) =>
@@ -102,115 +92,17 @@ function AdminGallery() {
                     <h2>사진 관리</h2>
                 </div>
 
-                <label className="upload-box">
-                    <span>사진 업로드</span>
+                <GalleryEditor
+                    photoEditor={photoEditor}
+                    setPhotoEditor={setPhotoEditor}
+                    onSave={handleSave}
+                />
 
-                    <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={handlePhotoUpload}
-                    />
-                </label>
-
-                {photoEditor.id && (
-                    <div className="editor-box">
-                        <input
-                            type="text"
-                            value={photoEditor.title}
-                            onChange={(event) =>
-                                setPhotoEditor((prev) => ({
-                                    ...prev,
-                                    title: event.target.value,
-                                }))
-                            }
-                            placeholder="사진 제목"
-                        />
-
-                        <input
-                            type="text"
-                            value={photoEditor.category}
-                            onChange={(event) =>
-                                setPhotoEditor((prev) => ({
-                                    ...prev,
-                                    category: event.target.value,
-                                }))
-                            }
-                            placeholder="카테고리"
-                        />
-
-                        <button
-                            type="button"
-                            className="primary-btn"
-                            onClick={savePhotoEdit}
-                        >
-                            수정 저장
-                        </button>
-                    </div>
-                )}
-
-                <div className="photo-list">
-                    {photos.map((photo) => (
-                        <div
-                            key={photo.id}
-                            className="photo-item"
-                        >
-                            <img
-                                src={photo.src}
-                                alt={photo.title}
-                            />
-
-                            <div className="photo-meta">
-                                <strong>{photo.title}</strong>
-                                <span>{photo.category}</span>
-                            </div>
-
-                            <div className="photo-actions">
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        reorderPhoto(photo.id, -1)
-                                    }
-                                >
-                                    위로
-                                </button>
-
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        reorderPhoto(photo.id, 1)
-                                    }
-                                >
-                                    아래로
-                                </button>
-
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        setPhotoEditor({
-                                            id: photo.id,
-                                            title: photo.title,
-                                            category: photo.category,
-                                            src: photo.src,
-                                        })
-                                    }
-                                >
-                                    수정
-                                </button>
-
-                                <button
-                                    type="button"
-                                    className="danger"
-                                    onClick={() =>
-                                        deletePhoto(photo.id)
-                                    }
-                                >
-                                    삭제
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <GalleryList
+                    photos={photos}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                />
 
                 {message && (
                     <p className="system-message">
