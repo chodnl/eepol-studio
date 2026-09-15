@@ -4,6 +4,7 @@ import './App.css'
 import Header from './components/layout/Header'
 import Gallery from './components/gallery/Gallery'
 import Hero from './components/home/Hero'
+import About from './components/home/About'
 
 const initialPhotos = [
   {
@@ -97,7 +98,6 @@ function App() {
   const [message, setMessage] = useState('신규 예약을 등록하면 문자 안내와 카카오톡 상담이 연결됩니다.')
   const [photoEditor, setPhotoEditor] = useState({ id: null, title: '', category: '', src: '' })
 
-  const featuredPhoto = photos[0]
 
   const handleBookingChange = (event) => {
     const { name, value } = event.target
@@ -196,8 +196,8 @@ function App() {
 
       <main>
         <Hero />
-
         <Gallery />
+        <About />
 
         <section className="section" id="pricing">
           <div className="section-header">

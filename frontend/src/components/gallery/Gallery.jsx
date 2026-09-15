@@ -7,7 +7,10 @@ function Gallery() {
     useEffect(() => {
         const fetchGallery = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/gallery')
+                const response = await fetch(
+                    'http://localhost:3000/api/gallery'
+                )
+
                 const result = await response.json()
 
                 if (result.success) {

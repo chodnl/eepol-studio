@@ -44,6 +44,7 @@ function Hero() {
                     웨딩, 가족, 인물, 패션까지 한 공간에서 감각적인 촬영과
                     세심한 보정을 통해 당신의 특별한 순간을 완성합니다.
                 </p>
+                <a href="#about">About</a>
 
                 <div className="cta-row">
                     <a href="#booking" className="primary-btn">

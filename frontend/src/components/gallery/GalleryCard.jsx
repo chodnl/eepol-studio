@@ -5,7 +5,10 @@ function GalleryCard({ photo, isFeatured, onClick }) {
             className={`gallery-card ${isFeatured ? 'active' : ''}`}
             onClick={onClick}
         >
-            <img src={photo.src} alt={photo.title} />
+            <img
+                src={photo.src}
+                alt={photo.title}
+            />
 
             <div className="gallery-card-text">
                 <span>{photo.category}</span>
