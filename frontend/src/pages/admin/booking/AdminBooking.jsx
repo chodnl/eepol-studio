@@ -37,18 +37,60 @@ function AdminBooking() {
         )
     )
 
+    const [statusFilter, setStatusFilter] = useState('all')
+    const [searchTerm, setSearchTerm] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-
-
 
     const handleMonthChange = (date) => {
         setSelectedMonth(date)
         setCurrentPage(1)
+        setSearchTerm('')
+        setStatusFilter('all')
     }
 
-    const filteredBookings = filterBookingsByMonth(
+    const handleStatusFilterChange = (status) => {
+        setStatusFilter(status)
+        setCurrentPage(1)
+    }
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value)
+        setCurrentPage(1)
+    }
+
+    const monthFilteredBookings = filterBookingsByMonth(
         bookings,
         selectedMonth
+    )
+
+    const filteredBookings = monthFilteredBookings.filter(
+        (booking) => {
+            if (
+                statusFilter !== 'all' &&
+                booking.status !== statusFilter
+            ) {
+                return false
+            }
+
+            const keyword = searchTerm
+                .trim()
+                .toLowerCase()
+
+            if (!keyword) {
+                return true
+            }
+
+            const customerName =
+                booking.customerName.toLowerCase()
+
+            const phone =
+                booking.phone.toLowerCase()
+
+            return (
+                customerName.includes(keyword) ||
+                phone.includes(keyword)
+            )
+        }
     )
 
     const totalPages = getTotalPages(
@@ -115,6 +157,66 @@ function AdminBooking() {
                 onMonthChange={handleMonthChange}
             />
 
+            <div>
+                <button
+                    type="button"
+                    onClick={() =>
+                        handleStatusFilterChange('all')
+                    }
+                >
+                    전체
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        handleStatusFilterChange('pending')
+                    }
+                >
+                    예약 대기
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        handleStatusFilterChange('confirmed')
+                    }
+                >
+                    예약 확정
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        handleStatusFilterChange('completed')
+                    }
+                >
+                    촬영 완료
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        handleStatusFilterChange('cancelled')
+                    }
+                >
+                    예약 취소
+                </button>
+            </div>
+
+            <div>
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    placeholder="이름 또는 전화번호 검색"
+                />
+            </div>
+
+            <p>
+                총 {filteredBookings.length}개의 예약
+            </p>
+
             <BookingList
                 bookings={paginatedBookings}
                 editingBookingId={editingBooking?._id}
@@ -135,7 +237,9 @@ function AdminBooking() {
                         type="button"
                         disabled={currentPage === 1}
                         onClick={() =>
-                            setCurrentPage((prev) => prev - 1)
+                            setCurrentPage(
+                                (prev) => prev - 1
+                            )
                         }
                     >
                         이전
@@ -148,7 +252,9 @@ function AdminBooking() {
                         <button
                             key={page}
                             type="button"
-                            onClick={() => setCurrentPage(page)}
+                            onClick={() =>
+                                setCurrentPage(page)
+                            }
                         >
                             {page}
                         </button>
@@ -156,9 +262,13 @@ function AdminBooking() {
 
                     <button
                         type="button"
-                        disabled={currentPage === totalPages}
+                        disabled={
+                            currentPage === totalPages
+                        }
                         onClick={() =>
-                            setCurrentPage((prev) => prev + 1)
+                            setCurrentPage(
+                                (prev) => prev + 1
+                            )
                         }
                     >
                         다음
