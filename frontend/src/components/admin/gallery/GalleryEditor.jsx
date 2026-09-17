@@ -6,6 +6,14 @@ function GalleryEditor({
     onSave,
     onCreate,
 }) {
+    const editor = {
+        id: photoEditor?.id ?? null,
+        title: photoEditor?.title ?? '',
+        category: photoEditor?.category ?? '',
+        src: photoEditor?.src ?? '',
+        isHero: photoEditor?.isHero ?? false,
+    }
+
     const [selectedFile, setSelectedFile] = useState(null)
 
     const handleFileChange = (event) => {
@@ -27,22 +35,22 @@ function GalleryEditor({
 
         await onCreate({
             file: selectedFile,
-            title: photoEditor.title,
-            category: photoEditor.category,
+            title: editor.title,
+            category: editor.category,
+            isHero: editor.isHero,
         })
 
         setSelectedFile(null)
     }
 
-    // 기존 사진 수정
-    if (photoEditor.id) {
+    if (editor.id) {
         return (
             <div className="editor-box">
                 <h3>사진 수정</h3>
 
                 <input
                     type="text"
-                    value={photoEditor.title}
+                    value={editor.title}
                     onChange={(event) =>
                         setPhotoEditor((prev) => ({
                             ...prev,
@@ -54,7 +62,7 @@ function GalleryEditor({
 
                 <input
                     type="text"
-                    value={photoEditor.category}
+                    value={editor.category}
                     onChange={(event) =>
                         setPhotoEditor((prev) => ({
                             ...prev,
@@ -63,6 +71,20 @@ function GalleryEditor({
                     }
                     placeholder="카테고리"
                 />
+
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={editor.isHero}
+                        onChange={(event) =>
+                            setPhotoEditor((prev) => ({
+                                ...prev,
+                                isHero: event.target.checked,
+                            }))
+                        }
+                    />
+                    Hero 슬라이드에 사용
+                </label>
 
                 <button
                     type="button"
@@ -75,26 +97,24 @@ function GalleryEditor({
         )
     }
 
-    // 새 사진 등록
     return (
         <div className="editor-box">
             <h3>새 사진 등록</h3>
 
             <input
+                key={editor.id ?? 'new'}
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
             />
 
             {selectedFile && (
-                <p>
-                    선택된 파일: {selectedFile.name}
-                </p>
+                <p>선택된 파일: {selectedFile.name}</p>
             )}
 
             <input
                 type="text"
-                value={photoEditor.title}
+                value={editor.title}
                 onChange={(event) =>
                     setPhotoEditor((prev) => ({
                         ...prev,
@@ -106,7 +126,7 @@ function GalleryEditor({
 
             <input
                 type="text"
-                value={photoEditor.category}
+                value={editor.category}
                 onChange={(event) =>
                     setPhotoEditor((prev) => ({
                         ...prev,
@@ -115,6 +135,20 @@ function GalleryEditor({
                 }
                 placeholder="카테고리"
             />
+
+            <label>
+                <input
+                    type="checkbox"
+                    checked={editor.isHero}
+                    onChange={(event) =>
+                        setPhotoEditor((prev) => ({
+                            ...prev,
+                            isHero: event.target.checked,
+                        }))
+                    }
+                />
+                Hero 슬라이드에 사용
+            </label>
 
             <button
                 type="button"

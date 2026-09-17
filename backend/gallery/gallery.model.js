@@ -24,6 +24,11 @@ const gallerySchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+
+        isHero: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

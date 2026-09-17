@@ -99,6 +99,7 @@ export const createGallery = async ({
     file,
     title,
     category,
+    isHero,
 }) => {
     const token = localStorage.getItem('adminToken')
 
@@ -112,6 +113,7 @@ export const createGallery = async ({
     formData.append('title', title)
     formData.append('category', category)
     formData.append('order', 1)
+    formData.append('isHero', isHero)
 
     const response = await fetch(API_URL, {
         method: 'POST',

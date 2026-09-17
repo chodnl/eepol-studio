@@ -1,36 +1,62 @@
+import './Header.css'
+
 function Header() {
     return (
-        <header className="topbar">
-            <div className="brand-wrap">
-                <div className="brand-mark">E</div>
-
-                <div>
-                    <p className="brand-name">eepol studio</p>
-                    <span className="brand-tag">
-                        Portrait • Wedding • Brand
+        <header className="site-header">
+            <div className="header-inner">
+                <a href="#hero" className="header-brand">
+                    <span className="header-brand-name">
+                        eepol
                     </span>
+
+                    <span className="header-brand-sub">
+                        studio
+                    </span>
+                </a>
+
+                <nav className="header-nav">
+                    <a href="#about">ABOUT</a>
+                    <a href="#gallery">GALLERY</a>
+                    <a href="#pricing">PRICING</a>
+                    <a href="#booking">BOOKING</a>
+                    <a href="#qna">Q&amp;A</a>
+                    <a href="#notice">NOTICE</a>
+                    <a href="#location">LOCATION</a>
+                </nav>
+
+                <div className="header-links">
+                    <a
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Instagram
+                    </a>
+
+                    <a
+                        href="https://blog.naver.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Naver
+                    </a>
+
+                    <a
+                        href="https://pf.kakao.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Kakao
+                    </a>
                 </div>
             </div>
 
-            <nav className="main-nav">
-                <a href="#gallery">Portfolio</a>
-                <a href="#about">About</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#booking">Booking</a>
-                <a href="#location">Location</a>
-            </nav>
-
             <button
-                className="nav-button"
-                onClick={() =>
-                    window.open(
-                        'https://pf.kakao.com',
-                        '_blank',
-                        'noopener,noreferrer'
-                    )
-                }
+                type="button"
+                className="mobile-menu-button"
+                aria-label="메뉴 열기"
             >
-                카카오톡 예약
+                ☰
             </button>
         </header>
     )

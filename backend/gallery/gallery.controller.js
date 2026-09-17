@@ -1,21 +1,56 @@
 const {
     PutObjectCommand,
+    GetObjectCommand,
 } = require("@aws-sdk/client-s3");
+
+const {
+    getSignedUrl,
+} = require("@aws-sdk/s3-request-presigner");
 
 const crypto = require("crypto");
 
 const s3 = require("../config/s3");
 const galleryService = require("./gallery.service");
 
+const createPresignedUrl = async (imageUrl) => {
+    const bucketName = process.env.AWS_S3_BUCKET_NAME;
+
+    const url = new URL(imageUrl);
+
+    const key = decodeURIComponent(
+        url.pathname.replace(/^\/+/, "")
+    );
+
+    const command = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+    });
+
+    return await getSignedUrl(s3, command, {
+        expiresIn: 60 * 60,
+    });
+};
+
 const getGallery = async (req, res) => {
     try {
         const gallery = await galleryService.getGallery();
 
+        const galleryWithSignedUrls = await Promise.all(
+            gallery.map(async (item) => ({
+                ...item.toObject(),
+                imageUrl: await createPresignedUrl(
+                    item.imageUrl
+                ),
+            }))
+        );
+
         res.json({
             success: true,
-            data: gallery,
+            data: galleryWithSignedUrls,
         });
     } catch (error) {
+        console.error("Get gallery error:", error);
+
         res.status(500).json({
             success: false,
             message: "Failed to fetch gallery",
@@ -25,13 +60,19 @@ const getGallery = async (req, res) => {
 
 const createGallery = async (req, res) => {
     try {
-        const { title, category, order } = req.body;
+        const {
+            title,
+            category,
+            order,
+        } = req.body
+
+        const isHero = req.body.isHero === "true"
 
         if (!req.file) {
             return res.status(400).json({
                 success: false,
                 message: "Image file is required",
-            });
+            })
         }
 
         const file = req.file;
@@ -60,12 +101,20 @@ const createGallery = async (req, res) => {
             category,
             imageUrl,
             order,
-        });
+            isHero,
+        })
+
+        const signedImageUrl = await createPresignedUrl(gallery.imageUrl)
+
+        const responseGallery = {
+            ...gallery.toObject(),
+            imageUrl: signedImageUrl,
+        }
 
         res.status(201).json({
             success: true,
-            data: gallery,
-        });
+            data: responseGallery,
+        })
     } catch (error) {
         console.error("Create gallery error:", error);
 
@@ -78,7 +127,10 @@ const createGallery = async (req, res) => {
 
 const getGalleryById = async (req, res) => {
     try {
-        const gallery = await galleryService.getGalleryById(req.params.id);
+        let gallery =
+            await galleryService.getGalleryById(
+                req.params.id
+            );
 
         if (!gallery) {
             return res.status(404).json({
@@ -87,12 +139,22 @@ const getGalleryById = async (req, res) => {
             });
         }
 
+        gallery = {
+            ...gallery.toObject(),
+            imageUrl: await createPresignedUrl(
+                gallery.imageUrl
+            ),
+        };
+
         res.json({
             success: true,
             data: gallery,
         });
     } catch (error) {
-        console.error("Get gallery by id error:", error);
+        console.error(
+            "Get gallery by id error:",
+            error
+        );
 
         res.status(500).json({
             success: false,

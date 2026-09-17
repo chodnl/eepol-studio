@@ -1,6 +1,11 @@
 .app-shell {
-    width: 100%;
-    color: #1f2937;
+    width: auto;
+    min-height: 100vh;
+
+    margin-left: 240px;
+
+    color: #1d241f;
+    background: #f7f6f0;
 }
 
 .section {
@@ -700,5 +705,11 @@ textarea {
     .site-footer {
         flex-direction: column;
         text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .app-shell {
+            margin-left: 0;
+        }
     }
 }

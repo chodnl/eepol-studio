@@ -19,6 +19,7 @@ function AdminGallery() {
         title: '',
         category: '',
         src: '',
+        isHero: false,
     })
 
     useEffect(() => {
@@ -34,6 +35,7 @@ function AdminGallery() {
                         title: item.title,
                         category: item.category,
                         src: item.imageUrl,
+                        isHero: item.isHero ?? false,
                     })),
                 )
             } catch (error) {
@@ -49,12 +51,14 @@ function AdminGallery() {
         file,
         title,
         category,
+        isHero,
     }) => {
         try {
             const createdPhoto = await createGallery({
                 file,
                 title,
                 category,
+                isHero,
             })
 
             setPhotos((prev) => [
@@ -64,6 +68,7 @@ function AdminGallery() {
                     title: createdPhoto.title,
                     category: createdPhoto.category,
                     src: createdPhoto.imageUrl,
+                    isHero: createdPhoto.isHero ?? false,
                 },
             ])
 
@@ -72,6 +77,7 @@ function AdminGallery() {
                 title: '',
                 category: '',
                 src: '',
+                isHero: false,
             })
 
             setMessage('사진이 등록되었습니다.')
@@ -97,7 +103,13 @@ function AdminGallery() {
     }
 
     const handleEdit = (photo) => {
-        setPhotoEditor(photo)
+        setPhotoEditor({
+            id: photo.id ?? null,
+            title: photo.title ?? '',
+            category: photo.category ?? '',
+            src: photo.src ?? '',
+            isHero: photo.isHero ?? false,
+        })
     }
 
     const handleMove = async (fromIndex, toIndex) => {
@@ -150,6 +162,7 @@ function AdminGallery() {
                 {
                     title: photoEditor.title,
                     category: photoEditor.category,
+                    isHero: photoEditor.isHero,
                 },
             )
 
@@ -160,6 +173,7 @@ function AdminGallery() {
                             ...photo,
                             title: updatedPhoto.title,
                             category: updatedPhoto.category,
+                            isHero: updatedPhoto.isHero,
                         }
                         : photo,
                 ),
@@ -170,6 +184,7 @@ function AdminGallery() {
                 title: '',
                 category: '',
                 src: '',
+                isHero: false,
             })
 
             setMessage('사진 정보가 수정되었습니다.')

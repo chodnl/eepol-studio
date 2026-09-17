@@ -1,43 +1,64 @@
+import './About.css'
+
 function About() {
     return (
-        <section className="section about-section" id="about">
-            <div className="section-header left-align">
-                <p className="eyebrow">about</p>
+        <section className="about-section">
+            <div className="about-header">
+                <p className="about-eyebrow">
+                    ABOUT EPOL
+                </p>
 
                 <h2>
-                    사진 한 장보다
+                    사진은
                     <br />
-                    오래 남는 순간을 만듭니다.
+                    <em>기억을 남기는 일.</em>
                 </h2>
             </div>
 
             <div className="about-content">
-                <div className="about-text">
-                    <p>
-                        Eepol Studio는 인물과 웨딩, 브랜드 촬영을 중심으로
-                        자연스러운 분위기와 개성을 담아내는 스튜디오입니다.
-                    </p>
-
-                    <p>
-                        촬영 전 충분한 상담을 통해 원하는 분위기를 함께 찾고,
-                        촬영부터 보정까지 세심하게 완성합니다.
-                    </p>
+                <div className="about-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=85"
+                        alt="EPOL Studio portrait"
+                    />
                 </div>
 
-                <div className="about-points">
-                    <div>
-                        <strong>01</strong>
-                        <span>자연스러운 촬영</span>
-                    </div>
+                <div className="about-copy">
+                    <p className="about-lead">
+                        가장 자연스러운 모습,
+                        <br />
+                        오래 남기고 싶은 순간을 담습니다.
+                    </p>
 
-                    <div>
-                        <strong>02</strong>
-                        <span>섬세한 보정</span>
-                    </div>
+                    <p>
+                        EPOL STUDIO는 인물의 분위기와 개성을
+                        자연스럽게 담아내는 사진 스튜디오입니다.
+                    </p>
 
-                    <div>
-                        <strong>03</strong>
-                        <span>맞춤형 상담</span>
+                    <p>
+                        프로필부터 증명사진, 바디프로필,
+                        컨셉 사진까지 촬영 목적과 원하는 분위기에
+                        맞춰 함께 만들어갑니다.
+                    </p>
+
+                    <div className="about-services">
+                        <div>
+                            <span>01</span>
+                            <strong>PORTRAIT</strong>
+                            <p>개인의 분위기와 개성을 담은 인물 사진</p>
+                        </div>
+
+                        <div>
+                            <span>02</span>
+                            <strong>PROFILE</strong>
+                            <p>프로필과 증명사진을 위한 정돈된 촬영</p>
+                        </div>
+
+                        <div>
+                            <span>03</span>
+                            <strong>CONCEPT</strong>
+                            <p>원하는 이미지와 이야기를 담은 컨셉 촬영</p>
+                        </div>
                     </div>
                 </div>
             </div>
