@@ -1,3 +1,5 @@
+import './Pricing.css'
+
 const pricePackages = [
     {
         name: '베이직',
@@ -33,18 +35,28 @@ const pricePackages = [
     },
 ]
 
-function Pricing({ onSelectPackage }) {
+function Pricing() {
     return (
         <section className="section" id="pricing">
             <div className="section-header">
                 <p className="eyebrow">pricing</p>
-                <h2>합리적인 패키지 가격</h2>
+
+                <h2>
+                    촬영 목적에 맞는
+                    <br />
+                    패키지를 선택하세요.
+                </h2>
             </div>
 
             <div className="pricing-grid">
                 {pricePackages.map((item) => (
-                    <article key={item.name} className="price-card">
-                        <p className="plan-name">{item.name}</p>
+                    <article
+                        key={item.name}
+                        className="price-card"
+                    >
+                        <p className="plan-name">
+                            {item.name}
+                        </p>
 
                         <h3>{item.price}</h3>
 
@@ -53,17 +65,22 @@ function Pricing({ onSelectPackage }) {
                         </p>
 
                         <ul>
-                            {item.features.map((feature) => (
-                                <li key={feature}>{feature}</li>
-                            ))}
+                            {item.features.map(
+                                (feature) => (
+                                    <li key={feature}>
+                                        {feature}
+                                    </li>
+                                )
+                            )}
                         </ul>
 
-                        <button
-                            type="button"
-                            onClick={() => onSelectPackage(item.name)}
+                        <a
+                            href="#booking"
+                            className="price-button"
                         >
-                            선택하기
-                        </button>
+                            예약 문의
+                            <span>→</span>
+                        </a>
                     </article>
                 ))}
             </div>

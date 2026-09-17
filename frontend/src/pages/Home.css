@@ -345,12 +345,10 @@
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
     gap: 28px;
-    background: linear-gradient(180deg, #f8fafc, #eef2ff);
 }
 
 .booking-form-box,
-.admin-panel,
-.booking-side .info-box {
+.admin-panel {
     background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(148, 163, 184, 0.18);
     border-radius: 26px;
@@ -425,7 +423,6 @@ textarea {
     margin: 0;
     padding-left: 18px;
     line-height: 2;
-    color: #374151;
 }
 
 .accent-box {
