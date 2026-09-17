@@ -17,7 +17,7 @@ router.get(
     bookingController.getBookingById
 );
 
-router.post("/", bookingController.createBooking);
+router.post("/", authMiddleware, bookingController.createBooking);
 
 router.patch(
     "/:id",

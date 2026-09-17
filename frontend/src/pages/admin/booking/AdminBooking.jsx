@@ -1,104 +1,171 @@
-import { useEffect, useState } from 'react'
-import { getBookings } from "../../../components/admin/booking/bookingApi";
+import { useState } from 'react'
+
+import useBookings from '../../../components/admin/booking/useBookings'
+
+import {
+    filterBookingsByMonth,
+    getPaginatedBookings,
+    getTotalPages,
+} from '../../../components/admin/booking/bookingUtils'
+
+import BookingList from '../../../components/admin/booking/BookingList'
+import BookingEditor from '../../../components/admin/booking/BookingEditor'
+import BookingCalendar from '../../../components/admin/booking/BookingCalendar'
+
+const ITEMS_PER_PAGE = 10
 
 function AdminBooking() {
-    const [bookings, setBookings] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [message, setMessage] = useState('')
+    const {
+        bookings,
+        editingBooking,
+        isCreateOpen,
+        message,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
+        handleEdit,
+        handleOpenCreate,
+        handleCancelCreate,
+        handleCancelEdit,
+    } = useBookings()
 
-    useEffect(() => {
-        const loadBookings = async () => {
-            try {
-                const data = await getBookings()
-                setBookings(data)
-            } catch (error) {
-                console.error('Booking fetch error:', error)
-                setMessage(error.message)
-            } finally {
-                setLoading(false)
-            }
+    const [selectedMonth, setSelectedMonth] = useState(
+        new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            1
+        )
+    )
+
+    const [currentPage, setCurrentPage] = useState(1)
+
+
+
+    const handleMonthChange = (date) => {
+        setSelectedMonth(date)
+        setCurrentPage(1)
+    }
+
+    const filteredBookings = filterBookingsByMonth(
+        bookings,
+        selectedMonth
+    )
+
+    const totalPages = getTotalPages(
+        filteredBookings,
+        ITEMS_PER_PAGE
+    )
+
+    const paginatedBookings = getPaginatedBookings(
+        filteredBookings,
+        currentPage,
+        ITEMS_PER_PAGE
+    )
+
+    const handleSelectCalendarBooking = (booking) => {
+        const bookingIndex = filteredBookings.findIndex(
+            (item) => item._id === booking._id
+        )
+
+        if (bookingIndex === -1) {
+            return
         }
 
-        loadBookings()
-    }, [])
+        const targetPage =
+            Math.floor(bookingIndex / ITEMS_PER_PAGE) + 1
 
-    if (loading) {
-        return (
-            <section className="admin-panel">
-                <h2>예약 관리</h2>
-                <p>예약을 불러오는 중입니다...</p>
-            </section>
-        )
+        setCurrentPage(targetPage)
+
+        setTimeout(() => {
+            const element = document.getElementById(
+                `booking-${booking._id}`
+            )
+
+            element?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            })
+        }, 100)
     }
 
     return (
-        <section className="admin-panel">
-            <div className="admin-section-header">
+        <div>
+            <h1>예약 관리</h1>
+
+            <button
+                type="button"
+                onClick={handleOpenCreate}
+            >
+                예약 등록
+            </button>
+
+            {message && <p>{message}</p>}
+
+            {isCreateOpen && (
+                <BookingEditor
+                    booking={null}
+                    onSave={handleCreate}
+                    onCancel={handleCancelCreate}
+                />
+            )}
+
+            <BookingCalendar
+                bookings={bookings}
+                onSelectBooking={handleSelectCalendarBooking}
+                onMonthChange={handleMonthChange}
+            />
+
+            <BookingList
+                bookings={paginatedBookings}
+                editingBookingId={editingBooking?._id}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                renderEditor={(booking) => (
+                    <BookingEditor
+                        booking={booking}
+                        onSave={handleUpdate}
+                        onCancel={handleCancelEdit}
+                    />
+                )}
+            />
+
+            {totalPages > 1 && (
                 <div>
-                    <p className="eyebrow">BOOKING</p>
-                    <h2>예약 관리</h2>
-                </div>
-
-                <span>
-                    총 {bookings.length}건
-                </span>
-            </div>
-
-            {message && (
-                <p className="system-message">
-                    {message}
-                </p>
-            )}
-
-            {!message && bookings.length === 0 && (
-                <p>등록된 예약이 없습니다.</p>
-            )}
-
-            <div className="reservation-list">
-                {bookings.map((booking) => (
-                    <article
-                        key={booking._id}
-                        className="reservation-item"
+                    <button
+                        type="button"
+                        disabled={currentPage === 1}
+                        onClick={() =>
+                            setCurrentPage((prev) => prev - 1)
+                        }
                     >
-                        <div className="reservation-top">
-                            <div>
-                                <strong>
-                                    {booking.customerName}
-                                </strong>
+                        이전
+                    </button>
 
-                                <span>
-                                    {booking.date} {booking.time}
-                                </span>
-                            </div>
+                    {Array.from(
+                        { length: totalPages },
+                        (_, index) => index + 1
+                    ).map((page) => (
+                        <button
+                            key={page}
+                            type="button"
+                            onClick={() => setCurrentPage(page)}
+                        >
+                            {page}
+                        </button>
+                    ))}
 
-                            <span
-                                className={`status ${booking.status}`}
-                            >
-                                {booking.status}
-                            </span>
-                        </div>
-
-                        <p>
-                            촬영: {booking.type}
-                        </p>
-
-                        <p>
-                            연락처: {booking.phone}
-                        </p>
-
-                        <p>
-                            예약 채널: {booking.channel}
-                        </p>
-
-                        {booking.memo && (
-                            <small>
-                                메모: {booking.memo}
-                            </small>
-                        )}
-                    </article>
-                ))}
-            </div>
-        </section>
+                    <button
+                        type="button"
+                        disabled={currentPage === totalPages}
+                        onClick={() =>
+                            setCurrentPage((prev) => prev + 1)
+                        }
+                    >
+                        다음
+                    </button>
+                </div>
+            )}
+        </div>
     )
 }
 
