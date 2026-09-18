@@ -43,3 +43,14 @@ select {
 a {
   color: inherit;
 }
+
+.eyebrow {
+  margin: 0 0 18px;
+
+  color: #52705f;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  line-height: 1.2;
+}

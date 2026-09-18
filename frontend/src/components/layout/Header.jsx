@@ -114,7 +114,7 @@ function Header() {
 
                 <div className="header-links">
                     <a
-                        href="https://www.instagram.com/"
+                        href="https://www.instagram.com/eepool_studio/"
                         target="_blank"
                         rel="noreferrer"
                     >
@@ -122,7 +122,7 @@ function Header() {
                     </a>
 
                     <a
-                        href="https://blog.naver.com/"
+                        href="https://blog.naver.com/blanksnap"
                         target="_blank"
                         rel="noreferrer"
                     >
@@ -130,7 +130,7 @@ function Header() {
                     </a>
 
                     <a
-                        href="https://pf.kakao.com/"
+                        href="https://pf.kakao.com/_fuRKG"
                         target="_blank"
                         rel="noreferrer"
                     >

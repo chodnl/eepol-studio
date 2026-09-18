@@ -4,7 +4,7 @@ function About() {
     return (
         <section className="about-section">
             <div className="about-header">
-                <p className="about-eyebrow">
+                <p className="eyebrow">
                     ABOUT EPOL
                 </p>
 
