@@ -1,6 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
+
+import Qna from "./components/qna/Qna";
+
 import AdminLogin from './pages/AdminLogin'
 
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -17,6 +20,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+
+      <Route path="/qna" element={<Qna />} />
 
       <Route path="/admin/login" element={<AdminLogin />} />
 

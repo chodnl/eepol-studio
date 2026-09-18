@@ -1,5 +1,7 @@
 import './Home.css'
 
+import { useEffect } from 'react'
+
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 
@@ -11,6 +13,26 @@ import Booking from '../components/booking/Booking'
 import Location from '../components/location/Location'
 
 function Home() {
+    useEffect(() => {
+        const hash = window.location.hash
+
+        if (!hash) {
+            return
+        }
+
+        const element = document.querySelector(hash)
+
+        if (!element) {
+            return
+        }
+
+        setTimeout(() => {
+            element.scrollIntoView({
+                behavior: 'smooth',
+            })
+        }, 0)
+    }, [])
+
     return (
         <div className="app-shell">
             <Header />

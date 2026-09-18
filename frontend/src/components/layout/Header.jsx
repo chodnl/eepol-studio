@@ -1,10 +1,48 @@
+import { useLocation, useNavigate } from 'react-router-dom'
 import './Header.css'
 
 function Header() {
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const isHome = location.pathname === '/'
+
+    const handleSectionClick = (sectionId) => {
+        if (isHome) {
+            document.getElementById(sectionId)?.scrollIntoView({
+                behavior: 'smooth',
+            })
+
+            return
+        }
+
+        navigate(`/#${sectionId}`)
+    }
+
+    const handleBrandClick = () => {
+        if (isHome) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            })
+
+            return
+        }
+
+        navigate('/')
+    }
+
     return (
         <header className="site-header">
             <div className="header-inner">
-                <a href="#hero" className="header-brand">
+                <a
+                    href="/"
+                    className="header-brand"
+                    onClick={(event) => {
+                        event.preventDefault()
+                        handleBrandClick()
+                    }}
+                >
                     <span className="header-brand-name">
                         eepol
                     </span>
@@ -15,13 +53,63 @@ function Header() {
                 </a>
 
                 <nav className="header-nav">
-                    <a href="#about">ABOUT</a>
-                    <a href="#gallery">GALLERY</a>
-                    <a href="#pricing">PRICING</a>
-                    <a href="#booking">BOOKING</a>
-                    <a href="#qna">Q&amp;A</a>
-                    <a href="#notice">NOTICE</a>
-                    <a href="#location">LOCATION</a>
+                    <a
+                        href="#about"
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleSectionClick('about')
+                        }}
+                    >
+                        ABOUT
+                    </a>
+
+                    <a
+                        href="#gallery"
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleSectionClick('gallery')
+                        }}
+                    >
+                        GALLERY
+                    </a>
+
+                    <a
+                        href="#pricing"
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleSectionClick('pricing')
+                        }}
+                    >
+                        PRICING
+                    </a>
+
+                    <a
+                        href="#booking"
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleSectionClick('booking')
+                        }}
+                    >
+                        BOOKING
+                    </a>
+
+                    <a href="/qna">
+                        Q&amp;A
+                    </a>
+
+                    <a href="/notice">
+                        NOTICE
+                    </a>
+
+                    <a
+                        href="#location"
+                        onClick={(event) => {
+                            event.preventDefault()
+                            handleSectionClick('location')
+                        }}
+                    >
+                        LOCATION
+                    </a>
                 </nav>
 
                 <div className="header-links">
