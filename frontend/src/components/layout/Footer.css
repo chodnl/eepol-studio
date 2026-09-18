@@ -1,0 +1,233 @@
+/* =========================
+   Footer Base
+========================= */
+
+.site-footer {
+    background: #003020;
+    color: #f7f6f0;
+    font-family: inherit;
+}
+
+/* =========================
+   Footer Main Layout
+========================= */
+
+.footer-inner {
+    display: grid;
+    /* 3컬럼 비율 */
+    grid-template-columns: 1.2fr 1fr 0.8fr;
+    gap: 32px;
+    /* 간격 대폭 축소 (기존 60~70px -> 32px) */
+    padding: 36px 48px 30px;
+    /* 위아래 패딩 대폭 축소 (기존 90px -> 36px) */
+    border-bottom: 1px solid rgba(243, 229, 154, 0.12);
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* =========================
+   1. Brand
+========================= */
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-eyebrow {
+    margin: 0 0 8px;
+    /* 여백 축소 */
+    color: #f3e59a;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.footer-brand h2 {
+    margin: 0;
+    color: #f7f6f0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.6rem;
+    /* 타이틀 크기 슬림하게 조정 */
+    font-weight: 400;
+    line-height: 1.25;
+    word-break: keep-all;
+}
+
+.footer-description {
+    margin: 10px 0 0;
+    /* 여백 축소 */
+    color: rgba(247, 246, 240, 0.65);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* =========================
+   2. Information
+========================= */
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    /* 항목 간 간격 타이트하게 조정 */
+}
+
+.footer-info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-info-group span,
+.footer-links-title {
+    margin-bottom: 4px;
+    /* 여백 축소 */
+    color: #f3e59a;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.footer-info-group p {
+    margin: 0;
+    color: rgba(247, 246, 240, 0.88);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.footer-info-group small {
+    margin-top: 2px;
+    color: rgba(247, 246, 240, 0.45);
+    font-size: 0.75rem;
+}
+
+.footer-info-group a {
+    color: #f7f6f0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-info-group a:hover {
+    color: #f3e59a;
+}
+
+/* =========================
+   3. Links
+========================= */
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-links-title {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    margin-bottom: 6px;
+    /* 링크 사이 간격 타이트하게 */
+    color: rgba(247, 246, 240, 0.75);
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #f3e59a;
+    transform: translateX(3px);
+}
+
+/* =========================
+   Bottom Bar
+========================= */
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 48px;
+    /* 바텀바 여백 최소화 */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(247, 246, 240, 0.4);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+}
+
+.footer-bottom a {
+    color: rgba(243, 229, 154, 0.75);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-bottom a:hover {
+    color: #f3e59a;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 980px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        padding: 30px 24px 24px;
+    }
+
+    .footer-links {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .footer-links-title {
+        margin-bottom: 0;
+        margin-right: 8px;
+    }
+
+    .footer-links a {
+        margin-bottom: 0;
+    }
+
+    .footer-bottom {
+        padding: 14px 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 28px 20px 20px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .footer-bottom {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 20px 18px;
+    }
+}
