@@ -4,6 +4,8 @@ import Home from './pages/Home'
 
 import Qna from "./components/qna/Qna";
 
+import Notice from './components/notice/Notice'
+
 import AdminLogin from './pages/AdminLogin'
 
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -22,7 +24,7 @@ function App() {
       <Route path="/" element={<Home />} />
 
       <Route path="/qna" element={<Qna />} />
-
+      <Route path="/notice" element={<Notice />} />
       <Route path="/admin/login" element={<AdminLogin />} />
 
       <Route element={<ProtectedRoute />}>
