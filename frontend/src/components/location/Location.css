@@ -1,0 +1,395 @@
+/* =========================
+   Location
+========================= */
+
+.location-section {
+    background: #f7f6f0;
+}
+
+.location-section .section-header {
+    margin-bottom: 50px;
+}
+
+
+/* =========================
+   Main
+========================= */
+
+.location-main {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(360px, 0.85fr);
+    gap: 24px;
+}
+
+
+/* =========================
+   Map
+========================= */
+
+.location-map {
+    position: relative;
+    min-height: 560px;
+
+    border: 1px solid rgba(0, 48, 32, 0.16);
+
+    background: #e9ebe4;
+
+    overflow: hidden;
+}
+
+.location-map-inner {
+    width: 100%;
+    height: 560px;
+}
+
+
+/* =========================
+   Custom Eepol Marker
+========================= */
+
+.eepol-marker {
+    position: relative;
+
+    width: 100px;
+    height: 76px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    pointer-events: none;
+}
+
+.eepol-marker-label {
+    position: relative;
+
+    padding: 9px 15px;
+
+    background: #003020;
+    color: #f3e59a;
+
+    border: 1px solid rgba(243, 229, 154, 0.35);
+
+    border-radius: 2px;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    letter-spacing: 0.04em;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 5px 18px rgba(0, 48, 32, 0.18);
+}
+
+.eepol-marker-label::after {
+    content: '';
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -5px;
+
+    width: 9px;
+    height: 9px;
+
+    background: #003020;
+
+    border-right: 1px solid rgba(243, 229, 154, 0.25);
+    border-bottom: 1px solid rgba(243, 229, 154, 0.25);
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+}
+
+.eepol-marker-pin {
+    position: absolute;
+
+    top: 42px;
+    left: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #f3e59a;
+    border-radius: 50%;
+
+    background: #003020;
+    color: #f3e59a;
+
+    transform: translateX(-50%);
+
+    box-shadow:
+        0 4px 12px rgba(0, 48, 32, 0.25);
+}
+
+.eepol-marker-pin span {
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 15px;
+    font-style: italic;
+
+    line-height: 1;
+}
+
+
+/* =========================
+   Old Map Elements
+========================= */
+
+.location-pin,
+.location-map-info {
+    display: none;
+}
+
+
+/* =========================
+   Map Button
+========================= */
+
+.location-map-button {
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 10;
+
+    display: inline-flex;
+    align-items: center;
+
+    padding: 13px 17px;
+
+    border: 1px solid #003020;
+
+    background: #003020;
+    color: #f3e59a;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 0.7rem;
+    font-weight: 400;
+
+    letter-spacing: 0.04em;
+
+    text-decoration: none;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.location-map-button:hover {
+    background: #f3e59a;
+    color: #003020;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   Information
+========================= */
+
+.location-info {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    border-top: 1px solid rgba(0, 48, 32, 0.16);
+    border-left: 1px solid rgba(0, 48, 32, 0.16);
+
+    background: #f7f6f0;
+}
+
+.location-item {
+    min-height: 150px;
+
+    padding: 27px 25px;
+
+    border-right: 1px solid rgba(0, 48, 32, 0.16);
+    border-bottom: 1px solid rgba(0, 48, 32, 0.16);
+
+    box-sizing: border-box;
+
+    transition:
+        background 0.2s ease;
+}
+
+.location-item:hover {
+    background: #f2f0e7;
+}
+
+
+/* Label */
+
+.location-item span {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #6f766f;
+
+    font-size: 0.58rem;
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* Main Text */
+
+.location-item strong {
+    display: block;
+
+    color: #1d241f;
+
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    line-height: 1.7;
+}
+
+
+/* Secondary Text */
+
+.location-item p {
+    margin: 7px 0 0;
+
+    color: #6f766f;
+
+    font-size: 0.67rem;
+
+    line-height: 1.6;
+}
+
+
+/* Phone */
+
+.location-item a {
+    color: #003020;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 1.05rem;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    transition: opacity 0.2s ease;
+}
+
+.location-item a:hover {
+    opacity: 0.65;
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 980px) {
+    .location-main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .location-map {
+        min-height: 440px;
+    }
+
+    .location-map-inner {
+        height: 440px;
+    }
+
+    .location-info {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 640px) {
+    .location-section .section-header {
+        margin-bottom: 35px;
+    }
+
+    .location-main {
+        gap: 18px;
+    }
+
+    .location-map {
+        min-height: 320px;
+    }
+
+    .location-map-inner {
+        height: 320px;
+    }
+
+    .location-map-button {
+        right: 14px;
+        bottom: 14px;
+
+        padding: 11px 14px;
+
+        font-size: 0.62rem;
+    }
+
+    .location-info {
+        grid-template-columns: 1fr;
+    }
+
+    .location-item {
+        min-height: auto;
+
+        padding: 22px;
+    }
+
+    .location-item span {
+        margin-bottom: 11px;
+    }
+
+    .location-item strong {
+        font-size: 0.78rem;
+    }
+
+    .location-item a {
+        font-size: 0.95rem;
+    }
+
+    .eepol-marker-label {
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .eepol-marker-pin {
+        width: 27px;
+        height: 27px;
+    }
+}
