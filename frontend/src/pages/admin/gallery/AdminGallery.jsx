@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import GalleryList from '../../../components/admin/gallery/GalleryList'
 import GalleryEditor from '../../../components/admin/gallery/GalleryEditor'
+import HeroManager from '../../../components/admin/gallery/HeroManager'
+import './AdminGallery.css'
 
 import {
     getGallery,
@@ -36,6 +38,7 @@ function AdminGallery() {
                         category: item.category,
                         src: item.imageUrl,
                         isHero: item.isHero ?? false,
+                        heroOrder: item.heroOrder ?? null,
                     })),
                 )
             } catch (error) {
@@ -195,8 +198,8 @@ function AdminGallery() {
     }
 
     return (
-        <section className="section admin-grid">
-            <div className="admin-panel">
+        <section className="gallery-admin-grid">
+            <div className="gallery-admin-panel">
                 <div className="section-header left-align">
                     <p className="eyebrow">admin</p>
                     <h2>사진 관리</h2>
@@ -215,6 +218,11 @@ function AdminGallery() {
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                     onMove={handleMove}
+                />
+
+                <HeroManager
+                    photos={photos}
+                    onUpdate={setPhotos}
                 />
 
                 {message && (

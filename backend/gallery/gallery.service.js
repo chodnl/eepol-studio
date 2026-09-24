@@ -80,11 +80,28 @@ const updateGalleryOrder = async (items) => {
     return await Gallery.bulkWrite(operations);
 };
 
+const updateHeroOrder = async (items) => {
+    const operations = items.map((item) => ({
+        updateOne: {
+            filter: {
+                _id: item.id,
+                isHero: true,
+            },
+            update: {
+                heroOrder: item.heroOrder,
+            },
+        },
+    }));
+
+    return await Gallery.bulkWrite(operations);
+};
+
 module.exports = {
     getGallery,
     getGalleryById,
     createGallery,
     updateGallery,
     updateGalleryOrder,
+    updateHeroOrder,
     deleteGallery,
 };

@@ -22,6 +22,12 @@ router.patch(
 );
 
 router.patch(
+    "/hero-order",
+    authMiddleware,
+    galleryController.updateHeroOrder,
+);
+
+router.patch(
     "/:id",
     authMiddleware,
     galleryController.updateGallery,
