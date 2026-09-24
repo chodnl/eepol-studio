@@ -5,6 +5,19 @@ const getGallery = async () => {
 };
 
 const createGallery = async (galleryData) => {
+    if (galleryData.isHero) {
+        const lastHero = await Gallery.findOne({
+            isHero: true,
+        }).sort({ heroOrder: -1 });
+
+        galleryData.heroOrder =
+            lastHero?.heroOrder
+                ? lastHero.heroOrder + 1
+                : 1;
+    } else {
+        galleryData.heroOrder = null;
+    }
+
     const gallery = await Gallery.create(galleryData);
 
     return gallery;
@@ -19,6 +32,33 @@ const getGalleryById = async (id) => {
 };
 
 const updateGallery = async (id, galleryData) => {
+    const currentGallery = await Gallery.findById(id);
+
+    if (!currentGallery) {
+        throw new Error("갤러리 사진을 찾을 수 없습니다.");
+    }
+
+    if (
+        galleryData.isHero === true &&
+        !currentGallery.isHero
+    ) {
+        const lastHero = await Gallery.findOne({
+            isHero: true,
+        }).sort({ heroOrder: -1 });
+
+        galleryData.heroOrder =
+            lastHero?.heroOrder
+                ? lastHero.heroOrder + 1
+                : 1;
+    }
+
+    if (
+        galleryData.isHero === false &&
+        currentGallery.isHero
+    ) {
+        galleryData.heroOrder = null;
+    }
+
     return await Gallery.findByIdAndUpdate(
         id,
         galleryData,

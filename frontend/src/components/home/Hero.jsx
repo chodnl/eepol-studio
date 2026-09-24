@@ -27,7 +27,7 @@ function Hero() {
 
                 const images = result.data
                     .filter((item) => item.isHero)
-                    .sort((a, b) => a.order - b.order)
+                    .sort((a, b) => a.heroOrder - b.heroOrder)
 
                 setHeroImages(images)
             } catch (error) {
