@@ -46,5 +46,5 @@ module.exports = {
     createGallery,
     updateGallery,
     updateGalleryOrder,
-    deleteGallery
+    deleteGallery,
 };

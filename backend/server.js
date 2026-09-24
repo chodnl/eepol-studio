@@ -39,7 +39,6 @@ app.use("/api/location", locationRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/admin", adminRoutes);
 
-
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

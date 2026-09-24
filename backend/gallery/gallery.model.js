@@ -29,6 +29,10 @@ const gallerySchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        heroOrder: {
+            type: Number,
+            default: null,
+        },
     },
     {
         timestamps: true,
