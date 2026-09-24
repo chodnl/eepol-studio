@@ -1,0 +1,774 @@
+/* =========================
+   Gallery Admin
+========================= */
+
+.gallery-admin-grid {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-admin-panel {
+    width: 100%;
+}
+
+
+/* =========================
+   Gallery Header
+========================= */
+
+.gallery-admin-panel .section-header {
+    margin-bottom: 32px;
+}
+
+.gallery-admin-panel .section-header h2 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+
+/* =========================
+   Gallery List
+========================= */
+
+.photo-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+
+/* =========================
+   Gallery Card
+========================= */
+
+.photo-item {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.photo-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 48, 32, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 48, 32, 0.06);
+}
+
+
+/* =========================
+   Image
+========================= */
+
+.photo-image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #eee;
+}
+
+.photo-image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================
+   HERO Badge
+========================= */
+
+.hero-badge {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 7px;
+    padding: 4px 8px;
+
+    border: 1px solid #52705f;
+    color: #52705f;
+
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+
+/* =========================
+   Photo Meta
+========================= */
+
+.photo-meta {
+    padding: 18px;
+}
+
+.photo-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.photo-order {
+    flex-shrink: 0;
+
+    color: #8b928c;
+
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.85rem;
+}
+
+.photo-info>div {
+    min-width: 0;
+}
+
+.photo-info strong {
+    display: block;
+    margin-bottom: 5px;
+
+    overflow: hidden;
+
+    color: #1d241f;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.photo-info>div>span {
+    display: block;
+
+    color: #7a827b;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================
+   Actions
+========================= */
+
+.photo-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.photo-actions button {
+    min-width: 64px;
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #39433c;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.photo-actions button:hover {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.photo-actions .danger {
+    border-color: rgba(138, 63, 63, 0.2);
+    color: #8a3f3f;
+}
+
+.photo-actions .danger:hover {
+    border-color: #8a3f3f;
+    background: #8a3f3f;
+    color: #ffffff;
+}
+
+.image-preview {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 4 / 3;
+    margin: 24px 0 28px;
+    overflow: hidden;
+    background: #f1f1ec;
+}
+
+.image-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================
+   Gallery Editor Layout
+========================= */
+
+.editor-box {
+    display: block;
+    width: 100%;
+    margin-bottom: 36px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+}
+
+.editor-header {
+    margin-bottom: 20px;
+}
+
+.editor-eyebrow {
+    margin: 0 0 5px;
+    color: #52705f;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+}
+
+.editor-header h3 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+/* =========================
+   등록 영역 가운데 정렬
+========================= */
+
+.image-preview {
+    width: 360px;
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    background: #f1f1ec;
+}
+
+.image-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.editor-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.editor-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editor-field>span {
+    color: #39433c;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.editor-field input[type="text"],
+.editor-field input[type="file"] {
+    width: 100%;
+    min-height: 42px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    border: 1px solid rgba(0, 48, 32, 0.14);
+    background: #fafaf7;
+    color: #1d241f;
+    font-family: inherit;
+    font-size: 0.78rem;
+}
+
+.editor-field input[type="file"] {
+    padding: 9px 12px;
+}
+
+.editor-field input:focus {
+    outline: none;
+    border-color: #52705f;
+}
+
+.editor-field small {
+    color: #7a827b;
+    font-size: 0.65rem;
+}
+
+/* Hero */
+
+.editor-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 4px auto 0;
+    color: #39433c;
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+
+.editor-checkbox input {
+    width: 14px;
+    height: 14px;
+    accent-color: #003020;
+}
+
+/* 등록 버튼 */
+
+.editor-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.editor-actions .primary-btn {
+    min-width: 100px;
+    min-height: 40px;
+}
+
+/* Hero Manager */
+
+.hero-manager {
+    margin-top: 48px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+}
+
+.hero-manager-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.hero-manager-header h3 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.hero-manager-header>span {
+    color: #7a827b;
+    font-size: 0.7rem;
+}
+
+.hero-manager-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hero-manager-item {
+    display: grid;
+    grid-template-columns: 36px 72px 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    background: #fafaf7;
+    border: 1px solid rgba(0, 48, 32, 0.08);
+}
+
+.hero-manager-order {
+    color: #8b928c;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.8rem;
+}
+
+.hero-manager-item img {
+    display: block;
+    width: 72px;
+    height: 54px;
+    object-fit: cover;
+}
+
+.hero-manager-info {
+    min-width: 0;
+}
+
+.hero-manager-info strong {
+    display: block;
+    margin-bottom: 4px;
+    overflow: hidden;
+    color: #1d241f;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hero-manager-info span {
+    color: #7a827b;
+    font-size: 0.68rem;
+}
+
+.hero-manager-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.hero-manager-actions button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #39433c;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.hero-manager-actions button:hover:not(:disabled) {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.hero-manager-actions button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.hero-manager-empty {
+    margin: 0;
+    color: #7a827b;
+    font-size: 0.75rem;
+}
+
+.gallery-list-section {
+    margin-top: 48px;
+}
+
+.gallery-list-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.gallery-list-header h3 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.gallery-list-header>span {
+    color: #7a827b;
+    font-size: 0.7rem;
+}
+
+/* 페이지네이션 */
+.gallery-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 32px;
+}
+
+.gallery-pagination button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #59625b;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.gallery-pagination button:hover:not(:disabled) {
+    border-color: #003020;
+    color: #003020;
+}
+
+.gallery-pagination button.active {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.gallery-pagination button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.gallery-pagination button:first-child,
+.gallery-pagination button:last-child {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .hero-manager {
+        padding: 18px;
+    }
+
+    .hero-manager-item {
+        grid-template-columns: 28px 56px 1fr auto;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .hero-manager-item img {
+        width: 56px;
+        height: 44px;
+    }
+
+    .hero-manager-actions button {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Category Manager */
+
+.category-manager {
+    margin-top: 24px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+}
+
+.category-manager-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.category-manager-header h3 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.category-manager-header>span {
+    color: #7a827b;
+    font-size: 0.7rem;
+}
+
+.category-manager-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 48, 32, 0.08);
+}
+
+.category-manager-tabs button {
+    padding: 8px 13px;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #6f766f;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.category-manager-tabs button:hover {
+    border-color: #52705f;
+    color: #003020;
+}
+
+.category-manager-tabs button.active {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.category-manager-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category-manager-item {
+    display: grid;
+    grid-template-columns: 36px 72px 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    background: #fafaf7;
+    border: 1px solid rgba(0, 48, 32, 0.08);
+}
+
+.category-manager-order {
+    color: #8b928c;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.8rem;
+}
+
+.category-manager-item img {
+    display: block;
+    width: 72px;
+    height: 54px;
+    object-fit: cover;
+}
+
+.category-manager-info {
+    min-width: 0;
+}
+
+.category-manager-info strong {
+    display: block;
+    margin-bottom: 4px;
+    overflow: hidden;
+    color: #1d241f;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.category-manager-info span {
+    color: #7a827b;
+    font-size: 0.68rem;
+}
+
+.category-manager-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.category-manager-actions button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #39433c;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.category-manager-actions button:hover:not(:disabled) {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.category-manager-actions button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.category-manager-empty {
+    margin: 0;
+    color: #7a827b;
+    font-size: 0.75rem;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 900px) {
+    .photo-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+
+    /* Gallery */
+    .photo-list {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-meta {
+        padding: 16px;
+    }
+
+    /* Gallery list */
+    .gallery-list-section {
+        margin-top: 36px;
+    }
+
+    .gallery-list-header {
+        margin-bottom: 16px;
+    }
+
+    .gallery-pagination {
+        margin-top: 24px;
+        gap: 4px;
+    }
+
+    .gallery-pagination button {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Category */
+    .category-manager {
+        padding: 18px;
+    }
+
+    .category-manager-item {
+        grid-template-columns: 28px 56px 1fr auto;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .category-manager-item img {
+        width: 56px;
+        height: 44px;
+    }
+
+    .category-manager-actions button {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Editor */
+    .editor-box {
+        padding: 22px;
+    }
+
+    .image-preview {
+        max-width: 100%;
+    }
+
+    .editor-fields {
+        max-width: 100%;
+    }
+}

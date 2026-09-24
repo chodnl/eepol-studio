@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import GalleryList from '../../../components/admin/gallery/GalleryList'
 import GalleryEditor from '../../../components/admin/gallery/GalleryEditor'
 import HeroManager from '../../../components/admin/gallery/HeroManager'
+import CategoryManager from '../../../components/admin/gallery/CategoryManager'
 import './AdminGallery.css'
 
 import {
@@ -217,10 +218,14 @@ function AdminGallery() {
                     photos={photos}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onMove={handleMove}
                 />
 
                 <HeroManager
+                    photos={photos}
+                    onUpdate={setPhotos}
+                />
+
+                <CategoryManager
                     photos={photos}
                     onUpdate={setPhotos}
                 />

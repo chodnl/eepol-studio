@@ -33,6 +33,10 @@ const gallerySchema = new mongoose.Schema(
             type: Number,
             default: null,
         },
+        categoryOrder: {
+            type: Number,
+            default: null,
+        },
     },
     {
         timestamps: true,

@@ -239,6 +239,30 @@ const updateHeroOrder = async (req, res) => {
     }
 };
 
+const updateCategoryOrder = async (req, res) => {
+    try {
+        const items = req.body.items;
+
+        const result =
+            await galleryService.updateCategoryOrder(items);
+
+        res.json({
+            success: true,
+            data: result,
+        });
+    } catch (error) {
+        console.error(
+            "Update category order error:",
+            error,
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update category order",
+        });
+    }
+};
+
 const deleteGallery = async (req, res) => {
     try {
         const gallery =
@@ -275,5 +299,6 @@ module.exports = {
     updateGallery,
     updateGalleryOrder,
     updateHeroOrder,
+    updateCategoryOrder,
     deleteGallery,
 };

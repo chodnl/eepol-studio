@@ -28,6 +28,12 @@ router.patch(
 );
 
 router.patch(
+    "/category-order",
+    authMiddleware,
+    galleryController.updateCategoryOrder,
+);
+
+router.patch(
     "/:id",
     authMiddleware,
     galleryController.updateGallery,

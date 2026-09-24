@@ -96,6 +96,47 @@ const updateHeroOrder = async (items) => {
     return await Gallery.bulkWrite(operations);
 };
 
+const updateCategoryOrder = async (items) => {
+    const operations = items.map((item) => ({
+        updateOne: {
+            filter: {
+                _id: item.id,
+                category: item.category,
+            },
+            update: {
+                categoryOrder: item.categoryOrder,
+            },
+        },
+    }));
+
+    return await Gallery.bulkWrite(operations);
+};
+
+const initializeCategoryOrder = async () => {
+    const categories = await Gallery.distinct("category");
+
+    for (const category of categories) {
+        const galleries = await Gallery.find({
+            category,
+        }).sort({ order: 1 });
+
+        const operations = galleries.map((gallery, index) => ({
+            updateOne: {
+                filter: { _id: gallery._id },
+                update: {
+                    categoryOrder: index + 1,
+                },
+            },
+        }));
+
+        if (operations.length > 0) {
+            await Gallery.bulkWrite(operations);
+        }
+    }
+
+    console.log("Category order initialized");
+};
+
 module.exports = {
     getGallery,
     getGalleryById,
@@ -103,5 +144,6 @@ module.exports = {
     updateGallery,
     updateGalleryOrder,
     updateHeroOrder,
+    updateCategoryOrder,
     deleteGallery,
 };

@@ -124,6 +124,33 @@ export const updateHeroOrder = async (items) => {
     return result.data
 }
 
+export const updateCategoryOrder = async (items) => {
+    const token = localStorage.getItem('adminToken')
+
+    if (!token) {
+        throw new Error('관리자 인증이 필요합니다.')
+    }
+
+    const response = await fetch(`${API_URL}/category-order`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ items }),
+    })
+
+    const result = await response.json()
+
+    if (!response.ok || !result.success) {
+        throw new Error(
+            result.message || '카테고리 순서 변경에 실패했습니다.',
+        )
+    }
+
+    return result.data
+}
+
 export const createGallery = async ({
     file,
     title,

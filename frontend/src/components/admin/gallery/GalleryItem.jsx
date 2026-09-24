@@ -1,60 +1,55 @@
 function GalleryItem({
     photo,
     index,
-    total,
     onEdit,
     onDelete,
-    onMove,
 }) {
     return (
-        <div className="photo-item">
-            <img
-                src={photo.src}
-                alt={photo.title}
-            />
+        <article className="photo-item">
+            <div className="photo-image-wrap">
+                <img
+                    src={photo.src}
+                    alt={photo.title}
+                />
+            </div>
 
             <div className="photo-meta">
-                <strong>{photo.title}</strong>
-                <span>{photo.category}</span>
+                <div className="photo-info">
+                    <span className="photo-order">
+                        {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <div>
+                        <strong>{photo.title}</strong>
+
+                        <span>{photo.category}</span>
+
+                        {photo.isHero && (
+                            <span className="hero-badge">
+                                HERO
+                            </span>
+                        )}
+                    </div>
+                </div>
+
+                <div className="photo-actions">
+                    <button
+                        type="button"
+                        onClick={() => onEdit(photo)}
+                    >
+                        수정
+                    </button>
+
+                    <button
+                        type="button"
+                        className="danger"
+                        onClick={() => onDelete(photo.id)}
+                    >
+                        삭제
+                    </button>
+                </div>
             </div>
-
-            <div className="photo-actions">
-                <button
-                    type="button"
-                    onClick={() =>
-                        onMove(index, index - 1)
-                    }
-                    disabled={index === 0}
-                >
-                    ↑
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() =>
-                        onMove(index, index + 1)
-                    }
-                    disabled={index === total - 1}
-                >
-                    ↓
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => onEdit(photo)}
-                >
-                    수정
-                </button>
-
-                <button
-                    type="button"
-                    className="danger"
-                    onClick={() => onDelete(photo.id)}
-                >
-                    삭제
-                </button>
-            </div>
-        </div>
+        </article>
     )
 }
 

@@ -15,7 +15,7 @@ const adminRoutes = require("./admin/admin.routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-connectDB();
+connectDB()
 
 app.use(cors());
 app.use(express.json());
