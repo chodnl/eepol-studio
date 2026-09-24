@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom'
+import './AdminLayout.css'
 
 function AdminLayout() {
     return (
         <div className="admin-layout">
             <header className="admin-header">
-                <h1>EPOL STUDIO</h1>
+                <h1>EEPOL STUDIO</h1>
 
                 <button
                     type="button"
