@@ -172,71 +172,77 @@ function AdminBooking() {
                 onMonthChange={handleMonthChange}
             />
 
-            <div>
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleStatusFilterChange('all')
-                    }
-                >
-                    전체
-                </button>
+            <div className="booking-filters">
+                <div className="booking-status-filters">
+                    <button
+                        type="button"
+                        className={statusFilter === 'all' ? 'active' : ''}
+                        onClick={() =>
+                            handleStatusFilterChange('all')
+                        }
+                    >
+                        전체
+                    </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleStatusFilterChange('pending')
-                    }
-                >
-                    예약 대기
-                </button>
+                    <button
+                        type="button"
+                        className={statusFilter === 'pending' ? 'active' : ''}
+                        onClick={() =>
+                            handleStatusFilterChange('pending')
+                        }
+                    >
+                        예약 대기
+                    </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleStatusFilterChange('confirmed')
-                    }
-                >
-                    예약 확정
-                </button>
+                    <button
+                        type="button"
+                        className={statusFilter === 'confirmed' ? 'active' : ''}
+                        onClick={() =>
+                            handleStatusFilterChange('confirmed')
+                        }
+                    >
+                        예약 확정
+                    </button>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleStatusFilterChange('completed')
-                    }
-                >
-                    촬영 완료
-                </button>
+                    <button
+                        type="button"
+                        className={statusFilter === 'completed' ? 'active' : ''}
+                        onClick={() =>
+                            handleStatusFilterChange('completed')
+                        }
+                    >
+                        촬영 완료
+                    </button>
+                </div>
 
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleStatusFilterChange('cancelled')
-                    }
-                >
-                    예약 취소
-                </button>
+                <div className="booking-search">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="이름 또는 전화번호 검색"
+                    />
+                </div>
             </div>
 
-            <div>
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="이름 또는 전화번호 검색"
-                />
-            </div>
+            <div className="booking-list-header">
+                <div>
+                    <p className="booking-list-eyebrow">
+                        RESERVATIONS
+                    </p>
 
-            <p>
-                총 {filteredBookings.length}개의 예약
-            </p>
+                    <h2>예약 목록</h2>
+                </div>
+
+                <span>
+                    총 {filteredBookings.length}개의 예약
+                </span>
+            </div>
 
             <BookingList
                 bookings={paginatedBookings}
                 editingBookingId={editingBooking?._id}
                 onEdit={handleEdit}
-                onDelete={handleDelete}
                 renderEditor={(booking) => (
                     <BookingEditor
                         booking={booking}

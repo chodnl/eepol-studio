@@ -193,17 +193,22 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                                                 <button
                                                     key={booking._id}
                                                     type="button"
-                                                    className="calendar-booking"
+                                                    className={`calendar-booking status-${booking.status}`}
                                                     onClick={() =>
-                                                        onSelectBooking(
-                                                            booking
-                                                        )
+                                                        onSelectBooking(booking)
                                                     }
                                                 >
                                                     <span>
                                                         {
                                                             booking.time
                                                         }
+                                                    </span>
+                                                    <span className="calendar-booking-status">
+                                                        {booking.status === 'pending' && '예약 대기'}
+
+                                                        {booking.status === 'confirmed' && '예약 확정'}
+
+                                                        {booking.status === 'completed' && '촬영 완료'}
                                                     </span>
 
                                                     <span>
