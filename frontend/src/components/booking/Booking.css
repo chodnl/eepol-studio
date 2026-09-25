@@ -6,13 +6,15 @@
     display: grid;
     grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.84fr);
     gap: 32px;
-    align-items: stretch; /* 좌/우 박스 세로 전체 높이 정렬 */
+    align-items: stretch;
+    /* 좌/우 박스 세로 전체 높이 정렬 */
 }
 
 .booking-side {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* 간격 고정 */
+    gap: 12px;
+    /* 간격 고정 */
     height: 100%;
 }
 
@@ -247,7 +249,8 @@
 .booking-calendar {
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 22px; /* 여백을 조금 늘려 전체적 안정감 확보 */
+    padding: 20px 22px;
+    /* 여백을 조금 늘려 전체적 안정감 확보 */
     background: #ffffff;
     border: 1px solid rgba(0, 48, 32, 0.1);
 }
@@ -327,7 +330,8 @@
 .booking-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 34px !important; /* 28px -> 34px로 확대하여 시원하게 표시 */
+    grid-auto-rows: 34px !important;
+    /* 28px -> 34px로 확대하여 시원하게 표시 */
     gap: 3px;
     width: 100%;
     box-sizing: border-box;
@@ -337,7 +341,8 @@
 .calendar-day,
 .booking-calendar-grid button {
     width: 100% !important;
-    height: 34px !important; /* 버튼 세로 높이 34px 고정 */
+    height: 34px !important;
+    /* 버튼 세로 높이 34px 고정 */
     min-height: 34px !important;
     max-height: 34px !important;
     box-sizing: border-box !important;
@@ -350,6 +355,7 @@
 .calendar-day,
 .booking-calendar-grid button {
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
@@ -358,7 +364,7 @@
     background: transparent;
     color: #59625b;
     font-family: inherit;
-    font-size: 0.75rem; /* 글자 크기도 자연스럽게 약간 조절 */
+    font-size: 0.75rem;
     font-weight: 400;
     line-height: 1 !important;
     cursor: pointer;
@@ -378,7 +384,8 @@
 ========================= */
 
 .booking-side .info-box {
-    flex: 1; /* 남은 높이 공간을 인포박스 2개가 1:1로 자동으로 분배하여 밑선을 맞춰줍니다 */
+    flex: 1;
+    /* 남은 높이 공간을 인포박스 2개가 1:1로 자동으로 분배하여 밑선을 맞춰줍니다 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -415,6 +422,31 @@
     line-height: 1.4;
 }
 
+.booking-calendar-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-top: 14px;
+
+    color: #8a918b;
+    font-size: 0.6rem;
+}
+
+.booking-calendar-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.booking-calendar-legend .booking-indicator {
+    flex: 0 0 auto;
+
+    width: 5px;
+    height: 5px;
+    margin-top: 0;
+}
+
 
 /* =========================
    Tablet
@@ -433,6 +465,22 @@
     }
 }
 
+.booking-indicator {
+    display: block;
+
+    width: 5px;
+    height: 5px;
+
+    margin-top: 3px;
+
+    border-radius: 50%;
+
+    background: #f3e59a;
+}
+
+.booking-indicator.many {
+    background: #003020;
+}
 
 /* =========================
    Mobile

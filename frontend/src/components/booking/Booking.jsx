@@ -86,7 +86,6 @@ function Booking() {
             [name]: value,
         }))
 
-        // 날짜를 변경하면 기존 선택 시간 초기화
         if (name === 'date') {
             setBooking((prev) => ({
                 ...prev,
@@ -95,6 +94,18 @@ function Booking() {
             }))
         }
     }
+
+    const bookingCountByDate = useMemo(() => {
+        return availability.reduce((acc, item) => {
+            if (!acc[item.date]) {
+                acc[item.date] = 0
+            }
+
+            acc[item.date] += 1
+
+            return acc
+        }, {})
+    }, [availability])
 
     const handleTimeSelect = (time) => {
         setBooking((prev) => ({
@@ -165,6 +176,61 @@ function Booking() {
         } finally {
             setIsSubmitting(false)
         }
+    }
+
+    const today = new Date()
+
+    const [calendarDate, setCalendarDate] = useState(
+        new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+        )
+    )
+
+    const calendarYear = calendarDate.getFullYear()
+    const calendarMonth = calendarDate.getMonth()
+
+    const firstDay = new Date(
+        calendarYear,
+        calendarMonth,
+        1
+    ).getDay()
+
+    const lastDate = new Date(
+        calendarYear,
+        calendarMonth + 1,
+        0
+    ).getDate()
+
+    const calendarDays = []
+
+    for (let i = 0; i < firstDay; i += 1) {
+        calendarDays.push(null)
+    }
+
+    for (let day = 1; day <= lastDate; day += 1) {
+        calendarDays.push(day)
+    }
+
+    const handlePreviousMonth = () => {
+        setCalendarDate(
+            new Date(
+                calendarYear,
+                calendarMonth - 1,
+                1
+            )
+        )
+    }
+
+    const handleNextMonth = () => {
+        setCalendarDate(
+            new Date(
+                calendarYear,
+                calendarMonth + 1,
+                1
+            )
+        )
     }
 
     const handleKakaoClick = () => {
@@ -337,13 +403,21 @@ function Booking() {
             <aside className="booking-side">
                 <div className="booking-calendar">
                     <div className="booking-calendar-header">
-                        <button type="button">
+                        <button
+                            type="button"
+                            onClick={handlePreviousMonth}
+                        >
                             ‹
                         </button>
 
-                        <h3>2026년 10월</h3>
+                        <h3>
+                            {calendarYear}년 {calendarMonth + 1}월
+                        </h3>
 
-                        <button type="button">
+                        <button
+                            type="button"
+                            onClick={handleNextMonth}
+                        >
                             ›
                         </button>
                     </div>
@@ -359,7 +433,54 @@ function Booking() {
                     </div>
 
                     <div className="booking-calendar-grid">
-                        {/* 날짜는 다음 단계에서 연결 */}
+                        {calendarDays.map((day, index) => {
+                            if (!day) {
+                                return (
+                                    <span
+                                        key={`empty-${index}`}
+                                        className="calendar-empty"
+                                    />
+                                )
+                            }
+
+                            const dateString = `${calendarYear}-${String(
+                                calendarMonth + 1
+                            ).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+
+                            const bookingCount =
+                                bookingCountByDate[dateString] || 0
+
+                            return (
+                                <button
+                                    key={day}
+                                    type="button"
+                                    className="calendar-day"
+                                >
+                                    <span>{day}</span>
+
+                                    {bookingCount > 0 && (
+                                        <span
+                                            className={
+                                                bookingCount >= 2
+                                                    ? 'booking-indicator many'
+                                                    : 'booking-indicator'
+                                            }
+                                        />
+                                    )}
+                                </button>
+                            )
+                        })}
+                    </div>
+                    <div className="booking-calendar-legend">
+                        <span>
+                            <i className="booking-indicator" />
+                            일부 예약
+                        </span>
+
+                        <span>
+                            <i className="booking-indicator many" />
+                            예약 많음
+                        </span>
                     </div>
                 </div>
 
@@ -382,7 +503,7 @@ function Booking() {
                     <p>운영시간: 평일 11:00 - 17:00</p>
                 </div>
             </aside>
-        </section>
+        </section >
     )
 }
 
