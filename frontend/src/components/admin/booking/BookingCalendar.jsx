@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import './BookingCalendar.css'
 
 function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
     const today = new Date()
@@ -92,17 +93,19 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
     }
 
     return (
-        <section>
-            <div>
+        <section className="booking-calendar">
+            <div className="booking-calendar-header">
                 <button
                     type="button"
+                    className="calendar-nav-btn"
                     onClick={handlePreviousMonth}
                 >
-                    이전
+                    ‹
                 </button>
 
                 <button
                     type="button"
+                    className="calendar-month-btn"
                     onClick={handleOpenMonthPicker}
                 >
                     <span>
@@ -112,35 +115,34 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
 
                 <button
                     type="button"
+                    className="calendar-nav-btn"
                     onClick={handleNextMonth}
                 >
-                    다음
+                    ›
                 </button>
             </div>
 
             {isMonthPickerOpen && (
-                <div>
-                    <div>
+                <div className="calendar-month-picker">
+                    <div className="month-picker-header">
                         <button
                             type="button"
                             onClick={handlePreviousYear}
                         >
-                            이전 년
+                            ‹
                         </button>
 
-                        <strong>
-                            {pickerYear}년
-                        </strong>
+                        <strong>{pickerYear}년</strong>
 
                         <button
                             type="button"
                             onClick={handleNextYear}
                         >
-                            다음 년
+                            ›
                         </button>
                     </div>
 
-                    <div>
+                    <div className="month-picker-grid">
                         {Array.from(
                             { length: 12 },
                             (_, index) => (
@@ -148,9 +150,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                                     key={index}
                                     type="button"
                                     onClick={() =>
-                                        handleSelectMonth(
-                                            index
-                                        )
+                                        handleSelectMonth(index)
                                     }
                                 >
                                     {index + 1}월
@@ -161,7 +161,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                 </div>
             )}
 
-            <div>
+            <div className="calendar-weekdays">
                 <div>일</div>
                 <div>월</div>
                 <div>화</div>
@@ -171,7 +171,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                 <div>토</div>
             </div>
 
-            <div>
+            <div className="calendar-grid">
                 {calendarDays.map((day, index) => {
                     const dayBookings =
                         getBookingsForDate(day)
@@ -179,19 +179,21 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                     return (
                         <div
                             key={`${year}-${month}-${index}`}
+                            className="calendar-day"
                         >
                             {day && (
                                 <>
-                                    <strong>
+                                    <strong className="calendar-day-number">
                                         {day}
                                     </strong>
 
-                                    <div>
+                                    <div className="calendar-bookings">
                                         {dayBookings.map(
                                             (booking) => (
                                                 <button
                                                     key={booking._id}
                                                     type="button"
+                                                    className="calendar-booking"
                                                     onClick={() =>
                                                         onSelectBooking(
                                                             booking
@@ -199,7 +201,9 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                                                     }
                                                 >
                                                     <span>
-                                                        {booking.time}
+                                                        {
+                                                            booking.time
+                                                        }
                                                     </span>
 
                                                     <span>

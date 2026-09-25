@@ -1,0 +1,65 @@
+.booking-admin {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.booking-admin-header {
+    margin-bottom: 28px;
+}
+
+.booking-admin-eyebrow {
+    margin: 0 0 10px;
+    color: #52705f;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+}
+
+.booking-admin-header h1 {
+    margin: 0 0 10px;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.booking-admin-header p:last-child {
+    margin: 0;
+    color: #7a827b;
+    font-size: 0.85rem;
+}
+
+.booking-admin-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 32px;
+}
+
+.booking-primary-btn {
+    padding: 12px 20px;
+    border: 1px solid #003020;
+    background: #003020;
+    color: #f7f6f0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.booking-primary-btn:hover {
+    background: #f3e59a;
+    color: #003020;
+}
+
+@media (max-width: 600px) {
+    .booking-admin-header h1 {
+        font-size: 1.7rem;
+    }
+
+    .booking-admin-actions {
+        justify-content: flex-start;
+    }
+}

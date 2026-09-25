@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
+import './AdminBooking.css'
 import useBookings from '../../../components/admin/booking/useBookings'
+
 
 import {
     filterBookingsByMonth,
@@ -131,15 +133,28 @@ function AdminBooking() {
     }
 
     return (
-        <div>
-            <h1>예약 관리</h1>
+        <div className="booking-admin">
+            <div className="booking-admin-header">
+                <p className="booking-admin-eyebrow">
+                    RESERVATION
+                </p>
 
-            <button
-                type="button"
-                onClick={handleOpenCreate}
-            >
-                예약 등록
-            </button>
+                <h1>예약 관리</h1>
+
+                <p>
+                    촬영 예약과 일정을 한눈에 관리합니다.
+                </p>
+            </div>
+
+            <div className="booking-admin-actions">
+                <button
+                    type="button"
+                    className="booking-primary-btn"
+                    onClick={handleOpenCreate}
+                >
+                    예약 등록
+                </button>
+            </div>
 
             {message && <p>{message}</p>}
 
