@@ -25,6 +25,8 @@ function Booking() {
 
     const [availability, setAvailability] = useState([])
 
+    const [calendarBookings, setCalendarBookings] = useState([])
+
     const [isAvailabilityLoading, setIsAvailabilityLoading] =
         useState(false)
 
@@ -35,27 +37,53 @@ function Booking() {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
-        const fetchAvailability = async () => {
+        const fetchBookingData = async () => {
             try {
                 setIsAvailabilityLoading(true)
 
-                const response = await fetch(
-                    'http://localhost:3000/api/bookings/availability'
-                )
+                const [
+                    availabilityResponse,
+                    calendarResponse,
+                ] = await Promise.all([
+                    fetch(
+                        'http://localhost:3000/api/bookings/availability'
+                    ),
+                    fetch(
+                        'http://localhost:3000/api/bookings/calendar'
+                    ),
+                ])
 
-                const result = await response.json()
+                const availabilityResult =
+                    await availabilityResponse.json()
 
-                if (!response.ok || !result.success) {
+                const calendarResult =
+                    await calendarResponse.json()
+
+                if (
+                    !availabilityResponse.ok ||
+                    !availabilityResult.success
+                ) {
                     throw new Error(
-                        result.message ||
+                        availabilityResult.message ||
                         '예약 가능 시간을 불러오지 못했습니다.'
                     )
                 }
 
-                setAvailability(result.data)
+                if (
+                    !calendarResponse.ok ||
+                    !calendarResult.success
+                ) {
+                    throw new Error(
+                        calendarResult.message ||
+                        '예약 현황을 불러오지 못했습니다.'
+                    )
+                }
+
+                setAvailability(availabilityResult.data)
+                setCalendarBookings(calendarResult.data)
             } catch (error) {
                 console.error(
-                    'Booking availability error:',
+                    'Booking data error:',
                     error
                 )
             } finally {
@@ -63,7 +91,7 @@ function Booking() {
             }
         }
 
-        fetchAvailability()
+        fetchBookingData()
     }, [])
 
     const bookedTimes = useMemo(() => {
@@ -96,7 +124,7 @@ function Booking() {
     }
 
     const bookingCountByDate = useMemo(() => {
-        return availability.reduce((acc, item) => {
+        return calendarBookings.reduce((acc, item) => {
             if (!acc[item.date]) {
                 acc[item.date] = 0
             }
@@ -105,7 +133,7 @@ function Booking() {
 
             return acc
         }, {})
-    }, [availability])
+    }, [calendarBookings])
 
     const handleTimeSelect = (time) => {
         setBooking((prev) => ({

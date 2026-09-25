@@ -139,6 +139,20 @@ const getBookingAvailability = async (req, res) => {
     }
 };
 
+const getBookingCalendar = async (req, res, next) => {
+    try {
+        const bookings =
+            await bookingService.getBookingCalendar()
+
+        res.json({
+            success: true,
+            data: bookings,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     getBookings,
     getBookingById,
@@ -146,4 +160,5 @@ module.exports = {
     updateBooking,
     deleteBooking,
     getBookingAvailability,
+    getBookingCalendar,
 };

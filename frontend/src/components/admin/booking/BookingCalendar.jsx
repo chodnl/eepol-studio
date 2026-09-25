@@ -93,11 +93,11 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
     }
 
     return (
-        <section className="booking-calendar">
-            <div className="booking-calendar-header">
+        <section className="admin-booking-calendar">
+            <div className="admin-calendar-header">
                 <button
                     type="button"
-                    className="calendar-nav-btn"
+                    className="admin-calendar-nav-btn"
                     onClick={handlePreviousMonth}
                 >
                     ‹
@@ -105,7 +105,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
 
                 <button
                     type="button"
-                    className="calendar-month-btn"
+                    className="admin-calendar-month-btn"
                     onClick={handleOpenMonthPicker}
                 >
                     <span>
@@ -115,7 +115,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
 
                 <button
                     type="button"
-                    className="calendar-nav-btn"
+                    className="admin-calendar-nav-btn"
                     onClick={handleNextMonth}
                 >
                     ›
@@ -123,8 +123,8 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
             </div>
 
             {isMonthPickerOpen && (
-                <div className="calendar-month-picker">
-                    <div className="month-picker-header">
+                <div className="admin-calendar-month-picker">
+                    <div className="admin-month-picker-header">
                         <button
                             type="button"
                             onClick={handlePreviousYear}
@@ -142,7 +142,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                         </button>
                     </div>
 
-                    <div className="month-picker-grid">
+                    <div className="admin-month-picker-grid">
                         {Array.from(
                             { length: 12 },
                             (_, index) => (
@@ -161,7 +161,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                 </div>
             )}
 
-            <div className="calendar-weekdays">
+            <div className="admin-calendar-weekdays">
                 <div>일</div>
                 <div>월</div>
                 <div>화</div>
@@ -171,7 +171,7 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                 <div>토</div>
             </div>
 
-            <div className="calendar-grid">
+            <div className="admin-calendar-grid">
                 {calendarDays.map((day, index) => {
                     const dayBookings =
                         getBookingsForDate(day)
@@ -179,45 +179,45 @@ function BookingCalendar({ bookings, onSelectBooking, onMonthChange }) {
                     return (
                         <div
                             key={`${year}-${month}-${index}`}
-                            className="calendar-day"
+                            className="admin-calendar-day"
                         >
                             {day && (
                                 <>
-                                    <strong className="calendar-day-number">
+                                    <strong className="admin-calendar-day-number">
                                         {day}
                                     </strong>
 
-                                    <div className="calendar-bookings">
+                                    <div className="admin-calendar-bookings">
                                         {dayBookings.map(
                                             (booking) => (
                                                 <button
                                                     key={booking._id}
                                                     type="button"
-                                                    className={`calendar-booking status-${booking.status}`}
+                                                    className={`admin-calendar-booking status-${booking.status}`}
                                                     onClick={() =>
                                                         onSelectBooking(booking)
                                                     }
                                                 >
-                                                    <span>
-                                                        {
-                                                            booking.time
-                                                        }
-                                                    </span>
-                                                    <span className="calendar-booking-status">
-                                                        {booking.status === 'pending' && '예약 대기'}
-
-                                                        {booking.status === 'confirmed' && '예약 확정'}
-
-                                                        {booking.status === 'completed' && '촬영 완료'}
+                                                    <span className="admin-calendar-booking-time">
+                                                        {booking.time}
                                                     </span>
 
-                                                    <span>
-                                                        {
-                                                            booking.customerName
-                                                        }
+                                                    <span className="admin-calendar-booking-status">
+                                                        {booking.status === 'pending' &&
+                                                            '예약 대기'}
+
+                                                        {booking.status === 'confirmed' &&
+                                                            '예약 확정'}
+
+                                                        {booking.status === 'completed' &&
+                                                            '촬영 완료'}
                                                     </span>
 
-                                                    <span>
+                                                    <span className="admin-calendar-booking-customer">
+                                                        {booking.customerName}
+                                                    </span>
+
+                                                    <span className="admin-calendar-booking-type">
                                                         {booking.type}
                                                     </span>
                                                 </button>

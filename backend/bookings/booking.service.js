@@ -66,6 +66,20 @@ const getBookingAvailability = async () => {
     });
 };
 
+const getBookingCalendar = async () => {
+    return await Booking.find(
+        {
+            status: "confirmed",
+        },
+        {
+            _id: 0,
+            date: 1,
+        }
+    ).sort({
+        date: 1,
+    });
+};
+
 module.exports = {
     getBookings,
     getBookingById,
@@ -73,4 +87,5 @@ module.exports = {
     updateBooking,
     deleteBooking,
     getBookingAvailability,
+    getBookingCalendar,
 };

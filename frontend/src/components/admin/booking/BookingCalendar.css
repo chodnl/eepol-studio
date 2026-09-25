@@ -1,12 +1,23 @@
-.booking-calendar {
+/* =========================
+   Admin Booking Calendar
+========================= */
+
+.admin-booking-calendar {
     position: relative;
+    width: 100%;
     margin-bottom: 48px;
     padding: 28px;
+    box-sizing: border-box;
     background: #ffffff;
     border: 1px solid rgba(0, 48, 32, 0.1);
 }
 
-.booking-calendar-header {
+
+/* =========================
+   Calendar Header
+========================= */
+
+.admin-calendar-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,186 +25,21 @@
     margin-bottom: 28px;
 }
 
-.calendar-nav-btn {
+.admin-calendar-nav-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 36px;
     width: 36px;
     height: 36px;
     padding: 0;
+    box-sizing: border-box;
     border: 1px solid rgba(0, 48, 32, 0.12);
     background: #ffffff;
     color: #003020;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.3rem;
-    cursor: pointer;
-}
-
-.calendar-nav-btn:hover {
-    background: #003020;
-    color: #f7f6f0;
-}
-
-.calendar-month-btn {
-    padding: 8px 18px;
-    border: 0;
-    background: transparent;
-    color: #1d241f;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.35rem;
-    cursor: pointer;
-}
-
-.calendar-weekdays,
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.calendar-weekdays {
-    border-bottom: 1px solid rgba(0, 48, 32, 0.1);
-}
-
-.calendar-weekdays div {
-    padding: 12px 8px;
-    color: #7a827b;
-    font-size: 0.68rem;
-    font-weight: 600;
-    text-align: center;
-    letter-spacing: 0.08em;
-}
-
-.calendar-day {
-    min-height: 120px;
-    padding: 10px;
-    border-right: 1px solid rgba(0, 48, 32, 0.08);
-    border-bottom: 1px solid rgba(0, 48, 32, 0.08);
-}
-
-.calendar-day:nth-child(7n) {
-    border-right: 0;
-}
-
-.calendar-day-number {
-    display: block;
-    margin-bottom: 8px;
-    color: #59625b;
-    font-size: 0.75rem;
-    font-weight: 500;
-}
-
-.calendar-bookings {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.calendar-booking {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 7px 8px;
-    border: 0;
-    background: #f1f5f1;
-    color: #003020;
-    text-align: left;
-    cursor: pointer;
-}
-
-.calendar-booking:hover {
-    background: #003020;
-    color: #f7f6f0;
-}
-
-.calendar-booking span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.calendar-booking span:first-child {
-    margin-bottom: 2px;
-    font-size: 0.62rem;
-    font-weight: 600;
-}
-
-.calendar-booking span:nth-child(2) {
-    font-size: 0.7rem;
-}
-
-.calendar-booking span:last-child {
-    margin-top: 2px;
-    color: #7a827b;
-    font-size: 0.58rem;
-}
-
-.calendar-booking:hover span:last-child {
-    color: rgba(247, 246, 240, 0.7);
-}
-
-/* =========================
-   Month Picker
-========================= */
-
-.calendar-month-picker {
-    position: absolute;
-    top: 82px;
-    left: 50%;
-    z-index: 20;
-    width: 280px;
-    padding: 20px;
-    background: #ffffff;
-    border: 1px solid rgba(0, 48, 32, 0.12);
-    box-shadow: 0 12px 30px rgba(0, 48, 32, 0.08);
-    transform: translateX(-50%);
-}
-
-.month-picker-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-}
-
-.month-picker-header strong {
-    color: #1d241f;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1rem;
-    font-weight: 400;
-}
-
-.month-picker-header button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border: 1px solid rgba(0, 48, 32, 0.1);
-    background: #ffffff;
-    color: #003020;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.month-picker-header button:hover {
-    background: #003020;
-    color: #f7f6f0;
-}
-
-.month-picker-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-}
-
-.month-picker-grid button {
-    padding: 10px 6px;
-    border: 1px solid transparent;
-    background: #f7f6f0;
-    color: #59625b;
-    font-size: 0.7rem;
+    line-height: 1;
     cursor: pointer;
     transition:
         background 0.2s ease,
@@ -201,45 +47,369 @@
         border-color 0.2s ease;
 }
 
-.month-picker-grid button:hover {
+.admin-calendar-nav-btn:hover {
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.admin-calendar-month-btn {
+    padding: 8px 18px;
+    border: 0;
+    background: transparent;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+
+/* =========================
+   Weekdays
+========================= */
+
+.admin-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 48, 32, 0.1);
+}
+
+.admin-calendar-weekdays div {
+    padding: 12px 8px;
+    color: #7a827b;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================
+   Calendar Grid
+========================= */
+
+.admin-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   Calendar Day
+========================= */
+
+.admin-calendar-day {
+    min-width: 0;
+    min-height: 120px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(0, 48, 32, 0.08);
+    border-bottom: 1px solid rgba(0, 48, 32, 0.08);
+}
+
+.admin-calendar-day:nth-child(7n) {
+    border-right: 0;
+}
+
+.admin-calendar-day-number {
+    display: block;
+    margin: 0 0 8px;
+    color: #59625b;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+
+/* =========================
+   Booking List
+========================= */
+
+.admin-calendar-bookings {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.admin-calendar-booking {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 7px 8px;
+    box-sizing: border-box;
+    border: 0;
+    background: #f1f5f1;
+    color: #003020;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.admin-calendar-booking:hover {
+    background: #003020;
+    color: #f7f6f0;
+}
+
+
+/* =========================
+   Booking Text
+========================= */
+
+.admin-calendar-booking-time {
+    display: block;
+    margin: 0 0 2px;
+    overflow: hidden;
+    color: inherit;
+    font-size: 0.62rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-calendar-booking-status {
+    display: block;
+    margin: 0 0 3px;
+    overflow: hidden;
+    color: inherit;
+    font-size: 0.56rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-calendar-booking-customer {
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    color: inherit;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-calendar-booking-type {
+    display: block;
+    margin: 2px 0 0;
+    overflow: hidden;
+    color: #7a827b;
+    font-size: 0.58rem;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-calendar-booking:hover .admin-calendar-booking-type {
+    color: rgba(247, 246, 240, 0.7);
+}
+
+
+/* =========================
+   Booking Status
+========================= */
+
+.admin-calendar-booking.status-pending {
+    background: #f1f5f1;
+    color: #365342;
+}
+
+.admin-calendar-booking.status-confirmed {
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.admin-calendar-booking.status-completed {
+    background: #eeeeeb;
+    color: #777d78;
+}
+
+.admin-calendar-booking.status-pending:hover {
+    background: #dfe9e1;
+    color: #003020;
+}
+
+.admin-calendar-booking.status-confirmed:hover {
+    background: #f3e59a;
+    color: #003020;
+}
+
+.admin-calendar-booking.status-completed:hover {
+    background: #e3e3df;
+    color: #4f554f;
+}
+
+
+/* =========================
+   Month Picker
+========================= */
+
+.admin-calendar-month-picker {
+    position: absolute;
+    top: 82px;
+    left: 50%;
+    z-index: 20;
+    width: 280px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    box-shadow: 0 12px 30px rgba(0, 48, 32, 0.08);
+    transform: translateX(-50%);
+}
+
+.admin-month-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.admin-month-picker-header strong {
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.admin-month-picker-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+    background: #ffffff;
+    color: #003020;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.admin-month-picker-header button:hover {
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.admin-month-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.admin-month-picker-grid button {
+    padding: 10px 6px;
+    border: 1px solid transparent;
+    background: #f7f6f0;
+    color: #59625b;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.admin-month-picker-grid button:hover {
     border-color: #003020;
     background: #ffffff;
     color: #003020;
 }
 
-.calendar-booking.status-pending {
-    background: #f1f5f1;
-    color: #365342;
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 900px) {
+    .admin-calendar-day {
+        min-height: 100px;
+        padding: 8px;
+    }
+
+    .admin-calendar-booking {
+        padding: 6px;
+    }
 }
 
-.calendar-booking.status-confirmed {
-    background: #003020;
-    color: #f7f6f0;
-}
+@media (max-width: 640px) {
+    .admin-booking-calendar {
+        padding: 18px 12px;
+    }
 
-.calendar-booking.status-completed {
-    background: #eeeeeb;
-    color: #777d78;
-}
+    .admin-calendar-header {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
 
-.calendar-booking.status-pending:hover {
-    background: #dfe9e1;
-    color: #003020;
-}
+    .admin-calendar-nav-btn {
+        flex-basis: 32px;
+        width: 32px;
+        height: 32px;
+    }
 
-.calendar-booking.status-confirmed:hover {
-    background: #f3e59a;
-    color: #003020;
-}
+    .admin-calendar-month-btn {
+        padding: 6px 10px;
+        font-size: 1.1rem;
+    }
 
-.calendar-booking.status-completed:hover {
-    background: #e3e3df;
-    color: #4f554f;
-}
+    .admin-calendar-weekdays div {
+        padding: 9px 2px;
+        font-size: 0.6rem;
+    }
 
-.calendar-booking-status {
-    margin-top: 3px;
-    font-size: 0.56rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    .admin-calendar-day {
+        min-height: 80px;
+        padding: 6px;
+    }
+
+    .admin-calendar-day-number {
+        margin-bottom: 6px;
+        font-size: 0.68rem;
+    }
+
+    .admin-calendar-bookings {
+        gap: 3px;
+    }
+
+    .admin-calendar-booking {
+        padding: 5px;
+    }
+
+    .admin-calendar-booking-time {
+        font-size: 0.58rem;
+    }
+
+    .admin-calendar-booking-status {
+        font-size: 0.5rem;
+    }
+
+    .admin-calendar-booking-customer {
+        font-size: 0.62rem;
+    }
+
+    .admin-calendar-booking-type {
+        font-size: 0.52rem;
+    }
+
+    .admin-calendar-month-picker {
+        width: 240px;
+    }
 }

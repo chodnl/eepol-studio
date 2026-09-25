@@ -1,6 +1,7 @@
 const express = require("express");
 
 const bookingController = require("./booking.controller");
+
 const authMiddleware = require("../middleware/auth.middleware");
 
 const router = express.Router();
@@ -8,6 +9,11 @@ const router = express.Router();
 router.get(
     "/availability",
     bookingController.getBookingAvailability
+);
+
+router.get(
+    "/calendar",
+    bookingController.getBookingCalendar
 );
 
 router.get(
@@ -22,7 +28,11 @@ router.get(
     bookingController.getBookingById
 );
 
-router.post("/", authMiddleware, bookingController.createBooking);
+router.post(
+    "/",
+    authMiddleware,
+    bookingController.createBooking
+);
 
 router.post(
     "/public",
