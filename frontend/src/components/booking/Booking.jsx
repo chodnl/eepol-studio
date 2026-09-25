@@ -1,20 +1,82 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './Booking.css'
 
 const defaultBooking = {
     name: '',
     phone: '',
     date: '',
+    time: '',
     packageName: '프리미엄',
     note: '',
 }
 
+const timeSlots = [
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+]
+
 function Booking() {
     const [booking, setBooking] = useState(defaultBooking)
+
+    const [availability, setAvailability] = useState([])
+
+    const [isAvailabilityLoading, setIsAvailabilityLoading] =
+        useState(false)
+
     const [message, setMessage] = useState(
         '예약 신청 후 관리자 확인을 거쳐 안내드립니다.'
     )
+
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    useEffect(() => {
+        const fetchAvailability = async () => {
+            try {
+                setIsAvailabilityLoading(true)
+
+                const response = await fetch(
+                    'http://localhost:3000/api/bookings/availability'
+                )
+
+                const result = await response.json()
+
+                if (!response.ok || !result.success) {
+                    throw new Error(
+                        result.message ||
+                        '예약 가능 시간을 불러오지 못했습니다.'
+                    )
+                }
+
+                setAvailability(result.data)
+            } catch (error) {
+                console.error(
+                    'Booking availability error:',
+                    error
+                )
+            } finally {
+                setIsAvailabilityLoading(false)
+            }
+        }
+
+        fetchAvailability()
+    }, [])
+
+    const bookedTimes = useMemo(() => {
+        if (!booking.date) {
+            return []
+        }
+
+        return availability
+            .filter(
+                (item) => item.date === booking.date
+            )
+            .map((item) => item.time)
+    }, [availability, booking.date])
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -23,13 +85,36 @@ function Booking() {
             ...prev,
             [name]: value,
         }))
+
+        // 날짜를 변경하면 기존 선택 시간 초기화
+        if (name === 'date') {
+            setBooking((prev) => ({
+                ...prev,
+                date: value,
+                time: '',
+            }))
+        }
+    }
+
+    const handleTimeSelect = (time) => {
+        setBooking((prev) => ({
+            ...prev,
+            time,
+        }))
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        if (!booking.name || !booking.phone || !booking.date) {
-            setMessage('이름, 연락처, 촬영 날짜를 모두 입력해 주세요.')
+        if (
+            !booking.name ||
+            !booking.phone ||
+            !booking.date ||
+            !booking.time
+        ) {
+            setMessage(
+                '이름, 연락처, 촬영 날짜와 시간을 모두 선택해 주세요.'
+            )
             return
         }
 
@@ -38,7 +123,7 @@ function Booking() {
             setMessage('예약 신청을 등록하고 있습니다.')
 
             const response = await fetch(
-                'http://localhost:3000/api/bookings',
+                'http://localhost:3000/api/bookings/public',
                 {
                     method: 'POST',
                     headers: {
@@ -48,7 +133,7 @@ function Booking() {
                         customerName: booking.name,
                         phone: booking.phone,
                         date: booking.date,
-                        time: '미정',
+                        time: booking.time,
                         type: booking.packageName,
                         channel: 'manual',
                         memo: booking.note,
@@ -60,7 +145,8 @@ function Booking() {
 
             if (!response.ok || !result.success) {
                 throw new Error(
-                    result.message || '예약 신청에 실패했습니다.'
+                    result.message ||
+                    '예약 신청에 실패했습니다.'
                 )
             }
 
@@ -73,6 +159,7 @@ function Booking() {
             console.error('Booking submit error:', error)
 
             setMessage(
+                error.message ||
                 '예약 신청에 실패했습니다. 잠시 후 다시 시도해 주세요.'
             )
         } finally {
@@ -82,17 +169,23 @@ function Booking() {
 
     const handleKakaoClick = () => {
         window.open(
-            'https://pf.kakao.com',
+            'https://pf.kakao.com/_fuRKG',
             '_blank',
             'noopener,noreferrer'
         )
     }
 
     return (
-        <section className="section booking-layout" id="booking">
+        <section
+            className="section booking-layout"
+            id="booking"
+        >
             <div className="booking-form-box">
                 <div className="section-header left-align">
-                    <p className="eyebrow">reservation</p>
+                    <p className="eyebrow">
+                        reservation
+                    </p>
+
                     <h2>촬영 예약하기</h2>
                 </div>
 
@@ -161,6 +254,48 @@ function Booking() {
                         </label>
                     </div>
 
+                    {booking.date && (
+                        <div className="booking-time-selection">
+                            <span>예약 시간</span>
+
+                            {isAvailabilityLoading ? (
+                                <p>
+                                    예약 가능 시간을 확인하고
+                                    있습니다.
+                                </p>
+                            ) : (
+                                <div className="booking-time-grid">
+                                    {timeSlots.map((time) => {
+                                        const isBooked =
+                                            bookedTimes.includes(time)
+
+                                        return (
+                                            <button
+                                                key={time}
+                                                type="button"
+                                                disabled={isBooked}
+                                                className={
+                                                    booking.time === time
+                                                        ? 'selected'
+                                                        : ''
+                                                }
+                                                onClick={() =>
+                                                    handleTimeSelect(time)
+                                                }
+                                            >
+                                                {time}
+
+                                                {isBooked && (
+                                                    <small>예약됨</small>
+                                                )}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     <label>
                         요청사항
 
@@ -179,7 +314,9 @@ function Booking() {
                             className="primary-btn"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? '예약 신청 중...' : '예약 신청'}
+                            {isSubmitting
+                                ? '예약 신청 중...'
+                                : '예약 신청'}
                         </button>
 
                         <button
@@ -198,6 +335,34 @@ function Booking() {
             </div>
 
             <aside className="booking-side">
+                <div className="booking-calendar">
+                    <div className="booking-calendar-header">
+                        <button type="button">
+                            ‹
+                        </button>
+
+                        <h3>2026년 10월</h3>
+
+                        <button type="button">
+                            ›
+                        </button>
+                    </div>
+
+                    <div className="booking-calendar-weekdays">
+                        <span>일</span>
+                        <span>월</span>
+                        <span>화</span>
+                        <span>수</span>
+                        <span>목</span>
+                        <span>금</span>
+                        <span>토</span>
+                    </div>
+
+                    <div className="booking-calendar-grid">
+                        {/* 날짜는 다음 단계에서 연결 */}
+                    </div>
+                </div>
+
                 <div className="info-box">
                     <h3>예약 프로세스</h3>
 

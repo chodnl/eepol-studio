@@ -4,30 +4,27 @@
 
 .booking-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
-    gap: 40px;
-
-    align-items: center;
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.84fr);
+    gap: 32px;
+    align-items: stretch; /* 좌/우 박스 세로 전체 높이 정렬 */
 }
 
 .booking-side {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-
-    justify-content: center;
+    gap: 12px; /* 간격 고정 */
     height: 100%;
 }
+
 
 /* =========================
    Form Box
 ========================= */
+
 .booking-form-box {
     padding: 48px;
-
     border: 1px solid rgba(0, 48, 32, 0.14);
     border-radius: 0;
-
     background: #ffffff;
 }
 
@@ -68,12 +65,9 @@
     display: flex;
     flex-direction: column;
     gap: 9px;
-
     color: #003020;
-
     font-size: 0.68rem;
     font-weight: 600;
-
     letter-spacing: 0.08em;
 }
 
@@ -86,27 +80,16 @@
 .booking-form select,
 .booking-form textarea {
     width: 100%;
-
+    box-sizing: border-box;
     padding: 14px 15px;
-
     border: 1px solid rgba(0, 48, 32, 0.18);
-
     border-radius: 0;
-
     outline: none;
-
     background: #ffffff;
-
     color: #1d241f;
-
     font-family: inherit;
     font-size: 0.82rem;
-
-    box-sizing: border-box;
-
-    transition:
-        border-color 0.2s ease,
-        background 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .booking-form input:focus,
@@ -117,8 +100,8 @@
 }
 
 .booking-form textarea {
-    resize: vertical;
     min-height: 120px;
+    resize: vertical;
 }
 
 .booking-form input::placeholder,
@@ -134,34 +117,23 @@
 .booking-actions {
     display: flex;
     gap: 10px;
-
     margin-top: 8px;
 }
 
 .primary-btn,
 .secondary-btn {
     min-height: 48px;
-
     padding: 0 24px;
-
     border-radius: 0;
-
     font-size: 0.7rem;
     font-weight: 600;
-
     letter-spacing: 0.08em;
-
     cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .primary-btn {
     border: 1px solid #003020;
-
     background: #003020;
     color: #f3e59a;
 }
@@ -177,14 +149,13 @@
 
 .secondary-btn {
     border: 1px solid rgba(0, 48, 32, 0.25);
-
     background: transparent;
     color: #003020;
 }
 
 .secondary-btn:hover {
     background: #003020;
-    color: #0e0c02;
+    color: #f7f6f0;
 }
 
 
@@ -194,76 +165,254 @@
 
 .system-message {
     margin: 0;
-
     color: #6f766f;
-
     font-size: 0.68rem;
-
     line-height: 1.6;
 }
 
 
 /* =========================
-   Side Information
+   Booking Time
 ========================= */
 
-.booking-side {
+.booking-time-selection {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
+    margin-top: 4px;
 }
 
-.info-box {
-    padding: 30px;
+.booking-time-selection>span {
+    color: #59625b;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
 
+.booking-time-selection>p {
+    margin: 0;
+    color: #8a918b;
+    font-size: 0.72rem;
+}
+
+.booking-time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.booking-time-grid button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 8px 6px;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #003020;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.booking-time-grid button:hover:not(:disabled) {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.booking-time-grid button.selected {
+    border-color: #003020;
+    background: #003020;
+    color: #f7f6f0;
+}
+
+.booking-time-grid button:disabled {
+    border-color: #e5e5e1;
+    background: #eeeeeb;
+    color: #a0a6a1;
+    cursor: not-allowed;
+}
+
+.booking-time-grid button small {
+    margin-top: 4px;
+    font-size: 0.58rem;
+}
+
+
+/* =========================
+   Booking Calendar (키워서 밑선 맞춤)
+========================= */
+
+.booking-calendar {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 22px; /* 여백을 조금 늘려 전체적 안정감 확보 */
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+}
+
+
+/* =========================
+   Calendar Header
+========================= */
+
+.booking-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.booking-calendar-header h3 {
+    margin: 0;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.booking-calendar-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+    background: #ffffff;
+    color: #003020;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.booking-calendar-header button:hover {
+    background: #003020;
+    color: #f7f6f0;
+}
+
+
+/* =========================
+   Calendar Weekdays
+========================= */
+
+.booking-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.booking-calendar-weekdays span {
+    color: #8a918b;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+}
+
+
+/* =========================
+   Calendar Days (적절한 크기로 확장)
+========================= */
+
+.booking-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 34px !important; /* 28px -> 34px로 확대하여 시원하게 표시 */
+    gap: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.calendar-empty,
+.calendar-day,
+.booking-calendar-grid button {
+    width: 100% !important;
+    height: 34px !important; /* 버튼 세로 높이 34px 고정 */
+    min-height: 34px !important;
+    max-height: 34px !important;
+    box-sizing: border-box !important;
+}
+
+.calendar-empty {
+    display: block;
+}
+
+.calendar-day,
+.booking-calendar-grid button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #59625b;
+    font-family: inherit;
+    font-size: 0.75rem; /* 글자 크기도 자연스럽게 약간 조절 */
+    font-weight: 400;
+    line-height: 1 !important;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.calendar-day:hover,
+.booking-calendar-grid button:hover {
+    border-color: rgba(0, 48, 32, 0.15);
+    background: #f1f5f1;
+    color: #003020;
+}
+
+
+/* =========================
+   Side Info Box (남은 공간 자동 흡수)
+========================= */
+
+.booking-side .info-box {
+    flex: 1; /* 남은 높이 공간을 인포박스 2개가 1:1로 자동으로 분배하여 밑선을 맞춰줍니다 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 20px;
     border: 1px solid rgba(243, 229, 154, 0.18);
-    border-radius: 0;
-
     background: #003020;
     color: #f7f6f0;
 }
 
 .info-box h3 {
-    margin: 0 0 24px;
-
+    margin: 0 0 10px;
     color: #f3e59a;
-
-    font-family:
-        Georgia,
-        'Times New Roman',
-        serif;
-
-    font-size: 1.15rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.95rem;
     font-weight: 400;
 }
 
 .info-box ul {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-
+    gap: 5px;
     margin: 0;
     padding: 0;
-
     list-style: none;
 }
 
-.info-box li {
-    color: rgba(247, 246, 240, 0.75);
-
-    font-size: 0.75rem;
-
-    line-height: 1.5;
-}
-
+.info-box li,
 .info-box p {
-    margin: 8px 0;
-
+    margin: 0;
     color: rgba(247, 246, 240, 0.75);
-
     font-size: 0.72rem;
-
-    line-height: 1.6;
+    line-height: 1.4;
 }
 
 
@@ -278,8 +427,9 @@
     }
 
     .booking-side {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 }
 
@@ -307,10 +457,10 @@
     }
 
     .booking-side {
-        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
-    .info-box {
-        padding: 25px 22px;
+    .booking-time-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }

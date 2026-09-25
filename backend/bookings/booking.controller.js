@@ -54,9 +54,11 @@ const createBooking = async (req, res) => {
     } catch (error) {
         console.error("Create booking error:", error);
 
-        res.status(500).json({
+        res.status(error.statusCode || 500).json({
             success: false,
-            message: "Failed to create booking",
+            message:
+                error.message ||
+                "Failed to create booking",
         });
     }
 };
@@ -115,10 +117,33 @@ const deleteBooking = async (req, res) => {
     }
 };
 
+const getBookingAvailability = async (req, res) => {
+    try {
+        const bookings =
+            await bookingService.getBookingAvailability();
+
+        res.json({
+            success: true,
+            data: bookings,
+        });
+    } catch (error) {
+        console.error(
+            "Get booking availability error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch booking availability",
+        });
+    }
+};
+
 module.exports = {
     getBookings,
     getBookingById,
     createBooking,
     updateBooking,
     deleteBooking,
+    getBookingAvailability,
 };
