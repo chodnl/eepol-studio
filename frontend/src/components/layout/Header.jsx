@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './Header.css'
 
@@ -5,9 +6,13 @@ function Header() {
     const location = useLocation()
     const navigate = useNavigate()
 
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
     const isHome = location.pathname === '/'
 
     const handleSectionClick = (sectionId) => {
+        setIsMobileMenuOpen(false)
+
         if (isHome) {
             document.getElementById(sectionId)?.scrollIntoView({
                 behavior: 'smooth',
@@ -20,6 +25,8 @@ function Header() {
     }
 
     const handleBrandClick = () => {
+        setIsMobileMenuOpen(false)
+
         if (isHome) {
             window.scrollTo({
                 top: 0,
@@ -33,7 +40,13 @@ function Header() {
     }
 
     return (
-        <header className="site-header">
+        <header
+            className={`site-header ${
+                isMobileMenuOpen
+                    ? 'mobile-menu-open'
+                    : ''
+            }`}
+        >
             <div className="header-inner">
                 <a
                     href="/"
@@ -93,11 +106,21 @@ function Header() {
                         BOOKING
                     </a>
 
-                    <a href="/qna">
+                    <a
+                        href="/qna"
+                        onClick={() =>
+                            setIsMobileMenuOpen(false)
+                        }
+                    >
                         Q&amp;A
                     </a>
 
-                    <a href="/notice">
+                    <a
+                        href="/notice"
+                        onClick={() =>
+                            setIsMobileMenuOpen(false)
+                        }
+                    >
                         NOTICE
                     </a>
 
@@ -142,9 +165,19 @@ function Header() {
             <button
                 type="button"
                 className="mobile-menu-button"
-                aria-label="메뉴 열기"
+                aria-label={
+                    isMobileMenuOpen
+                        ? '메뉴 닫기'
+                        : '메뉴 열기'
+                }
+                aria-expanded={isMobileMenuOpen}
+                onClick={() =>
+                    setIsMobileMenuOpen(
+                        (prev) => !prev
+                    )
+                }
             >
-                ☰
+                {isMobileMenuOpen ? '×' : '☰'}
             </button>
         </header>
     )
