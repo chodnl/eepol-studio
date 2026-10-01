@@ -6,18 +6,17 @@ function QnaList({
     onAnswer,
     onCancelAnswer,
     onDelete,
-    onStatusChange,
 }) {
     if (qnas.length === 0) {
         return (
-            <p>
+            <div className="admin-qna-empty">
                 등록된 Q&A가 없습니다.
-            </p>
+            </div>
         )
     }
 
     return (
-        <div>
+        <div className="admin-qna-items">
             {qnas.map((qna) => (
                 <QnaItem
                     key={qna._id}
@@ -26,7 +25,6 @@ function QnaList({
                     onAnswer={onAnswer}
                     onCancelAnswer={onCancelAnswer}
                     onDelete={onDelete}
-                    onStatusChange={onStatusChange}
                 />
             ))}
         </div>

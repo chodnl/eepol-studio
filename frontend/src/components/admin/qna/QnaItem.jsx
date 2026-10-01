@@ -7,63 +7,108 @@ function QnaItem({
     onCancelAnswer,
     onDelete,
 }) {
+    const isEditing =
+        editingQnaId === qna._id
+
+    const isAnswered =
+        qna.status === 'answered'
+
     return (
-        <div>
-            <h2>{qna.title}</h2>
+        <article
+            className={`admin-qna-item ${
+                isEditing
+                    ? 'is-editing'
+                    : ''
+            }`}
+        >
+            <div className="admin-qna-item-header">
+                <div className="admin-qna-item-title">
+                    <span className="admin-qna-item-label">
+                        QUESTION
+                    </span>
 
-            <p>작성자: {qna.author}</p>
+                    <h2>{qna.title}</h2>
+                </div>
 
-            <p>
-                작성일:{' '}
-                {new Date(qna.createdAt).toLocaleString()}
-            </p>
+                <span
+                    className={`admin-qna-status ${
+                        isAnswered
+                            ? 'answered'
+                            : 'waiting'
+                    }`}
+                >
+                    {isAnswered
+                        ? '답변 완료'
+                        : '답변 대기'}
+                </span>
+            </div>
 
-            <p>
-                상태:{' '}
-                {qna.status === 'answered'
-                    ? '답변 완료'
-                    : '답변 대기'}
-            </p>
+            <div className="admin-qna-meta">
+                <span>
+                    작성자&nbsp; {qna.author}
+                </span>
 
-            <p>{qna.content}</p>
+                <span>
+                    {new Date(
+                        qna.createdAt
+                    ).toLocaleDateString('ko-KR')}
+                </span>
+            </div>
 
-            {qna.answer && (
-                <div>
-                    <strong>답변</strong>
+            <div className="admin-qna-question">
+                <p>{qna.content}</p>
+            </div>
+
+            {qna.answer && !isEditing && (
+                <div className="admin-qna-answer">
+                    <span className="admin-qna-answer-label">
+                        ANSWER
+                    </span>
+
                     <p>{qna.answer}</p>
                 </div>
             )}
 
-            {editingQnaId === qna._id ? (
+            {isEditing ? (
                 <QnaEditor
                     qna={qna}
                     onSave={(answer) =>
-                        onAnswer(qna._id, answer)
+                        onAnswer(
+                            qna._id,
+                            answer
+                        )
                     }
                     onCancel={onCancelAnswer}
                 />
             ) : (
-                <button
-                    type="button"
-                    onClick={() =>
-                        onAnswer(qna._id, null)
-                    }
-                >
-                    {qna.answer
-                        ? '답변 수정'
-                        : '답변 등록'}
-                </button>
-            )}
+                <div className="admin-qna-actions">
+                    <button
+                        type="button"
+                        className="admin-qna-answer-button"
+                        onClick={() =>
+                            onAnswer(
+                                qna._id,
+                                null
+                            )
+                        }
+                    >
+                        {qna.answer
+                            ? '답변 수정'
+                            : '답변 등록'}
+                    </button>
 
-            <button
-                type="button"
-                onClick={() =>
-                    onDelete(qna._id)
-                }
-            >
-                삭제
-            </button>
-        </div>
+                    <button
+                        type="button"
+                        className="admin-qna-delete-button"
+                        onClick={() =>
+                            onDelete(qna._id)
+                        }
+                    >
+                        삭제
+                    </button>
+                </div>
+            )}
+        </article>
     )
 }
 

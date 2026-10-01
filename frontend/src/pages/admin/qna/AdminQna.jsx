@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import './AdminQna.css'
+
 import {
     getQnas,
     answerQna,
@@ -128,7 +130,9 @@ function AdminQna() {
             return false
         }
 
-        const keyword = searchTerm.trim().toLowerCase()
+        const keyword = searchTerm
+            .trim()
+            .toLowerCase()
 
         if (!keyword) {
             return true
@@ -166,70 +170,115 @@ function AdminQna() {
     }
 
     return (
-        <div>
-            <h1>Q&A 관리</h1>
+        <div className="admin-qna">
+            <div className="admin-qna-header">
+                <div>
+                    <p className="admin-qna-eyebrow">
+                        Q&amp;A MANAGEMENT
+                    </p>
 
-            {message && <p>{message}</p>}
+                    <h1>Q&amp;A 관리</h1>
 
-            <div>
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleFilterChange('all')
-                    }
-                >
-                    전체
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleFilterChange('waiting')
-                    }
-                >
-                    답변 대기
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() =>
-                        handleFilterChange('answered')
-                    }
-                >
-                    답변 완료
-                </button>
+                    <p className="admin-qna-description">
+                        고객 문의를 확인하고 답변을 관리합니다.
+                    </p>
+                </div>
             </div>
 
-            <div>
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="제목 또는 작성자 검색"
+            {message && (
+                <div className="admin-qna-message">
+                    {message}
+                </div>
+            )}
+
+            <div className="admin-qna-toolbar">
+                <div className="admin-qna-filters">
+                    <button
+                        type="button"
+                        className={
+                            statusFilter === 'all'
+                                ? 'active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleFilterChange('all')
+                        }
+                    >
+                        전체
+                    </button>
+
+                    <button
+                        type="button"
+                        className={
+                            statusFilter === 'waiting'
+                                ? 'active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleFilterChange(
+                                'waiting'
+                            )
+                        }
+                    >
+                        답변 대기
+                    </button>
+
+                    <button
+                        type="button"
+                        className={
+                            statusFilter === 'answered'
+                                ? 'active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleFilterChange(
+                                'answered'
+                            )
+                        }
+                    >
+                        답변 완료
+                    </button>
+                </div>
+
+                <div className="admin-qna-search">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="제목 또는 작성자 검색"
+                    />
+                </div>
+            </div>
+
+            <div className="admin-qna-count">
+                총{' '}
+                <strong>
+                    {filteredQnas.length}
+                </strong>{' '}
+                개의 질문
+            </div>
+
+            <div className="admin-qna-list-section">
+                <QnaList
+                    qnas={paginatedQnas}
+                    editingQnaId={editingQnaId}
+                    onAnswer={(id, answer) => {
+                        if (answer === null) {
+                            handleOpenAnswer(id)
+                            return
+                        }
+
+                        handleAnswer(id, answer)
+                    }}
+                    onCancelAnswer={
+                        handleCancelAnswer
+                    }
+                    onDelete={handleDelete}
                 />
             </div>
 
-            <p>
-                총 {filteredQnas.length}개의 질문
-            </p>
-
-            <QnaList
-                qnas={paginatedQnas}
-                editingQnaId={editingQnaId}
-                onAnswer={(id, answer) => {
-                    if (answer === null) {
-                        handleOpenAnswer(id)
-                        return
-                    }
-
-                    handleAnswer(id, answer)
-                }}
-                onCancelAnswer={handleCancelAnswer}
-                onDelete={handleDelete}
-            />
-
             {totalPages > 1 && (
-                <div>
+                <div className="admin-qna-pagination">
                     <button
                         type="button"
                         disabled={currentPage === 1}
@@ -249,6 +298,11 @@ function AdminQna() {
                         <button
                             key={page}
                             type="button"
+                            className={
+                                currentPage === page
+                                    ? 'active'
+                                    : ''
+                            }
                             onClick={() =>
                                 handlePageChange(page)
                             }

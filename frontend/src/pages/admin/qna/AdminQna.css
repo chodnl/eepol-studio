@@ -1,0 +1,663 @@
+.admin-qna {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.admin-qna-header {
+    margin-bottom: 40px;
+}
+
+.admin-qna-eyebrow {
+    margin: 0 0 8px;
+
+    color: #52705f;
+
+    font-size: 0.62rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+}
+
+.admin-qna-header h1 {
+    margin: 0 0 10px;
+
+    color: #003020;
+
+    font-family:
+        Georgia,
+        'Times New Roman',
+        serif;
+
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.admin-qna-description {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 0.75rem;
+}
+
+
+/* =========================
+   Message
+========================= */
+
+.admin-qna-message {
+    margin-bottom: 24px;
+
+    padding: 13px 16px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 48, 32, 0.12);
+
+    color: #52705f;
+
+    font-size: 0.72rem;
+}
+
+
+/* =========================
+   Toolbar
+========================= */
+
+.admin-qna-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid rgba(0, 48, 32, 0.12);
+}
+
+.admin-qna-filters {
+    display: flex;
+    gap: 4px;
+}
+
+.admin-qna-filters button {
+    padding: 9px 14px;
+
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+
+    color: #777;
+
+    font-size: 0.68rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.admin-qna-filters button:hover {
+    border-color: #003020;
+    color: #003020;
+}
+
+.admin-qna-filters button.active {
+    border-color: #003020;
+
+    background: #003020;
+
+    color: #f3e59a;
+}
+
+
+/* =========================
+   Search
+========================= */
+
+.admin-qna-search {
+    width: 240px;
+}
+
+.admin-qna-search input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 13px;
+
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+
+    color: #1d241f;
+
+    font-size: 0.7rem;
+
+    outline: none;
+}
+
+.admin-qna-search input:focus {
+    border-color: #52705f;
+}
+
+.admin-qna-search input::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================
+   Count
+========================= */
+
+.admin-qna-count {
+    margin-bottom: 12px;
+
+    color: #888;
+
+    font-size: 0.68rem;
+}
+
+.admin-qna-count strong {
+    color: #003020;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   List
+========================= */
+
+.admin-qna-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* =========================
+   Pagination
+========================= */
+
+.admin-qna-pagination {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    margin-top: 35px;
+}
+
+.admin-qna-pagination button {
+    min-width: 32px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+
+    color: #777;
+
+    font-size: 0.68rem;
+
+    cursor: pointer;
+}
+
+.admin-qna-pagination button:hover:not(:disabled) {
+    border-color: #003020;
+
+    color: #003020;
+}
+
+.admin-qna-pagination button.active {
+    border-color: #003020;
+
+    background: #003020;
+
+    color: #f3e59a;
+}
+
+.admin-qna-pagination button:disabled {
+    opacity: 0.35;
+
+    cursor: default;
+}
+
+/* =========================
+   Q&A List
+========================= */
+
+.admin-qna-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-qna-empty {
+    padding: 70px 20px;
+
+    border: 1px solid #e5e6e1;
+
+    background: #ffffff;
+
+    color: #999;
+
+    font-size: 0.72rem;
+
+    text-align: center;
+}
+
+
+/* =========================
+   Q&A Item
+========================= */
+
+.admin-qna-item {
+    padding: 28px 30px;
+
+    border: 1px solid #e1e3dd;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-qna-item:hover {
+    border-color: rgba(0, 48, 32, 0.25);
+}
+
+.admin-qna-item.is-editing {
+    border-color: #52705f;
+}
+
+
+/* =========================
+   Item Header
+========================= */
+
+.admin-qna-item-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.admin-qna-item-title {
+    min-width: 0;
+}
+
+.admin-qna-item-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #52705f;
+
+    font-size: 0.56rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+}
+
+.admin-qna-item-title h2 {
+    margin: 0;
+
+    color: #1d241f;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   Status
+========================= */
+
+.admin-qna-status {
+    flex-shrink: 0;
+
+    padding: 6px 10px;
+
+    font-size: 0.6rem;
+    font-weight: 600;
+}
+
+.admin-qna-status.waiting {
+    background: #eef4ef;
+
+    color: #52705f;
+}
+
+.admin-qna-status.answered {
+    background: #003020;
+
+    color: #f3e59a;
+}
+
+
+/* =========================
+   Meta
+========================= */
+
+.admin-qna-meta {
+    display: flex;
+
+    gap: 18px;
+
+    margin-top: 12px;
+
+    color: #999;
+
+    font-size: 0.62rem;
+}
+
+
+/* =========================
+   Question
+========================= */
+
+.admin-qna-question {
+    margin-top: 22px;
+
+    padding: 20px;
+
+    background: #f7f6f0;
+}
+
+.admin-qna-question p {
+    margin: 0;
+
+    color: #444;
+
+    font-size: 0.74rem;
+
+    line-height: 1.9;
+
+    white-space: pre-wrap;
+}
+
+
+/* =========================
+   Answer
+========================= */
+
+.admin-qna-answer {
+    margin-top: 14px;
+
+    padding: 20px;
+
+    background: #003020;
+
+    color: #f7f6f0;
+}
+
+.admin-qna-answer-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #f3e59a;
+
+    font-size: 0.56rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+}
+
+.admin-qna-answer p {
+    margin: 0;
+
+    color: rgba(247, 246, 240, 0.9);
+
+    font-size: 0.73rem;
+
+    line-height: 1.9;
+
+    white-space: pre-wrap;
+}
+
+
+/* =========================
+   Actions
+========================= */
+
+.admin-qna-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    margin-top: 20px;
+}
+
+.admin-qna-actions button {
+    padding: 9px 14px;
+
+    font-size: 0.65rem;
+
+    cursor: pointer;
+}
+
+.admin-qna-answer-button {
+    border: 1px solid #003020;
+
+    background: #003020;
+
+    color: #f3e59a;
+}
+
+.admin-qna-answer-button:hover {
+    background: #00452e;
+}
+
+.admin-qna-delete-button {
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+
+    color: #777;
+}
+
+.admin-qna-delete-button:hover {
+    border-color: #a05b5b;
+
+    color: #8c4f4f;
+}
+
+
+/* =========================
+   Editor
+========================= */
+
+.admin-qna-editor {
+    margin-top: 22px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #e5e6e1;
+}
+
+.admin-qna-editor-header {
+    margin-bottom: 12px;
+}
+
+.admin-qna-editor-header span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #52705f;
+
+    font-size: 0.55rem;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+}
+
+.admin-qna-editor-header h3 {
+    margin: 0;
+
+    color: #1d241f;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.admin-qna-editor textarea {
+    width: 100%;
+
+    min-height: 150px;
+
+    padding: 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d8dad4;
+
+    background: #fbfbf8;
+
+    color: #1d241f;
+
+    font-family: inherit;
+
+    font-size: 0.74rem;
+
+    line-height: 1.8;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+.admin-qna-editor textarea:focus {
+    border-color: #52705f;
+
+    background: #ffffff;
+}
+
+.admin-qna-editor textarea::placeholder {
+    color: #aaa;
+}
+
+.admin-qna-editor-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    margin-top: 10px;
+}
+
+.admin-qna-editor-actions button {
+    padding: 10px 15px;
+
+    font-size: 0.65rem;
+
+    cursor: pointer;
+}
+
+.admin-qna-editor-cancel {
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+
+    color: #777;
+}
+
+.admin-qna-editor-submit {
+    border: 1px solid #003020;
+
+    background: #003020;
+
+    color: #f3e59a;
+}
+
+.admin-qna-editor-submit:hover {
+    background: #00452e;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 640px) {
+    .admin-qna-item {
+        padding: 22px 20px;
+    }
+
+    .admin-qna-item-header {
+        flex-direction: column;
+    }
+
+    .admin-qna-status {
+        align-self: flex-start;
+    }
+
+    .admin-qna-meta {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    .admin-qna-actions {
+        justify-content: stretch;
+    }
+
+    .admin-qna-actions button {
+        flex: 1;
+    }
+
+    .admin-qna-editor-actions {
+        flex-direction: column-reverse;
+    }
+
+    .admin-qna-editor-actions button {
+        width: 100%;
+    }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 700px) {
+    .admin-qna-header h1 {
+        font-size: 1.7rem;
+    }
+
+    .admin-qna-toolbar {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .admin-qna-filters {
+        flex-wrap: wrap;
+    }
+
+    .admin-qna-search {
+        width: 100%;
+    }
+}
