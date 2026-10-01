@@ -41,11 +41,10 @@ function Header() {
 
     return (
         <header
-            className={`site-header ${
-                isMobileMenuOpen
-                    ? 'mobile-menu-open'
-                    : ''
-            }`}
+            className={`site-header ${isMobileMenuOpen
+                ? 'mobile-menu-open'
+                : ''
+                }`}
         >
             <div className="header-inner">
                 <a
@@ -57,7 +56,7 @@ function Header() {
                     }}
                 >
                     <span className="header-brand-name">
-                        eepol
+                        eepool
                     </span>
 
                     <span className="header-brand-sub">

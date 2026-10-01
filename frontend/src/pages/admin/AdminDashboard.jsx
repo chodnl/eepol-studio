@@ -63,7 +63,7 @@ function AdminDashboard() {
         <div className="dashboard">
             <div className="dashboard-intro">
                 <p className="dashboard-eyebrow">
-                    EPOL STUDIO
+                    EEPOOL STUDIO
                 </p>
 
                 <h1>관리자 대시보드</h1>

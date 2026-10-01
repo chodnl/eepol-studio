@@ -3,9 +3,6 @@ import './Hero.css'
 
 const API_URL = 'http://localhost:3000/api/gallery'
 
-const fallbackImage =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85'
-
 function Hero() {
     const [heroImages, setHeroImages] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -64,8 +61,7 @@ function Hero() {
     }, [heroImages, currentIndex])
 
     const currentImage =
-        heroImages[currentIndex]?.imageUrl ||
-        fallbackImage
+        heroImages[currentIndex]?.imageUrl
 
     const nextImage =
         nextIndex !== null
@@ -76,7 +72,7 @@ function Hero() {
         <section className="hero-section">
             <div className="hero-content">
                 <p className="hero-eyebrow">
-                    EPOL STUDIO
+                    EEPOOL STUDIO
                 </p>
 
                 <h1>
@@ -102,23 +98,27 @@ function Hero() {
 
             <div className="hero-image">
                 <div className="hero-image-frame">
-                    <img
-                        className="hero-image-current"
-                        src={currentImage}
-                        alt="EPOL Studio portrait"
-                    />
+                    {currentImage && (
+                        <img
+                            className="hero-image-current"
+                            src={currentImage}
+                            alt="EEPOOL Studio portrait"
+                        />
+                    )}
 
-                    <img
-                        className={`hero-image-next ${isFading ? 'is-visible' : ''
-                            }`}
-                        src={nextImage}
-                        alt=""
-                    />
+                    {nextImage && (
+                        <img
+                            className={`hero-image-next ${isFading ? 'is-visible' : ''
+                                }`}
+                            src={nextImage}
+                            alt=""
+                        />
+                    )}
                 </div>
 
                 <div className="hero-caption">
                     <span>PORTRAIT</span>
-                    <span>EPOL STUDIO</span>
+                    <span>EEPOOL STUDIO</span>
                 </div>
             </div>
         </section>

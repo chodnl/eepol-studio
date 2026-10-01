@@ -5,7 +5,7 @@ function AdminLayout() {
     return (
         <div className="admin-layout">
             <header className="admin-header">
-                <h1>EEPOL STUDIO</h1>
+                <h1>eepool STUDIO</h1>
 
                 <button
                     type="button"

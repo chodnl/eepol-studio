@@ -527,7 +527,7 @@ function Booking() {
                     <h3>문의 정보</h3>
 
                     <p>전화: 02-555-8821</p>
-                    <p>카카오톡: @eepolstudio</p>
+                    <p>카카오톡: @eepoolstudio</p>
                     <p>운영시간: 평일 11:00 - 17:00</p>
                 </div>
             </aside>

@@ -5,7 +5,7 @@ function About() {
         <section className="about-section">
             <div className="about-header">
                 <p className="eyebrow">
-                    ABOUT EPOL
+                    ABOUT EEPOOL
                 </p>
 
                 <h2>
@@ -19,7 +19,7 @@ function About() {
                 <div className="about-image">
                     <img
                         src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=85"
-                        alt="EPOL Studio portrait"
+                        alt="EEPOOL Studio portrait"
                     />
                 </div>
 
@@ -31,7 +31,7 @@ function About() {
                     </p>
 
                     <p>
-                        EPOL STUDIO는 인물의 분위기와 개성을
+                        EEPOOL STUDIO는 인물의 분위기와 개성을
                         자연스럽게 담아내는 사진 스튜디오입니다.
                     </p>
 

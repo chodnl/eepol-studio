@@ -4,7 +4,7 @@ import './Gallery.css'
 
 function Gallery() {
     const [photos, setPhotos] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState('전체')
+    const [selectedCategory, setSelectedCategory] = useState(null)
     const [selectedPhoto, setSelectedPhoto] = useState(null)
 
     useEffect(() => {
@@ -31,6 +31,10 @@ function Gallery() {
                 }))
 
                 setPhotos(galleryPhotos)
+
+                if (galleryPhotos.length > 0) {
+                    setSelectedCategory(galleryPhotos[0].category)
+                }
             } catch (error) {
                 console.error(
                     'Gallery fetch error:',
@@ -70,14 +74,10 @@ function Gallery() {
         ),
     ]
 
-    const filteredPhotos =
-        selectedCategory === '전체'
-            ? photos
-            : photos.filter(
-                (photo) =>
-                    photo.category ===
-                    selectedCategory
-            )
+    const filteredPhotos = photos.filter(
+        (photo) =>
+            photo.category === selectedCategory
+    )
 
     const handlePhotoClick = (photo) => {
         setSelectedPhoto(photo)
@@ -121,10 +121,7 @@ function Gallery() {
                     <GalleryCard
                         key={photo.id}
                         photo={photo}
-                        isFeatured={
-                            selectedCategory === '전체' &&
-                            index === 0
-                        }
+                        isFeatured={index === 0}
                         onClick={() =>
                             handlePhotoClick(photo)
                         }

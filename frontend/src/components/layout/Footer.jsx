@@ -6,7 +6,7 @@ function Footer() {
             <div className="footer-inner">
                 {/* 1. 브랜드 영역 */}
                 <div className="footer-brand">
-                    <p className="footer-eyebrow">EEPOL STUDIO</p>
+                    <p className="footer-eyebrow">eepool STUDIO</p>
                     <h2>기억을 예쁘게,<br />오래 남도록</h2>
                     <p className="footer-description">
                         자연스러운 순간과 당신만의 분위기를 담아드립니다.
@@ -53,7 +53,7 @@ function Footer() {
 
             {/* 하단 카피라이트 */}
             <div className="footer-bottom">
-                <p>© 2026 Eepol Studio. All rights reserved.</p>
+                <p>© 2026 eepool Studio. All rights reserved.</p>
                 <a href="#hero">BACK TO TOP ↑</a>
             </div>
         </footer>
