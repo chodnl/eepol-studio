@@ -14,6 +14,11 @@ const qnaSchema = new mongoose.Schema(
             trim: true,
         },
 
+        isSecret: {
+            type: Boolean,
+            default: true,
+        },
+
         author: {
             type: String,
             required: true,

@@ -4,6 +4,12 @@ const Qna = require("./qna.model");
 
 const getQnas = async () => {
     return await Qna.find()
+        .select("-password -content")
+        .sort({ createdAt: -1 });
+};
+
+const getAdminQnas = async () => {
+    return await Qna.find()
         .select("-password")
         .sort({ createdAt: -1 });
 };
@@ -76,6 +82,7 @@ const deleteQna = async (id) => {
 
 module.exports = {
     getQnas,
+    getAdminQnas,
     getQnaById,
     createQna,
     verifyQnaPassword,

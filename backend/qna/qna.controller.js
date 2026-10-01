@@ -18,6 +18,24 @@ const getQnas = async (req, res) => {
     }
 };
 
+const getAdminQnas = async (req, res) => {
+    try {
+        const qnas = await qnaService.getAdminQnas();
+
+        res.json({
+            success: true,
+            data: qnas,
+        });
+    } catch (error) {
+        console.error("Get admin Q&A error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch admin Q&A",
+        });
+    }
+};
+
 const getQnaById = async (req, res) => {
     try {
         const qna = await qnaService.getQnaById(req.params.id);
@@ -180,6 +198,7 @@ const deleteQna = async (req, res) => {
 
 module.exports = {
     getQnas,
+    getAdminQnas,
     getQnaById,
     createQna,
     verifyQnaPassword,

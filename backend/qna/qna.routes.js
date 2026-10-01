@@ -5,6 +5,13 @@ const authMiddleware = require("../middleware/auth.middleware");
 const router = express.Router();
 
 router.get("/", qnaController.getQnas);
+
+router.get(
+    "/admin",
+    authMiddleware,
+    qnaController.getAdminQnas
+);
+
 router.get("/:id", qnaController.getQnaById);
 
 router.post("/", qnaController.createQna);
