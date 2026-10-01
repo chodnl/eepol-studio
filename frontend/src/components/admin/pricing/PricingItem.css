@@ -1,0 +1,66 @@
+.pricing-item {
+    margin-bottom: 20px;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.pricing-item h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.pricing-item>p {
+    margin: 6px 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.pricing-item>p:nth-of-type(2) {
+    margin-top: 18px;
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.pricing-item h3 {
+    margin: 28px 0 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pricing-item h3+div>div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+}
+
+.pricing-item button {
+    margin-top: 24px;
+    margin-right: 8px;
+    padding: 9px 16px;
+    border: 1px solid #d8d8d8;
+    background: #ffffff;
+    color: #333;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.pricing-item button:hover {
+    border-color: #003020;
+    color: #003020;
+}
+
+.pricing-item button:last-child {
+    border-color: #003020;
+    background: #003020;
+    color: #ffffff;
+}
+
+.pricing-item button:last-child:hover {
+    background: #00452e;
+}

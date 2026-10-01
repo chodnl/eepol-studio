@@ -49,14 +49,13 @@ function AdminPricing() {
 
     const handleCreate = async (pricingData) => {
         try {
+            const orders = pricings
+                .map((pricing) => Number(pricing.order))
+                .filter((order) => Number.isFinite(order))
+
             const nextOrder =
-                pricings.length > 0
-                    ? Math.max(
-                        ...pricings.map(
-                            (pricing) =>
-                                pricing.order
-                        )
-                    ) + 1
+                orders.length > 0
+                    ? Math.max(...orders) + 1
                     : 1
 
             const createdPricing =

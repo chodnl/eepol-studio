@@ -17,7 +17,8 @@ export const getPricing = async () => {
 
     if (!response.ok || !result.success) {
         throw new Error(
-            result.message || '가격 정보를 불러오지 못했습니다.'
+            result.message ||
+            '가격 정보를 불러오지 못했습니다.'
         )
     }
 
@@ -25,13 +26,16 @@ export const getPricing = async () => {
 }
 
 export const getPricingById = async (id) => {
-    const response = await fetch(`${API_URL}/${id}`)
+    const response = await fetch(
+        `${API_URL}/${id}`
+    )
 
     const result = await response.json()
 
     if (!response.ok || !result.success) {
         throw new Error(
-            result.message || '가격 정보를 불러오지 못했습니다.'
+            result.message ||
+            '가격 정보를 불러오지 못했습니다.'
         )
     }
 
@@ -40,6 +44,11 @@ export const getPricingById = async (id) => {
 
 export const createPricing = async (pricingData) => {
     const token = getToken()
+
+    console.log(
+        'Create pricing data:',
+        pricingData
+    )
 
     const response = await fetch(API_URL, {
         method: 'POST',
@@ -54,30 +63,38 @@ export const createPricing = async (pricingData) => {
 
     if (!response.ok || !result.success) {
         throw new Error(
-            result.message || '가격 등록에 실패했습니다.'
+            result.message ||
+            '가격 등록에 실패했습니다.'
         )
     }
 
     return result.data
 }
 
-export const updatePricing = async (id, pricingData) => {
+export const updatePricing = async (
+    id,
+    pricingData
+) => {
     const token = getToken()
 
-    const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(pricingData),
-    })
+    const response = await fetch(
+        `${API_URL}/${id}`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(pricingData),
+        }
+    )
 
     const result = await response.json()
 
     if (!response.ok || !result.success) {
         throw new Error(
-            result.message || '가격 수정에 실패했습니다.'
+            result.message ||
+            '가격 수정에 실패했습니다.'
         )
     }
 
@@ -87,18 +104,22 @@ export const updatePricing = async (id, pricingData) => {
 export const deletePricing = async (id) => {
     const token = getToken()
 
-    const response = await fetch(`${API_URL}/${id}`, {
-        method: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    const response = await fetch(
+        `${API_URL}/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    )
 
     const result = await response.json()
 
     if (!response.ok || !result.success) {
         throw new Error(
-            result.message || '가격 삭제에 실패했습니다.'
+            result.message ||
+            '가격 삭제에 실패했습니다.'
         )
     }
 

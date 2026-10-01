@@ -1,41 +1,41 @@
+import { useEffect, useState } from 'react'
 import './Pricing.css'
 
-const pricePackages = [
-    {
-        name: '베이직',
-        price: '290,000원',
-        description: '1인 촬영 1시간 + 보정 10컷',
-        features: [
-            '1시간 촬영',
-            '기본 보정 10컷',
-            '기본 액자 1개',
-        ],
-    },
-    {
-        name: '프리미엄',
-        price: '590,000원',
-        description: '1인/커플 촬영 2시간 + 스타일링',
-        features: [
-            '2시간 촬영',
-            '드레스/정장 스타일링',
-            '보정 20컷',
-            '원본 이미지 제공',
-        ],
-    },
-    {
-        name: '브라이덜',
-        price: '990,000원',
-        description: '웨딩/가족 스토리 전용 패키지',
-        features: [
-            '전문 촬영팀',
-            '촬영장소 섭외',
-            '예식장 연계 편집',
-            '스토리북 제작',
-        ],
-    },
-]
-
 function Pricing() {
+    const [pricings, setPricings] = useState([])
+
+    useEffect(() => {
+        const fetchPricing = async () => {
+            try {
+                const response = await fetch(
+                    'http://localhost:3000/api/pricing'
+                )
+
+                const result = await response.json()
+
+                if (!response.ok || !result.success) {
+                    throw new Error(
+                        result.message ||
+                        '가격 정보를 불러오지 못했습니다.'
+                    )
+                }
+
+                setPricings(result.data)
+            } catch (error) {
+                console.error(
+                    'Pricing fetch error:',
+                    error
+                )
+            }
+        }
+
+        fetchPricing()
+    }, [])
+
+    const sortedPricings = [...pricings].sort(
+        (a, b) => a.order - b.order
+    )
+
     return (
         <section className="section" id="pricing">
             <div className="section-header">
@@ -49,30 +49,39 @@ function Pricing() {
             </div>
 
             <div className="pricing-grid">
-                {pricePackages.map((item) => (
+                {sortedPricings.map((pricing) => (
                     <article
-                        key={item.name}
+                        key={pricing._id}
                         className="price-card"
                     >
                         <p className="plan-name">
-                            {item.name}
+                            {pricing.title}
                         </p>
 
-                        <h3>{item.price}</h3>
+                        <h3>
+                            {pricing.basePrice.toLocaleString()}
+                            원
+                        </h3>
 
-                        <p className="plan-description">
-                            {item.description}
-                        </p>
-
-                        <ul>
-                            {item.features.map(
-                                (feature) => (
-                                    <li key={feature}>
-                                        {feature}
-                                    </li>
-                                )
-                            )}
-                        </ul>
+                        {pricing.options?.length > 0 && (
+                            <ul>
+                                {pricing.options.map(
+                                    (option, index) => (
+                                        <li key={index}>
+                                            {option.title}
+                                            {option.price > 0 && (
+                                                <>
+                                                    {' '}
+                                                    +
+                                                    {option.price.toLocaleString()}
+                                                    원
+                                                </>
+                                            )}
+                                        </li>
+                                    )
+                                )}
+                            </ul>
+                        )}
 
                         <a
                             href="#booking"
@@ -84,6 +93,12 @@ function Pricing() {
                     </article>
                 ))}
             </div>
+
+            {sortedPricings.length === 0 && (
+                <p>
+                    등록된 가격 정보가 없습니다.
+                </p>
+            )}
         </section>
     )
 }
