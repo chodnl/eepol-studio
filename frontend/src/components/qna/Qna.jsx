@@ -54,11 +54,45 @@ function Qna() {
     }, [])
 
     // Q&A 선택
-    const handleQnaClick = (qna) => {
+    const handleQnaClick = async (qna) => {
         setSelectedQna(qna)
-        setVerifiedQna(null)
         setPassword('')
         setPasswordError('')
+
+        if (!qna.isSecret) {
+            try {
+                const response = await fetch(
+                    `http://localhost:3000/api/qna/${qna._id}`
+                )
+
+                const result = await response.json()
+
+                if (
+                    !response.ok ||
+                    !result.success
+                ) {
+                    throw new Error(
+                        result.message ||
+                        '문의 내용을 불러오지 못했습니다.'
+                    )
+                }
+
+                setVerifiedQna(result.data)
+            } catch (error) {
+                console.error(
+                    'Q&A detail fetch error:',
+                    error
+                )
+
+                setPasswordError(
+                    '문의 내용을 불러오지 못했습니다.'
+                )
+            }
+
+            return
+        }
+
+        setVerifiedQna(null)
     }
 
     // Q&A 상세 모달 닫기
@@ -198,7 +232,8 @@ function Qna() {
                                         </span>
 
                                         <span className="qna-title">
-                                            🔒 {qna.title}
+                                            {qna.isSecret && '🔒 '}
+                                            {qna.title}
                                         </span>
 
                                         <span
@@ -237,18 +272,20 @@ function Qna() {
             </main>
 
             {/* 비밀번호 확인 */}
-            {selectedQna && !verifiedQna && (
-                <QnaPasswordModal
-                    password={password}
-                    passwordError={passwordError}
-                    isVerifying={isVerifying}
-                    onPasswordChange={(event) =>
-                        setPassword(event.target.value)
-                    }
-                    onSubmit={handleVerifyPassword}
-                    onClose={handleCloseQna}
-                />
-            )}
+            {selectedQna &&
+                selectedQna.isSecret &&
+                !verifiedQna && (
+                    <QnaPasswordModal
+                        password={password}
+                        passwordError={passwordError}
+                        isVerifying={isVerifying}
+                        onPasswordChange={(event) =>
+                            setPassword(event.target.value)
+                        }
+                        onSubmit={handleVerifyPassword}
+                        onClose={handleCloseQna}
+                    />
+                )}
 
             {/* 문의 상세 */}
             {verifiedQna && (

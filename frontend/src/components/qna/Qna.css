@@ -489,6 +489,45 @@
     border-color: #003020;
 }
 
+.qna-secret-options {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.qna-secret-options button {
+    flex: 1;
+
+    margin-top: 5;
+
+    padding: 11px 14px;
+
+    border: 1px solid #d8dad4;
+
+    background: #ffffff;
+    color: #777;
+
+    font-size: 0.7rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.qna-secret-options button:hover {
+    border-color: #003020;
+    color: #003020;
+}
+
+.qna-secret-options button.active {
+    border-color: #003020;
+    background: #003020;
+    color: #f3e59a;
+}
+
 .qna-write-form textarea {
     resize: vertical;
     line-height: 1.7;

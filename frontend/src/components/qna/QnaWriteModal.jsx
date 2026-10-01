@@ -6,10 +6,14 @@ function QnaWriteModal({ onClose, onSuccess }) {
         password: '',
         title: '',
         content: '',
+        isSecret: true,
     })
 
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [submitMessage, setSubmitMessage] = useState('')
+    const [isSubmitting, setIsSubmitting] =
+        useState(false)
+
+    const [submitMessage, setSubmitMessage] =
+        useState('')
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -20,11 +24,37 @@ function QnaWriteModal({ onClose, onSuccess }) {
         }))
     }
 
+    const handleSecretChange = (isSecret) => {
+        setForm((prev) => ({
+            ...prev,
+            isSecret,
+            password: isSecret
+                ? prev.password
+                : '',
+        }))
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        if (!form.author || !form.password || !form.title || !form.content) {
-            setSubmitMessage('모든 항목을 입력해 주세요.')
+        if (
+            !form.author ||
+            !form.title ||
+            !form.content
+        ) {
+            setSubmitMessage(
+                '모든 항목을 입력해 주세요.'
+            )
+            return
+        }
+
+        if (
+            form.isSecret &&
+            !form.password
+        ) {
+            setSubmitMessage(
+                '비밀글 비밀번호를 입력해 주세요.'
+            )
             return
         }
 
@@ -37,21 +67,38 @@ function QnaWriteModal({ onClose, onSuccess }) {
                 {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type':
+                            'application/json',
                     },
-                    body: JSON.stringify(form),
+                    body: JSON.stringify({
+                        author: form.author,
+                        password:
+                            form.isSecret
+                                ? form.password
+                                : 'public',
+                        title: form.title,
+                        content: form.content,
+                        isSecret: form.isSecret,
+                    }),
                 }
             )
 
-            const result = await response.json()
+            const result =
+                await response.json()
 
-            if (!response.ok || !result.success) {
+            if (
+                !response.ok ||
+                !result.success
+            ) {
                 throw new Error(
-                    result.message || '문의 등록에 실패했습니다.'
+                    result.message ||
+                    '문의 등록에 실패했습니다.'
                 )
             }
 
-            setSubmitMessage('문의가 등록되었습니다.')
+            setSubmitMessage(
+                '문의가 등록되었습니다.'
+            )
 
             if (onSuccess) {
                 await onSuccess()
@@ -62,13 +109,17 @@ function QnaWriteModal({ onClose, onSuccess }) {
                 password: '',
                 title: '',
                 content: '',
+                isSecret: true,
             })
 
             setTimeout(() => {
                 onClose()
             }, 500)
         } catch (error) {
-            console.error('Q&A submit error:', error)
+            console.error(
+                'Q&A submit error:',
+                error
+            )
 
             setSubmitMessage(
                 '문의 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.'
@@ -90,12 +141,10 @@ function QnaWriteModal({ onClose, onSuccess }) {
                 </button>
 
                 <p className="qna-modal-eyebrow">
-                    PRIVATE Q&amp;A
+                    Q&amp;A
                 </p>
 
-                <h2>
-                    문의하기
-                </h2>
+                <h2>문의하기</h2>
 
                 <p className="qna-modal-description">
                     문의 내용을 남겨주시면
@@ -115,13 +164,53 @@ function QnaWriteModal({ onClose, onSuccess }) {
                         placeholder="작성자"
                     />
 
-                    <input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        placeholder="비밀번호"
-                    />
+                    <div className="qna-secret-options">
+                        <button
+                            type="button"
+                            className={
+                                !form.isSecret
+                                    ? 'active'
+                                    : ''
+                            }
+                            onClick={() =>
+                                handleSecretChange(
+                                    false
+                                )
+                            }
+                        >
+                            공개글
+                        </button>
+
+                        <button
+                            type="button"
+                            className={
+                                form.isSecret
+                                    ? 'active'
+                                    : ''
+                            }
+                            onClick={() =>
+                                handleSecretChange(
+                                    true
+                                )
+                            }
+                        >
+                            비밀글
+                        </button>
+                    </div>
+
+                    {form.isSecret && (
+                        <input
+                            type="password"
+                            name="password"
+                            value={
+                                form.password
+                            }
+                            onChange={
+                                handleChange
+                            }
+                            placeholder="비밀번호"
+                        />
+                    )}
 
                     <input
                         type="text"
@@ -160,4 +249,3 @@ function QnaWriteModal({ onClose, onSuccess }) {
 }
 
 export default QnaWriteModal
-
