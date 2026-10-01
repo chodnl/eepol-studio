@@ -405,6 +405,57 @@
     color: #003020;
 }
 
+.admin-booking-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    margin-top: 28px;
+}
+
+.admin-booking-pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.admin-booking-pagination-button {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+
+    border: 1px solid #d8dad4;
+    background: #ffffff;
+    color: #666;
+
+    font-size: 0.62rem;
+    line-height: 1;
+
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.admin-booking-pagination-button:hover:not(:disabled) {
+    border-color: #52705f;
+    color: #003020;
+}
+
+.admin-booking-pagination-button.is-active {
+    border-color: #003020;
+    background: #003020;
+    color: #f3e59a;
+}
+
+.admin-booking-pagination-button:disabled {
+    background: #f5f5f2;
+    color: #b5b5b0;
+    cursor: default;
+}
+
 @media (max-width: 600px) {
     .booking-editor {
         padding: 20px;

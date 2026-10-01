@@ -253,9 +253,10 @@ function AdminBooking() {
             />
 
             {totalPages > 1 && (
-                <div>
+                <div className="admin-booking-pagination">
                     <button
                         type="button"
+                        className="admin-booking-pagination-button"
                         disabled={currentPage === 1}
                         onClick={() =>
                             setCurrentPage(
@@ -266,23 +267,30 @@ function AdminBooking() {
                         이전
                     </button>
 
-                    {Array.from(
-                        { length: totalPages },
-                        (_, index) => index + 1
-                    ).map((page) => (
-                        <button
-                            key={page}
-                            type="button"
-                            onClick={() =>
-                                setCurrentPage(page)
-                            }
-                        >
-                            {page}
-                        </button>
-                    ))}
+                    <div className="admin-booking-pagination-pages">
+                        {Array.from(
+                            { length: totalPages },
+                            (_, index) => index + 1
+                        ).map((page) => (
+                            <button
+                                key={page}
+                                type="button"
+                                className={`admin-booking-pagination-button ${currentPage === page
+                                        ? 'is-active'
+                                        : ''
+                                    }`}
+                                onClick={() =>
+                                    setCurrentPage(page)
+                                }
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
 
                     <button
                         type="button"
+                        className="admin-booking-pagination-button"
                         disabled={
                             currentPage === totalPages
                         }
