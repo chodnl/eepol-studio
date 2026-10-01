@@ -1,3 +1,5 @@
+import './PricingItem.css'
+
 function PricingItem({
     pricing,
     editingPricingId,
