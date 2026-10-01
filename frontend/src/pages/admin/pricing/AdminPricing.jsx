@@ -10,6 +10,8 @@ import {
 import PricingList from '../../../components/admin/pricing/PricingList'
 import PricingEditor from '../../../components/admin/pricing/PricingEditor'
 
+import './AdminPricing.css'
+
 function AdminPricing() {
     const [pricings, setPricings] = useState([])
     const [editingPricingId, setEditingPricingId] =
@@ -51,7 +53,9 @@ function AdminPricing() {
         try {
             const orders = pricings
                 .map((pricing) => Number(pricing.order))
-                .filter((order) => Number.isFinite(order))
+                .filter((order) =>
+                    Number.isFinite(order)
+                )
 
             const nextOrder =
                 orders.length > 0
@@ -155,24 +159,43 @@ function AdminPricing() {
     }
 
     return (
-        <div>
-            <h1>가격 관리</h1>
+        <div className="admin-pricing">
+            <div className="admin-pricing-header">
+                <div>
+                    <p className="admin-pricing-eyebrow">
+                        PRICING MANAGEMENT
+                    </p>
 
-            <button
-                type="button"
-                onClick={handleOpenCreate}
-            >
-                가격 등록
-            </button>
+                    <h1>가격 관리</h1>
 
-            {message && <p>{message}</p>}
+                    <p className="admin-pricing-description">
+                        스튜디오의 촬영 패키지와 추가 옵션을 관리합니다.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    className="admin-pricing-create-button"
+                    onClick={handleOpenCreate}
+                >
+                    + 가격 등록
+                </button>
+            </div>
+
+            {message && (
+                <div className="admin-pricing-message">
+                    {message}
+                </div>
+            )}
 
             {isCreateOpen && (
-                <PricingEditor
-                    pricing={null}
-                    onSave={handleCreate}
-                    onCancel={handleCancelCreate}
-                />
+                <div className="admin-pricing-editor">
+                    <PricingEditor
+                        pricing={null}
+                        onSave={handleCreate}
+                        onCancel={handleCancelCreate}
+                    />
+                </div>
             )}
 
             <PricingList

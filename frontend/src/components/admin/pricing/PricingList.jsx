@@ -8,7 +8,14 @@ function PricingList({
     renderEditor,
 }) {
     if (pricings.length === 0) {
-        return <p>등록된 가격 정보가 없습니다.</p>
+        return (
+            <div className="pricing-empty">
+                <p>등록된 가격 정보가 없습니다.</p>
+                <span>
+                    새로운 촬영 패키지를 등록해주세요.
+                </span>
+            </div>
+        )
     }
 
     const sortedPricings = [...pricings].sort(
@@ -16,7 +23,7 @@ function PricingList({
     )
 
     return (
-        <div>
+        <div className="pricing-list">
             {sortedPricings.map((pricing) => (
                 <PricingItem
                     key={pricing._id}

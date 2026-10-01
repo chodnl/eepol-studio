@@ -1,0 +1,133 @@
+.admin-pricing {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* 페이지 헤더 */
+
+.admin-pricing-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.admin-pricing-eyebrow {
+    margin: 0 0 10px;
+    color: #52705f;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+}
+
+.admin-pricing-header h1 {
+    margin: 0 0 10px;
+    color: #1d241f;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+}
+
+.admin-pricing-description {
+    margin: 0;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+
+/* 등록 버튼 */
+
+.admin-pricing-create-button {
+    flex-shrink: 0;
+    padding: 12px 20px;
+    border: 1px solid #003020;
+    background: #003020;
+    color: #f7f6f0;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-pricing-create-button:hover {
+    background: #00452e;
+    transform: translateY(-1px);
+}
+
+
+/* 메시지 */
+
+.admin-pricing-message {
+    margin-bottom: 24px;
+    padding: 13px 16px;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+    background: #ffffff;
+    color: #52705f;
+    font-size: 0.75rem;
+}
+
+
+/* 가격 목록 */
+
+.pricing-list {
+    display: grid;
+    gap: 16px;
+}
+
+
+/* 빈 상태 */
+
+.pricing-empty {
+    padding: 70px 30px;
+    border: 1px solid rgba(0, 48, 32, 0.1);
+    background: #ffffff;
+    text-align: center;
+}
+
+.pricing-empty p {
+    margin: 0 0 8px;
+    color: #333;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.2rem;
+}
+
+.pricing-empty span {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+
+/* 등록 / 수정 폼 영역 */
+
+.admin-pricing-editor {
+    margin-bottom: 24px;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 48, 32, 0.12);
+}
+
+
+/* 모바일 */
+
+@media (max-width: 640px) {
+    .admin-pricing-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-pricing-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .admin-pricing-create-button {
+        width: 100%;
+    }
+
+    .admin-pricing-editor {
+        padding: 24px;
+    }
+}
