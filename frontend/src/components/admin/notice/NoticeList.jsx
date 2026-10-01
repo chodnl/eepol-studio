@@ -8,11 +8,24 @@ function NoticeList({
     renderEditor,
 }) {
     if (notices.length === 0) {
-        return <p>등록된 공지사항이 없습니다.</p>
+        return (
+            <div className="admin-notice-empty">
+                <p className="admin-notice-empty-label">
+                    NOTICE
+                </p>
+
+                <h3>등록된 공지사항이 없습니다.</h3>
+
+                <p>
+                    새로운 공지사항을 등록하면
+                    이곳에 표시됩니다.
+                </p>
+            </div>
+        )
     }
 
     return (
-        <div>
+        <div className="admin-notice-list">
             {notices.map((notice) => (
                 <NoticeItem
                     key={notice._id}

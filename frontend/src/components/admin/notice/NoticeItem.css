@@ -1,0 +1,194 @@
+.admin-notice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-notice-empty {
+    padding: 70px 30px;
+    background: #ffffff;
+    border: 1px solid #e1e3dd;
+    text-align: center;
+}
+
+.admin-notice-empty-label {
+    margin: 0 0 12px;
+    color: #52705f;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+}
+
+.admin-notice-empty h3 {
+    margin: 0 0 10px;
+    color: #1d241f;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.admin-notice-empty > p:last-child {
+    margin: 0;
+    color: #999;
+    font-size: 0.65rem;
+}
+
+/* Notice Item */
+
+.admin-notice-item {
+    padding: 26px 28px;
+    background: #ffffff;
+    border: 1px solid #e1e3dd;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-notice-item:hover {
+    border-color: rgba(0, 48, 32, 0.25);
+    box-shadow: 0 5px 18px rgba(0, 48, 32, 0.04);
+}
+
+.admin-notice-item.is-editing {
+    padding: 0;
+    border-color: #52705f;
+    box-shadow: none;
+}
+
+.admin-notice-item-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.admin-notice-item-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #52705f;
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+}
+
+.admin-notice-item-header h2 {
+    margin: 0;
+    color: #1d241f;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.admin-notice-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.admin-notice-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.admin-notice-badge.pinned {
+    background: #f3e59a;
+    color: #003020;
+}
+
+.admin-notice-badge.popup {
+    background: #eef3ef;
+    color: #52705f;
+}
+
+.admin-notice-content {
+    margin-top: 20px;
+    padding: 18px 0;
+
+    border-top: 1px solid #eeeeea;
+    border-bottom: 1px solid #eeeeea;
+
+    color: #666;
+    font-size: 0.7rem;
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+}
+
+.admin-notice-meta {
+    margin-top: 14px;
+    color: #999;
+    font-size: 0.58rem;
+}
+
+.admin-notice-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+
+    margin-top: 18px;
+}
+
+.admin-notice-actions button {
+    padding: 8px 13px;
+
+    font-size: 0.6rem;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.admin-notice-edit-button {
+    border: 1px solid #d8dad4;
+    background: #ffffff;
+    color: #666;
+}
+
+.admin-notice-edit-button:hover {
+    border-color: #52705f;
+    color: #003020;
+}
+
+.admin-notice-delete-button {
+    border: 1px solid #e2d4d1;
+    background: #ffffff;
+    color: #a06b63;
+}
+
+.admin-notice-delete-button:hover {
+    background: #faf3f1;
+    border-color: #c9a49e;
+}
+
+@media (max-width: 700px) {
+    .admin-notice-item {
+        padding: 22px;
+    }
+
+    .admin-notice-item-header {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .admin-notice-badges {
+        justify-content: flex-start;
+    }
+
+    .admin-notice-content {
+        margin-top: 16px;
+    }
+
+    .admin-notice-actions {
+        justify-content: stretch;
+    }
+
+    .admin-notice-actions button {
+        flex: 1;
+    }
+}

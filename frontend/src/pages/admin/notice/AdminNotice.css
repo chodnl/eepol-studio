@@ -1,0 +1,125 @@
+.admin-notice-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-notice-intro {
+    margin-bottom: 40px;
+}
+
+.admin-notice-eyebrow {
+    margin: 0 0 12px;
+    color: #52705f;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+}
+
+.admin-notice-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.admin-notice-heading h1 {
+    margin: 0 0 10px;
+    color: #003020;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.admin-notice-heading p {
+    margin: 0;
+    color: #777;
+    font-size: 0.72rem;
+    line-height: 1.7;
+}
+
+.admin-notice-create-button {
+    flex-shrink: 0;
+    padding: 12px 20px;
+
+    border: 1px solid #003020;
+    background: #003020;
+    color: #f3e59a;
+
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.admin-notice-create-button:hover {
+    background: #00452e;
+}
+
+.admin-notice-message {
+    margin-bottom: 24px;
+    padding: 13px 16px;
+
+    border: 1px solid rgba(82, 112, 95, 0.2);
+    background: #f3f6f2;
+    color: #52705f;
+
+    font-size: 0.68rem;
+}
+
+.admin-notice-section {
+    margin-top: 10px;
+}
+
+.admin-notice-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid #dfe1dc;
+}
+
+.admin-notice-section-header p {
+    margin: 0 0 6px;
+    color: #52705f;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+}
+
+.admin-notice-section-header h2 {
+    margin: 0;
+    color: #1d241f;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.admin-notice-section-header > span {
+    color: #888;
+    font-size: 0.65rem;
+}
+
+@media (max-width: 700px) {
+    .admin-notice-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-notice-heading h1 {
+        font-size: 1.7rem;
+    }
+
+    .admin-notice-create-button {
+        width: 100%;
+    }
+
+    .admin-notice-section-header {
+        align-items: flex-start;
+    }
+}

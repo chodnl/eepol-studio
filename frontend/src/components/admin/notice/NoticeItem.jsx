@@ -1,3 +1,5 @@
+import './NoticeItem.css'
+
 function NoticeItem({
     notice,
     editingNoticeId,
@@ -6,50 +8,85 @@ function NoticeItem({
     renderEditor,
 }) {
     return (
-        <div>
+        <article
+            className={`admin-notice-item ${editingNoticeId === notice._id
+                    ? 'is-editing'
+                    : ''
+                }`}
+        >
             {editingNoticeId === notice._id ? (
                 renderEditor(notice)
             ) : (
                 <>
-                    <h2>{notice.title}</h2>
+                    <div className="admin-notice-item-header">
+                        <div>
+                            <span className="admin-notice-item-label">
+                                NOTICE
+                            </span>
 
-                    <p>{notice.content}</p>
+                            <h2>
+                                {notice.title}
+                            </h2>
+                        </div>
 
-                    <p>
-                        {notice.isPinned
-                            ? '📌 상단 고정'
-                            : '상단 고정 안 함'}
-                    </p>
+                        <div className="admin-notice-badges">
+                            {notice.isPinned && (
+                                <span className="admin-notice-badge pinned">
+                                    상단 고정
+                                </span>
+                            )}
 
-                    <p>
-                        {notice.isPopup
-                            ? '🔔 팝업 표시'
-                            : '팝업 표시 안 함'}
-                    </p>
+                            {notice.isPopup && (
+                                <span className="admin-notice-badge popup">
+                                    팝업 표시
+                                </span>
+                            )}
+                        </div>
+                    </div>
 
-                    <p>
-                        작성일:{' '}
-                        {new Date(
-                            notice.createdAt
-                        ).toLocaleString()}
-                    </p>
+                    <div className="admin-notice-content">
+                        {notice.content}
+                    </div>
 
-                    <button
-                        type="button"
-                        onClick={() => onEdit(notice._id)}
-                    >
-                        수정
-                    </button>
+                    <div className="admin-notice-meta">
+                        <span>
+                            작성일&nbsp;
+                            {new Date(
+                                notice.createdAt
+                            ).toLocaleDateString(
+                                'ko-KR'
+                            )}
+                        </span>
+                    </div>
 
-                    <button
-                        type="button"
-                        onClick={() => onDelete(notice._id)}
-                    >
-                        삭제
-                    </button>
+                    <div className="admin-notice-actions">
+                        <button
+                            type="button"
+                            className="admin-notice-edit-button"
+                            onClick={() =>
+                                onEdit(
+                                    notice._id
+                                )
+                            }
+                        >
+                            수정
+                        </button>
+
+                        <button
+                            type="button"
+                            className="admin-notice-delete-button"
+                            onClick={() =>
+                                onDelete(
+                                    notice._id
+                                )
+                            }
+                        >
+                            삭제
+                        </button>
+                    </div>
                 </>
             )}
-        </div>
+        </article>
     )
 }
 
